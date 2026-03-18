@@ -1,0 +1,135 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: report
+  namespace: backend
+  labels:
+    app: report
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: report
+  template:
+    metadata:
+      labels:
+        app: report
+    spec:
+      containers:
+        - name: report
+          image: 211125364313.dkr.ecr.ap-southeast-1.amazonaws.com/report:__VERSION__
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: KAFKA_USER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: kafka-user1
+                  key: user.password
+          volumeMounts:
+            - name: backend-logs
+              mountPath: /logs
+            - name: kafka-tls
+              mountPath: /etc/kafka/tls
+              readOnly: true
+            - name: kafka-ca
+              mountPath: /etc/kafka/ca
+              readOnly: true
+          resources:
+            requests:
+              cpu: "1000m"
+            limits:
+              cpu: "1000m"
+      volumes:
+        - name: backend-logs
+          persistentVolumeClaim:
+            claimName: pvc-backend-logs
+        - name: kafka-tls
+          secret:
+            secretName: kafka-user1
+        - name: kafka-ca
+          secret:
+            secretName: kafka-cluster-ca
+      imagePullSecrets:
+        - name: ecr-secret
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: report
+  namespace: backend
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: report
+  minReplicas: 1
+  maxReplicas: 4
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: report
+  namespace: backend
+  labels:
+    app: report   # Phải trùng với ServiceMonitor
+spec:
+  ports:
+    - name: http   # Phải trùng với ServiceMonitor endpoints.port
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: report
+
+---
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: admin-kong-ingress
+#  namespace: backend
+#  annotations:
+#    konghq.com/strip-path: "true"
+#    konghq.com/proxy-body-size: "300m"
+#    konghq.com/plugins: jwt-auth, txu-plugins     # Gắn plugin vào route
+#spec:
+#  ingressClassName: kong            # KIC sẽ quản lý Ingress được gắn ingress-class của mình, nếu được gắn thêm plugins của KIC thì KIC sẽ sync route này vào Kong (admin, proxy)
+#  rules:
+#    - host: backend.txuyen.com
+#      http:
+#        paths:
+#          - path: /admin
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: admin
+#                port:
+#                  number: 8080
+
+
+#apiVersion: monitoring.coreos.com/v1
+#kind: ServiceMonitor
+#metadata:
+#  name: admin-service-monitor
+#  namespace: backend
+#  labels:
+#    release: monitoring
+#spec:
+#  selector:
+#    matchLabels:
+#      app: admin
+#  endpoints:
+#    - port: http
+#      path: /actuator/prometheus
+#      interval: 15s
+#      scheme: http
+
+

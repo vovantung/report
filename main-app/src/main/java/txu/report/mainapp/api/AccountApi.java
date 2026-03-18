@@ -1,0 +1,56 @@
+package txu.report.mainapp.api;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+import txu.report.mainapp.base.AbstractApi;
+import txu.report.mainapp.dto.LimitRequest;
+import txu.report.mainapp.dto.UsernameRequest;
+import txu.report.mainapp.entity.AccountEntity;
+import txu.report.mainapp.service.AccountService;
+
+
+import java.util.List;
+
+@Slf4j
+@RestController
+@RequestMapping("/report/admin/account")
+@RequiredArgsConstructor
+public class AccountApi extends AbstractApi {
+
+    private final AccountService accountService;
+
+//    @PostMapping("/update-avatar")
+//    public AccountEntity updateAvatar(
+//            @RequestPart(value = "file", required = false) MultipartFile file, // ✅ optional
+//            @RequestPart("username") String username,
+//            @RequestPart("password") String password,
+//            @RequestPart("firstName") String firstName,
+//            @RequestPart("lastName") String lastName,
+//            @RequestPart("email") String email,
+//            @RequestPart("phoneNumber") String phoneNumber
+//
+//    ) throws  IOException, NoSuchAlgorithmException, InvalidKeyException{
+//        return accountService.updateAvatar(file, username, password, firstName, lastName, email, phoneNumber);
+//    }
+
+    @PostMapping(value = "create-or-update")
+    public AccountEntity createOrUpdate(@RequestBody AccountEntity accountEntity) {
+        return accountService.createOrUpdate(accountEntity);
+    }
+
+    @PostMapping(value = "get-limit")
+    public List<AccountEntity> getLimit(@RequestBody LimitRequest request) {
+        return accountService.getWithLimit(request.getLimit());
+    }
+
+    @DeleteMapping(value = "remove")
+    public boolean removeByUsername(@RequestBody UsernameRequest request) {
+        return accountService.removeByUsername(request.getUsername());
+    }
+
+    @PostMapping(value = "get-by-username")
+    public AccountEntity getByUsername(@RequestBody UsernameRequest request) {
+        return accountService.getByUsername(request.getUsername());
+    }
+}

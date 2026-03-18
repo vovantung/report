@@ -1,0 +1,155 @@
+pipeline {
+  agent {
+    kubernetes {
+      yaml """
+        apiVersion: v1
+        kind: Pod
+        spec:
+          dnsPolicy: ClusterFirst
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
+          serviceAccountName: jenkins-sa
+          containers:
+          - name: jnlp
+            image: jenkins/inbound-agent:latest
+            tty: true
+          - name: kubectl
+            image: vothinhuydt/jenkins-agent-kubectl:txu
+            command: ['cat']
+            tty: true
+            volumeMounts:
+              - name: workspace-volume
+                mountPath: /workspace
+          - name: maven
+            image: maven:3.9-eclipse-temurin-17
+            command: ['cat']
+            tty: true
+            volumeMounts:
+              - name: workspace-volume
+                mountPath: /workspace
+          - name: kaniko
+            image: gcr.io/kaniko-project/executor:debug
+            command: ['cat']
+            tty: true
+            volumeMounts:
+              - name: workspace-volume
+                mountPath: /workspace
+            env:
+              - name: AWS_ACCESS_KEY_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: aws-creds-kaniko
+                    key: AWS_ACCESS_KEY_ID
+              - name: AWS_SECRET_ACCESS_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: aws-creds-kaniko
+                    key: AWS_SECRET_ACCESS_KEY
+              - name: AWS_REGION
+                valueFrom:
+                  secretKeyRef:
+                    name: aws-creds-kaniko
+                    key: AWS_REGION
+          volumes:
+            - name: workspace-volume
+              emptyDir: {}
+"""
+    }
+  }
+
+  environment {
+    AWS_REGION = "ap-southeast-1"
+    ECR_REGISTRY = "211125364313.dkr.ecr.ap-southeast-1.amazonaws.com"
+  }
+
+  stages {
+
+    stage('Clone Source') {
+      steps {
+        container('maven') {
+          git url: 'https://github.com/vovantung/report.git', branch: 'main'
+        }
+      }
+    }
+
+    stage('Clone & Build with Maven') {
+      steps {
+        container('maven') {
+          sh '''
+            mvn clean package -DskipTests
+            cp -r . /workspace/
+          '''
+        }
+      }
+    }
+
+    stage('Get App Version') {
+      steps {
+        container('maven') {
+          script {
+            sh '''
+              mvn -B -Dstyle.color=never help:evaluate -Dexpression=project.version -q -DforceStdout \
+              | sed -E 's/\\x1B\\[[0-9;]*[a-zA-Z]//g' > version.txt
+              cp -r . /workspace/
+            '''
+             env.APP_VERSION = readFile('version.txt').trim()
+//              writeFile file: '/workspace/APP_VERSION.txt', text: env.APP_VERSION
+          }
+        }
+      }
+    }
+
+    stage('Kaniko build, push image to ecr') {
+      steps {
+        container('kaniko') {
+          sh '''
+            APP_VERSION=$(cat /workspace/version.txt)
+            echo ">>> Checking workspace content:"
+            ls -la /workspace
+            echo ">>> Checking folder target/ content:"
+            ls -la /workspace/main-app/target
+            echo ">>> Start Kaniko build"
+            /kaniko/executor \
+              --context=/workspace \
+              --dockerfile=/dockerfile \
+              --destination=211125364313.dkr.ecr.ap-southeast-1.amazonaws.com/report:$APP_VERSION \
+              --verbosity=info \
+              --reproducible \
+              --cache=false \
+              --skip-tls-verify
+          '''
+        }
+      }
+    }
+
+    stage('Prepare Deployment YAML') {
+      steps {
+        container('maven') {
+          script {
+            sh '''
+              APP_VERSION=$(cat /workspace/version.txt)
+              echo $APP_VERSION
+              cp deployment.template.yaml deployment.yaml
+              sed -i "s/__VERSION__/$APP_VERSION/g" deployment.yaml
+            '''
+          }
+        }
+      }
+    }
+
+    stage('Deployment admin to Kubernetes') {
+      steps {
+        container('kubectl') {
+          script {
+            sh '''
+              kubectl apply -f deployment.yaml
+            '''
+          }
+        }
+      }
+    }
+
+  }
+}
