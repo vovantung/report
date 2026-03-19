@@ -45,6 +45,7 @@ public class KeycloakService {
         ResponseEntity<Map> response = restTemplate.postForEntity(tokenUrl, request, Map.class);
         return (String) response.getBody().get("access_token");
     }
+
     public Map<String, Object> getRoleByName(String roleName) {
 
         String token = getAccessToken();
@@ -79,16 +80,25 @@ public class KeycloakService {
         }
 
         log.info("Chuẩn bị asign role, user: " + userId + ", roles: " + roles + ", size: " + roles.size());
+        log.info("url : https://keycloak.txuyen.com/admin/realms/master/users" + userId + "/role-mappings/realm");
 
-//        String url = "https://keycloak.txuyen.com/admin/realms/master/users" + userId + "/role-mappings/realm";
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        headers.setBearerAuth(token);
-//
-//        HttpEntity<?> request = new HttpEntity<>(roles, headers);
-//
-//        restTemplate.postForEntity(url, request, Void.class);
+        try {
+            String url = "https://keycloak.txuyen.com/admin/realms/master/users" + userId + "/role-mappings/realm";
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setBearerAuth(token);
+
+            HttpEntity<?> request = new HttpEntity<>(roles, headers);
+
+            restTemplate.postForEntity(url, request, Void.class);
+
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+
+        }
+
+
     }
 
 
@@ -109,10 +119,10 @@ public class KeycloakService {
         HttpEntity<?> request = new HttpEntity<>(body, headers);
 
 //        try {
-            ResponseEntity<Void> response = restTemplate.exchange("https://keycloak.txuyen.com/admin/realms/master/users", HttpMethod.POST, request, Void.class);
-            // Lấy userId từ header Location
-            String location = response.getHeaders().getFirst("Location");
-            return location.substring(location.lastIndexOf("/") + 1);
+        ResponseEntity<Void> response = restTemplate.exchange("https://keycloak.txuyen.com/admin/realms/master/users", HttpMethod.POST, request, Void.class);
+        // Lấy userId từ header Location
+        String location = response.getHeaders().getFirst("Location");
+        return location.substring(location.lastIndexOf("/") + 1);
 
 //        } catch (HttpStatusCodeException ex) {
 ////            return ResponseEntity.status(ex.getStatusCode()).body(ex.getResponseBodyAsString());
