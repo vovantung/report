@@ -69,7 +69,6 @@ public class MessageConsumer {
     public void createHRUser(CreateHRUserCommand cmd) {
         try {
             log.info("Thông tin trước khi tạo HR User: user " + cmd.getUsername() + ", email " + cmd.getEmail());
-//            hrUserRepository.createUser(cmd.getKeycloakUserId());
             AccountEntity accountEntity = new AccountEntity();
 
             accountEntity.setFirstName(cmd.getFirstName());
