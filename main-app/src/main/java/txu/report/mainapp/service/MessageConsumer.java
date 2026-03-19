@@ -29,8 +29,7 @@ public class MessageConsumer {
 
         try {
             String keycloakUserId = keycloakService.createKeycloakUser(cmd.getUsername(), cmd.getEmail(), cmd.getLastName(), cmd.getFirstName());
-            List<String> roles = new ArrayList<>();
-            roles.add("be-admin");
+            List<String> roles = cmd.getRoles();
             keycloakService.assignRealmRolesToUser(keycloakUserId,roles);
 
             log.info("Tạo KeycloakUser thành công");
