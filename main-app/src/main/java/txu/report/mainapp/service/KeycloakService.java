@@ -3,6 +3,7 @@ package txu.report.mainapp.service;
 import lombok.AllArgsConstructor;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import txu.report.mainapp.dto.KeycloakCreateUserRequest;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class KeycloakService {
@@ -76,15 +78,17 @@ public class KeycloakService {
             roles.add(roleRepresentation);
         }
 
-        String url = "https://keycloak.txuyen.com/admin/realms/master/users" + userId + "/role-mappings/realm";
+        log.info("Chuẩn bị asign role, user: " + userId + ", roles: " + roles + ", size: " + roles.size());
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(token);
-
-        HttpEntity<?> request = new HttpEntity<>(roles, headers);
-
-        restTemplate.postForEntity(url, request, Void.class);
+//        String url = "https://keycloak.txuyen.com/admin/realms/master/users" + userId + "/role-mappings/realm";
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        headers.setBearerAuth(token);
+//
+//        HttpEntity<?> request = new HttpEntity<>(roles, headers);
+//
+//        restTemplate.postForEntity(url, request, Void.class);
     }
 
 
