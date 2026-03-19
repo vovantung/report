@@ -124,6 +124,29 @@ public class KeycloakService {
 //        }
     }
 
+
+    public void deleteUserKeycloak(String userId) {
+
+        String token = getAccessToken();
+        String url = "https://keycloak.txuyen.com/admin/realms/master/users/" + userId;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(token);
+
+        HttpEntity<Void> request = new HttpEntity<>(headers);
+
+        ResponseEntity<Void> response = restTemplate.exchange(
+                url,
+                HttpMethod.DELETE,
+                request,
+                Void.class
+        );
+
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            throw new RuntimeException("Delete user failed: " + response.getStatusCode());
+        }
+    }
+
 //    public String createKeycloakUser(String username, String email, String lastName, String firstName) {
 //
 //        HttpHeaders headers = new HttpHeaders();
