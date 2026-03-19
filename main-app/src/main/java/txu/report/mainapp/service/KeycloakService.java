@@ -26,7 +26,6 @@ public class KeycloakService {
     @Value("${keycloak.token-url}")
     private String tokenUrl;
 
-
     @Value("${keycloak.client-id}")
     private String clientId;
 
@@ -79,9 +78,6 @@ public class KeycloakService {
             roles.add(roleRepresentation);
         }
 
-        log.info("Chuẩn bị asign role, user: " + userId + ", roles: " + roles + ", size: " + roles.size());
-        log.info("url : https://keycloak.txuyen.com/admin/realms/master/users/" + userId + "/role-mappings/realm");
-
         try {
             String url = "https://keycloak.txuyen.com/admin/realms/master/users/" + userId + "/role-mappings/realm";
 
@@ -97,8 +93,6 @@ public class KeycloakService {
             log.error(ex.getMessage());
 
         }
-
-
     }
 
 

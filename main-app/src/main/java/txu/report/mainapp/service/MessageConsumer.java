@@ -39,7 +39,7 @@ public class MessageConsumer {
             event.setStep("KEYCLOAK_CREATE");
             event.setSuccess(true);
             event.setPayload(
-                    Map.of("keycloakUserId", keycloakUserId, "lastName", cmd.getLastName(), "firstName", cmd.getFirstName(), "email", cmd.getEmail(),"username", cmd.getUsername())
+                    Map.of(  "username", cmd.getUsername(),"email", cmd.getEmail(),"lastName", cmd.getLastName(), "firstName", cmd.getFirstName(), "departmentId", cmd.getDepartmentId())
             );
 
             jmsTemplate.convertAndSend("saga.reply.queue", event, message -> {
@@ -78,7 +78,7 @@ public class MessageConsumer {
             accountEntity.setUsername(cmd.getUsername());
             accountEntity.setPassword("123");
             DepartmentEntity departmentEntity = new DepartmentEntity();
-            departmentEntity.setId(1L);
+            departmentEntity.setId(cmd.getDepartmentId());
 
             accountEntity.setDepartment(departmentEntity);
 
