@@ -63,7 +63,6 @@ public class MessageConsumer {
         }
     }
 
-
     @JmsListener(destination = "hr.create.user.queue")
     public void createHRUser(CreateHRUserCommand cmd) {
         try {
@@ -73,7 +72,7 @@ public class MessageConsumer {
             accountEntity.setLastName(cmd.getLastName());
             accountEntity.setEmail(cmd.getEmail());
             accountEntity.setUsername(cmd.getUsername());
-//            accountEntity.setPassword("123");
+            accountEntity.setPassword("123");
             DepartmentEntity departmentEntity = new DepartmentEntity();
             departmentEntity.setId(cmd.getDepartmentId());
 
