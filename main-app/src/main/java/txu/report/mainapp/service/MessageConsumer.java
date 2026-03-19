@@ -12,6 +12,8 @@ import txu.common.saga.contract.command.CreateHRUserCommand;
 import txu.common.saga.contract.command.CreateKeycloakUserCommand;
 import txu.common.saga.contract.command.SagaReplyEvent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -27,6 +29,10 @@ public class MessageConsumer {
 
         try {
             String keycloakUserId = keycloakService.createKeycloakUser(cmd.getUsername(), cmd.getEmail(), cmd.getLastName(), cmd.getFirstName());
+            List<String> roles = new ArrayList<>();
+            roles.add("be-admin");
+            keycloakService.assignRealmRolesToUser(keycloakUserId,roles);
+
             log.info("Tạo KeycloakUser thành công");
 
             SagaReplyEvent event = new SagaReplyEvent();
@@ -57,6 +63,8 @@ public class MessageConsumer {
 
         }
     }
+
+
 
     @JmsListener(destination = "hr.create.user.queue")
     public void createHRUser(CreateHRUserCommand cmd) {

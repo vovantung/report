@@ -13,9 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import txu.report.mainapp.dto.KeycloakCreateUserRequest;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -45,6 +43,49 @@ public class KeycloakService {
         ResponseEntity<Map> response = restTemplate.postForEntity(tokenUrl, request, Map.class);
         return (String) response.getBody().get("access_token");
     }
+    public Map<String, Object> getRoleByName(String roleName) {
+
+        String token = getAccessToken();
+
+        String url = "https://keycloak.txuyen.com/admin/realms/master/roles/" + roleName;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(token);
+
+        HttpEntity<?> request = new HttpEntity<>(headers);
+
+        ResponseEntity<Map> response =
+                restTemplate.exchange(url, HttpMethod.GET, request, Map.class);
+
+        return response.getBody();
+    }
+
+    public void assignRealmRolesToUser(String userId, List<String> roleNames) {
+
+        String token = getAccessToken();
+
+        List<Map<String, Object>> roles = new ArrayList<>();
+
+        for (String roleName : roleNames) {
+            Map<String, Object> role = getRoleByName(roleName);
+
+            Map<String, Object> roleRepresentation = new HashMap<>();
+            roleRepresentation.put("id", role.get("id"));
+            roleRepresentation.put("name", role.get("name"));
+
+            roles.add(roleRepresentation);
+        }
+
+        String url = "https://keycloak.txuyen.com/admin/realms/master/users" + userId + "/role-mappings/realm";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(token);
+
+        HttpEntity<?> request = new HttpEntity<>(roles, headers);
+
+        restTemplate.postForEntity(url, request, Void.class);
+    }
 
 
     public String createKeycloakUser(String username, String email, String lastName, String firstName) {
@@ -54,8 +95,6 @@ public class KeycloakService {
         headers.setBearerAuth(getAccessToken());
 
 
-
-
         KeycloakCreateUserRequest body = new KeycloakCreateUserRequest();
         body.setUsername(username);
         body.setEnabled(true);
@@ -63,19 +102,18 @@ public class KeycloakService {
         body.setFirstName(firstName);
         body.setLastName(lastName);
 
-//        HttpEntity<KeycloakCreateUserRequest> entity = new HttpEntity<>(body, headers);
-//        HttpEntity<?> request = new HttpEntity<>(headers);
         HttpEntity<?> request = new HttpEntity<>(body, headers);
 
-        try {
+//        try {
             ResponseEntity<Void> response = restTemplate.exchange("https://keycloak.txuyen.com/admin/realms/master/users", HttpMethod.POST, request, Void.class);
-//            return ResponseEntity.status(response_.getStatusCode()).build();
-            return username;
+            // Lấy userId từ header Location
+            String location = response.getHeaders().getFirst("Location");
+            return location.substring(location.lastIndexOf("/") + 1);
 
-        } catch (HttpStatusCodeException ex) {
-//            return ResponseEntity.status(ex.getStatusCode()).body(ex.getResponseBodyAsString());
-            return null;
-        }
+//        } catch (HttpStatusCodeException ex) {
+////            return ResponseEntity.status(ex.getStatusCode()).body(ex.getResponseBodyAsString());
+//            return null;
+//        }
     }
 
 //    public String createKeycloakUser(String username, String email, String lastName, String firstName) {
