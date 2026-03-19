@@ -67,6 +67,7 @@ public class MessageConsumer {
             accountEntity.setFirstName(cmd.getFirstName());
             accountEntity.setLastName(cmd.getLastName());
             accountEntity.setEmail(cmd.getEmail());
+            accountEntity.setUsername(cmd.getUsername());
             accountEntity.setPassword("123");
             DepartmentEntity departmentEntity = new DepartmentEntity();
             departmentEntity.setId(1L);
@@ -86,7 +87,7 @@ public class MessageConsumer {
             });
 
         } catch (Exception ex) {
-            log.info("Xảy ra lỗi khi KeycloakUser");
+            log.info("Xảy ra lỗi khi tạo HR User");
             SagaReplyEvent event = new SagaReplyEvent();
             event.setSagaId(cmd.getSagaId());
             event.setStep("HR_CREATE");
