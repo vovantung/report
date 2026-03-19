@@ -26,7 +26,7 @@ public class MessageConsumer {
     public void createKeycloakUser(CreateKeycloakUserCommand cmd) {
 
         try {
-            String keycloakUserId = keycloakService.createKeycloakUser(cmd.getUsername(), cmd.getEmail(), "ABC", "SSS");
+            String keycloakUserId = keycloakService.createKeycloakUser(cmd.getUsername(), cmd.getEmail(), cmd.getLastName(), cmd.getFirstName());
             log.info("Tạo KeycloakUser thành công");
 
             SagaReplyEvent event = new SagaReplyEvent();
@@ -34,7 +34,7 @@ public class MessageConsumer {
             event.setStep("KEYCLOAK_CREATE");
             event.setSuccess(true);
             event.setPayload(
-                    Map.of("keycloakUserId", keycloakUserId)
+                    Map.of("keycloakUserId", keycloakUserId, "lastName", cmd.getLastName(), "firstName", cmd.getFirstName(), "email", cmd.getEmail(),"username", cmd.getUsername())
             );
 
             jmsTemplate.convertAndSend("saga.reply.queue", event, message -> {
@@ -64,13 +64,12 @@ public class MessageConsumer {
 //            hrUserRepository.createUser(cmd.getKeycloakUserId());
             AccountEntity accountEntity = new AccountEntity();
 
-            accountEntity.setFirstName(cmd.getAccount().getFirstName());
-            accountEntity.setLastName(cmd.getAccount().getLastName());
-            accountEntity.setEmail(cmd.getAccount().getEmail());
-            accountEntity.setPassword(cmd.getAccount().getPassword());
-
+            accountEntity.setFirstName(cmd.getFirstName());
+            accountEntity.setLastName(cmd.getLastName());
+            accountEntity.setEmail(cmd.getEmail());
+            accountEntity.setPassword("123");
             DepartmentEntity departmentEntity = new DepartmentEntity();
-            departmentEntity.setId(cmd.getAccount().getDepartment().getId());
+            departmentEntity.setId(1L);
 
             accountEntity.setDepartment(departmentEntity);
 
