@@ -6,7 +6,6 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 import txu.common.saga.contract.command.DeleteUserKeycloakCommand;
-import txu.report.mainapp.dto.DeleteUserCommand;
 import txu.report.mainapp.entity.AccountEntity;
 import txu.report.mainapp.entity.DepartmentEntity;
 import txu.common.saga.contract.command.CreateHRUserCommand;
@@ -32,7 +31,7 @@ public class MessageConsumer {
             String keycloakUserId = keycloakService.createKeycloakUser(cmd.getUsername(), cmd.getEmail(), cmd.getLastName(), cmd.getFirstName());
             List<String> roles = cmd.getRoles();
             keycloakService.assignRealmRolesToUser(keycloakUserId, roles);
-            log.info("Tạo keycloak user thành công!");
+            log.info("Tạo keycloak user thành công!, sagaId: {}", cmd.getSagaId());
             SagaReplyEvent event = new SagaReplyEvent();
             event.setSagaId(cmd.getSagaId());
             event.setStep("KEYCLOAK_CREATE");
@@ -75,7 +74,7 @@ public class MessageConsumer {
             departmentEntity.setId(cmd.getDepartmentId());
             accountEntity.setDepartment(departmentEntity);
             accountService.createOrUpdate(accountEntity);
-            log.info("Tạo hr user thành công!");
+            log.info("Tạo hr user thành công!, sagaId: {}", cmd.getSagaId());
             SagaReplyEvent event = new SagaReplyEvent();
             event.setSagaId(cmd.getSagaId());
             event.setStep("HR_CREATE");
@@ -109,7 +108,7 @@ public class MessageConsumer {
     public void handleDeleteUserKeycloak(DeleteUserKeycloakCommand cmd) {
         try {
             keycloakService.deleteUserKeycloak(cmd.getKeycloakUserId());
-            log.info("Da xoa keycloak user, userId: "+ cmd.getKeycloakUserId());
+            log.info("Da xoa keycloak user, sagaId: "+ cmd.getSagaId());
             SagaReplyEvent event = new SagaReplyEvent();
             event.setSagaId(cmd.getSagaId());
             event.setStep("KEYCLOAK_DELETE");
