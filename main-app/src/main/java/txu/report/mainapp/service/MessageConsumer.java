@@ -73,9 +73,9 @@ public class MessageConsumer {
             accountEntity.setEmail(cmd.getEmail());
             accountEntity.setUsername(cmd.getUsername());
             accountEntity.setPassword("123");
+
             DepartmentEntity departmentEntity = new DepartmentEntity();
             departmentEntity.setId(cmd.getDepartmentId());
-
             accountEntity.setDepartment(departmentEntity);
 
             accountService.createOrUpdate(accountEntity);
@@ -109,6 +109,7 @@ public class MessageConsumer {
 
     @JmsListener(destination = "keycloak.delete.user.queue")
     public void handleDeleteUserKeycloak(DeleteUserKeycloakCommand cmd) {
+        log.info("Chuan bi xoa keycloak user, userId: "+ cmd.getKeycloakUserId());
         try {
             keycloakService.deleteUserKeycloak(cmd.getKeycloakUserId());
             SagaReplyEvent event = new SagaReplyEvent();
