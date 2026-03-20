@@ -116,6 +116,7 @@ public class MessageConsumer {
             event.setSagaId(cmd.getSagaId());
             event.setStep("KEYCLOAK_DELETE");
             event.setSuccess(true);
+            event.setPayload(Map.of("sagaId", cmd.getSagaId()));
             jmsTemplate.convertAndSend("saga.reply.queue", event, message -> {
                 message.setStringProperty("_type", SagaReplyEvent.class.getName());
                 return message;
