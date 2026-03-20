@@ -79,7 +79,7 @@ public class KeycloakService {
         }
 
         try {
-            String url = "https://keycloak.txuyen.com/admin/realms/master/users/" + userId + "/role-mappings/realm";
+            String url = "https://keycloak.txuyen.com/admin/realms/master/users" + userId + "/role-mappings/realm";
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
