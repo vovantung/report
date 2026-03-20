@@ -32,30 +32,29 @@ public class MessageConsumer {
             String keycloakUserId = keycloakService.createKeycloakUser(cmd.getUsername(), cmd.getEmail(), cmd.getLastName(), cmd.getFirstName());
             List<String> roles = cmd.getRoles();
             keycloakService.assignRealmRolesToUser(keycloakUserId, roles);
-
-            log.info("Tạo KeycloakUser thành công");
-
+            log.info("Tạo keycloak user thành công!");
             SagaReplyEvent event = new SagaReplyEvent();
             event.setSagaId(cmd.getSagaId());
             event.setStep("KEYCLOAK_CREATE");
             event.setSuccess(true);
             event.setPayload(
-                    Map.of("username", cmd.getUsername(), "email", cmd.getEmail(), "lastName", cmd.getLastName(), "firstName", cmd.getFirstName(), "departmentId", cmd.getDepartmentId(), "keycloakUserId", keycloakUserId)
+                    Map.of("sagaId", cmd.getSagaId(),"username", cmd.getUsername(), "email", cmd.getEmail(), "lastName", cmd.getLastName(),
+                            "firstName", cmd.getFirstName(), "departmentId", cmd.getDepartmentId(), "keycloakUserId", keycloakUserId)
             );
-
             jmsTemplate.convertAndSend("saga.reply.queue", event, message -> {
                 message.setStringProperty("_type", SagaReplyEvent.class.getName());
                 return message;
             });
-
         } catch (Exception ex) {
-            log.info("Xảy ra lỗi khi tạo KeycloakUser: " + ex.getMessage());
+            log.info("Lỗi khi tạo keycloak user: " + ex.getMessage());
             SagaReplyEvent event = new SagaReplyEvent();
             event.setSagaId(cmd.getSagaId());
             event.setStep("KEYCLOAK_CREATE");
             event.setSuccess(false);
             event.setError(ex.getMessage());
-
+            event.setPayload(
+                    Map.of("sagaId", cmd.getSagaId())
+            );
             jmsTemplate.convertAndSend("saga.reply.queue", event, message -> {
                 message.setStringProperty("_type", SagaReplyEvent.class.getName());
                 return message;
@@ -67,31 +66,30 @@ public class MessageConsumer {
     public void createHRUser(CreateHRUserCommand cmd) {
         try {
             AccountEntity accountEntity = new AccountEntity();
-
             accountEntity.setFirstName(cmd.getFirstName());
             accountEntity.setLastName(cmd.getLastName());
             accountEntity.setEmail(cmd.getEmail());
             accountEntity.setUsername(cmd.getUsername());
             accountEntity.setPassword("123");
-
             DepartmentEntity departmentEntity = new DepartmentEntity();
             departmentEntity.setId(cmd.getDepartmentId());
             accountEntity.setDepartment(departmentEntity);
-
             accountService.createOrUpdate(accountEntity);
-            log.info("Tạo HR User thành công");
+            log.info("Tạo hr user thành công!");
             SagaReplyEvent event = new SagaReplyEvent();
             event.setSagaId(cmd.getSagaId());
             event.setStep("HR_CREATE");
             event.setSuccess(true);
-
+            event.setPayload(
+                    Map.of("sagaId", cmd.getSagaId())
+            );
             jmsTemplate.convertAndSend("saga.reply.queue", event, message -> {
                 message.setStringProperty("_type", SagaReplyEvent.class.getName());
                 return message;
             });
 
         } catch (Exception ex) {
-            log.info("Xảy ra lỗi khi tạo HR User: " + ex.getMessage());
+            log.info("Lỗi khi tạo hr user: " + ex.getMessage());
             SagaReplyEvent event = new SagaReplyEvent();
             event.setSagaId(cmd.getSagaId());
             event.setStep("HR_CREATE");
@@ -109,9 +107,9 @@ public class MessageConsumer {
 
     @JmsListener(destination = "keycloak.delete.user.queue")
     public void handleDeleteUserKeycloak(DeleteUserKeycloakCommand cmd) {
-        log.info("Chuan bi xoa keycloak user, userId: "+ cmd.getKeycloakUserId());
         try {
             keycloakService.deleteUserKeycloak(cmd.getKeycloakUserId());
+            log.info("Da xoa keycloak user, userId: "+ cmd.getKeycloakUserId());
             SagaReplyEvent event = new SagaReplyEvent();
             event.setSagaId(cmd.getSagaId());
             event.setStep("KEYCLOAK_DELETE");
@@ -123,7 +121,7 @@ public class MessageConsumer {
             });
 
         } catch (Exception ex) {
-            log.info("Xảy ra lỗi khi delete Keycloak User: " + ex.getMessage());
+            log.info("Lỗi khi xoa keycloak user: " + ex.getMessage());
             SagaReplyEvent event = new SagaReplyEvent();
             event.setSagaId(cmd.getSagaId());
             event.setStep("KEYCLOAK_DELETE");
