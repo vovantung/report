@@ -46,5 +46,11 @@ public class UserApi extends AbstractApi {
     }
 
 
+    @GetMapping(value = "/user/test")
+    public String test() {
+        return "This API allows calls from users with both administrator and regular user roles.";
+    }
+
+
 
 }

@@ -13,7 +13,7 @@ import txu.report.mainapp.service.MessageProducer;
 
 @Slf4j
 @RestController
-@RequestMapping("/report")
+@RequestMapping("/report/admin")
 @RequiredArgsConstructor
 public class TestApi extends AbstractApi {
 
@@ -44,9 +44,6 @@ public class TestApi extends AbstractApi {
 
     @GetMapping(value = "/test")
     public String test() {
-        return "Phan Thi Xuyen";
+        return "This API is only accessible from users with administrator roles.";
     }
-
-
-
 }
