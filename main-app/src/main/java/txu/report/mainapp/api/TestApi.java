@@ -17,19 +17,8 @@ import txu.report.mainapp.service.MessageProducer;
 @RequiredArgsConstructor
 public class TestApi extends AbstractApi {
 
-    private final DepartmentService departmentService;
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final MessageProducer messageProducer;
-    private final AccountService accountService;
-
-
-//    @PostMapping(value = "get-by-id")
-////    @Cacheable(value = "department", key = "#request.id")
-//    public DepartmentEntity getById(@RequestBody IdRequest request){
-//        return  departmentService.getById(request.getId());
-//    }
-
-
 
     @PostMapping(value = "send-message")
     public void send() {

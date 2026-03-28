@@ -37,10 +37,10 @@ public class UserApi extends AbstractApi {
                 "realm_access", claims.get("realm_access"),
                 "department", account.getDepartment(),
                 "lastName", account.getLastName(),
-                "firstName",account.getFirstName(),
+                "firstName", account.getFirstName(),
                 "phoneNumber", account.getPhoneNumber(),
-                "avatarUrl", account.getAvatarUrl(),
-                "avatarFilename", account.getAvatarFilename(),
+                "avatarUrl", account.getAvatarUrl() != null ? account.getAvatarUrl() : "",
+                "avatarFilename", account.getAvatarFilename() != null ? account.getAvatarFilename() : "",
                 "createdAt", account.getCreatedAt()
         );
     }
@@ -50,7 +50,6 @@ public class UserApi extends AbstractApi {
     public String test() {
         return "This API allows calls from users with both administrator and regular user roles.";
     }
-
 
 
 }
