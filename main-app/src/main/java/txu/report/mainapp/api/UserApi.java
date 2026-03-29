@@ -20,17 +20,11 @@ public class UserApi extends AbstractApi {
     private final AccountService accountService;
 
     @PostMapping(value = "current-user")
-//    public AccountEntity me(HttpServletRequest request) throws Exception {
     public Map<String, Object> me(HttpServletRequest request) throws Exception {
-
         String authHeader = request.getHeader("Authorization");
-
         String token = authHeader.replace("Bearer ", "");
-
         Map<String, Object> claims = JwtUtils.decode(token);
-
         AccountEntity account = accountService.getByUsername(claims.get("preferred_username").toString());
-
         return Map.of(
                 "username", claims.get("preferred_username"),
                 "email", claims.get("email"),
@@ -45,11 +39,8 @@ public class UserApi extends AbstractApi {
         );
     }
 
-
     @GetMapping(value = "/user/test")
     public String test() {
         return "This API allows calls from users with both administrator and regular user roles.";
     }
-
-
 }

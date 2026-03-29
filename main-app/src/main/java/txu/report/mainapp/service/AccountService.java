@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import txu.report.mainapp.dao.AccountDao;
 import txu.report.mainapp.dao.DepartmentDao;
-import txu.report.mainapp.dao.RoleDao;
 import txu.report.mainapp.entity.AccountEntity;
 import txu.common.exception.BadParameterException;
 import txu.common.exception.ConflictException;
@@ -27,7 +26,6 @@ public class AccountService {
 
     private final AccountDao accountDao;
     private final DepartmentDao departmentDao;
-    private final RoleDao roleDao;
 
     @Value("${ceph.rgw.bucket}")
     private String bucketName;

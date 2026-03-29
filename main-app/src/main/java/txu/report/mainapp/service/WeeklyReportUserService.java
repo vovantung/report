@@ -42,13 +42,9 @@ import static txu.report.mainapp.common.DateUtil.*;
 @Service
 @RequiredArgsConstructor
 public class WeeklyReportUserService {
-
-
     private final WeeklyReportUserDao weeklyReportDao;
     private final DepartmentDao departmentDao;
     private final AccountService accountService;
-
-
     private final S3Client s3Client;
 
     @Value("${ceph.rgw.bucket}")

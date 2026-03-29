@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import txu.report.mainapp.base.AbstractApi;
-//import txu.admin.mainapp.dto.*;
 import txu.report.mainapp.dto.*;
 import txu.report.mainapp.entity.WeeklyReportEntity;
 import txu.report.mainapp.service.WeeklyReportService;
@@ -47,7 +46,6 @@ public class WeeklyReortApi extends AbstractApi {
     }
 
     @PostMapping("/add")
-//    public ResponseEntity<?> addReport(@RequestBody UploadfileInfoRequest request) {
     public ResponseEntity<?> addReport(@RequestBody UploadfileInfoRequest request, HttpServletRequest httpServletRequest) throws Exception {
 
         String authHeader = httpServletRequest.getHeader("Authorization");
@@ -75,9 +73,6 @@ public class WeeklyReortApi extends AbstractApi {
     public List<DepartmentDto> getNoReportFromDateToDate(@RequestBody FromDateToDateRequest request){
         return weeklyReportService. getNoReportedFromDateToDate(request.getFrom(), request.getTo());
     }
-
-
-
 
     @PostMapping(value = "get-by-id")
     public WeeklyReportEntity getById(@RequestBody IdRequest request){

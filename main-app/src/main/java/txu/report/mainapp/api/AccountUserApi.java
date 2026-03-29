@@ -12,12 +12,6 @@ import txu.report.mainapp.dto.LinkRequest;
 import txu.report.mainapp.dto.UpdateAvatarRequest;
 import txu.report.mainapp.entity.AccountEntity;
 import txu.report.mainapp.service.AccountUserService;
-//import txu.user.mainapp.base.AbstractApi;
-//import txu.user.mainapp.dto.LinkDto;
-//import txu.user.mainapp.dto.LinkRequest;
-//import txu.user.mainapp.dto.UpdateAvatarRequest;
-//import txu.user.mainapp.entity.AccountEntity;
-//import txu.user.mainapp.service.AccountService;
 
 @Slf4j
 @RestController

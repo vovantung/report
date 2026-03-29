@@ -9,16 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import txu.report.mainapp.base.AbstractApi;
-//import txu.admin.mainapp.dto.*;
 import txu.report.mainapp.dto.*;
 import txu.report.mainapp.entity.WeeklyReportEntity;
 import txu.report.mainapp.service.WeeklyReportUserService;
 import txu.report.mainapp.util.JwtUtils;
-//import txu.user.mainapp.base.AbstractApi;
-//import txu.user.mainapp.dto.*;
-//import txu.user.mainapp.entity.WeeklyReportEntity;
-//import txu.user.mainapp.service.WeeklyReportService;
-//import txu.user.mainapp.util.JwtUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -67,16 +61,6 @@ public class WeeklyReortUserApi extends AbstractApi {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed: " + e.getMessage());
         }
     }
-
-//    @PostMapping("/create")
-//    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
-//        try {
-//            WeeklyReportEntity weeklyReport = weeklyReportService.create(file);
-//            return ResponseEntity.ok(weeklyReport);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed: " + e.getMessage());
-//        }
-//    }
 
     @PostMapping(value = "get-department-fromto")
     public List<WeeklyReportExtends> getDepartmentFromTo(@RequestBody FromDateToDateRequest request, HttpServletRequest httpServletRequest) throws Exception {

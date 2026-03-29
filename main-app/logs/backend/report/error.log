@@ -1,0 +1,15 @@
+2026-03-29 22:49:56.310 ERROR [main] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 1 of constructor in txu.report.mainapp.service.DepartmentService required a bean of type 'txu.common.cache.RedisCacheClient' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'txu.common.cache.RedisCacheClient' in your configuration.
+

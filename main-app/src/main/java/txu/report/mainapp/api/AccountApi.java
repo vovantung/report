@@ -9,7 +9,6 @@ import txu.report.mainapp.dto.UsernameRequest;
 import txu.report.mainapp.entity.AccountEntity;
 import txu.report.mainapp.service.AccountService;
 
-
 import java.util.List;
 
 @Slf4j
@@ -19,20 +18,6 @@ import java.util.List;
 public class AccountApi extends AbstractApi {
 
     private final AccountService accountService;
-
-//    @PostMapping("/update-avatar")
-//    public AccountEntity updateAvatar(
-//            @RequestPart(value = "file", required = false) MultipartFile file, // ✅ optional
-//            @RequestPart("username") String username,
-//            @RequestPart("password") String password,
-//            @RequestPart("firstName") String firstName,
-//            @RequestPart("lastName") String lastName,
-//            @RequestPart("email") String email,
-//            @RequestPart("phoneNumber") String phoneNumber
-//
-//    ) throws  IOException, NoSuchAlgorithmException, InvalidKeyException{
-//        return accountService.updateAvatar(file, username, password, firstName, lastName, email, phoneNumber);
-//    }
 
     @PostMapping(value = "create-or-update")
     public AccountEntity createOrUpdate(@RequestBody AccountEntity accountEntity) {

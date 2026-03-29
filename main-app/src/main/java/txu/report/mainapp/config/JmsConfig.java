@@ -16,8 +16,7 @@ public class JmsConfig {
     @Bean
     @Primary
     public ConnectionFactory connectionFactory() {
-        ActiveMQConnectionFactory factory =
-                new ActiveMQConnectionFactory("tcp://192.168.1.99:61616");
+        ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://192.168.1.99:61616");
         factory.setUserName("admin");
         factory.setPassword("Phan@123");
         return factory;
@@ -28,13 +27,9 @@ public class JmsConfig {
 //    }
 
     @Bean
-    public JmsTemplate jmsTemplate(
-            ConnectionFactory connectionFactory,
-            MappingJackson2MessageConverter converter
-    ) {
+    public JmsTemplate jmsTemplate(ConnectionFactory connectionFactory, MappingJackson2MessageConverter converter) {
         JmsTemplate template = new JmsTemplate(connectionFactory);
         template.setMessageConverter(converter);
         return template;
     }
-
 }

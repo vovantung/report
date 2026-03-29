@@ -95,7 +95,7 @@ public class DepartmentService {
         return cacheClient.get(
                 "department::" + id,
                 DepartmentEntity.class,
-                Duration.ofMinutes(10),
+                Duration.ofMinutes(3),
                 () -> departmentDao.findById(id)
         );
     }
