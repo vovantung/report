@@ -100,6 +100,10 @@ public class DepartmentService {
         );
     }
 
+//        public DepartmentEntity getById(int id) {
+//        return departmentDao.findById(id);
+//    }
+
 
     public boolean removeById(int id) {
         DepartmentEntity department = departmentDao.findById(id);

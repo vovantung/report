@@ -6,8 +6,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 import txu.report.mainapp.base.AbstractApi;
 import txu.report.mainapp.dto.TestRequest;
-import txu.report.mainapp.service.AccountService;
-import txu.report.mainapp.service.DepartmentService;
 import txu.report.mainapp.service.MessageProducer;
 
 

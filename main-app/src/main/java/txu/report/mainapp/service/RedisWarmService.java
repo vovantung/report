@@ -28,7 +28,7 @@ public class RedisWarmService {
             redisTemplate.opsForValue().set(
                     "department:" + event.id(),
                     event.dept(),
-                    Duration.ofMinutes(10)
+                    Duration.ofMinutes(5)
             );
         } catch (Exception e) {
             log.warn("Redis warm failed – ignored");
