@@ -1,4 +1,4 @@
-package txu.report.mainapp.service;
+package txu.report.mainapp.redis;
 
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

@@ -89,20 +89,20 @@ public class DepartmentService {
 //    }
 
 
-    private final RedisCacheClient cacheClient;
-
-    public DepartmentEntity getById(int id) {
-        return cacheClient.get(
-                "department::" + id,
-                DepartmentEntity.class,
-                Duration.ofMinutes(3),
-                () -> departmentDao.findById(id)
-        );
-    }
-
-//        public DepartmentEntity getById(int id) {
-//        return departmentDao.findById(id);
+//    private final RedisCacheClient cacheClient;
+//
+//    public DepartmentEntity getById(int id) {
+//        return cacheClient.get(
+//                "department::" + id,
+//                DepartmentEntity.class,
+//                Duration.ofMinutes(3),
+//                () -> departmentDao.findById(id)
+//        );
 //    }
+
+        public DepartmentEntity getById(int id) {
+        return departmentDao.findById(id);
+    }
 
 
     public boolean removeById(int id) {
