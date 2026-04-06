@@ -42,7 +42,7 @@ public class AccountApi extends AbstractApi {
         return accountService.getByUsername(request.getUsername());
     }
 
-    @GetMapping(value = "/get-paging")
+    @PostMapping(value = "/get-paging")
     public List<AccountDto> getPaging(@RequestBody AccountRequest accountRequest) {
         return accountService.getPaging(accountRequest.getKeyOffset(), accountRequest.getLimit(), accountRequest.getKeySearch());
     }
