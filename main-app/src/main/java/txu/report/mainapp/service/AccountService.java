@@ -11,13 +11,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import txu.report.mainapp.dao.AccountDao;
 import txu.report.mainapp.dao.DepartmentDao;
+import txu.report.mainapp.dto.AccountDto;
+import txu.report.mainapp.dto.DepartmentDto;
 import txu.report.mainapp.entity.AccountEntity;
 import txu.common.exception.BadParameterException;
 import txu.common.exception.ConflictException;
 import txu.common.exception.NotFoundException;
 import txu.common.exception.TxException;
 
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -71,7 +73,7 @@ public class AccountService {
                 accountEntity.setPassword(bCryptPasswordEncoder.encode(accountEntity.getPassword()));
             }
             accountEntity.setCreatedAt(DateTime.now().toDate());
-            accountEntity.setUpdateAt(DateTime.now().toDate());
+            accountEntity.setUpdatedAt(DateTime.now().toDate());
             AccountEntity account = null;
 
             try {
@@ -131,7 +133,7 @@ public class AccountService {
                 account.setAvatarFilename(accountEntity.getAvatarFilename());
             }
 
-            account.setUpdateAt(DateTime.now().toDate());
+            account.setUpdatedAt(DateTime.now().toDate());
 
             try {
                 return accountDao.save(account);
@@ -235,6 +237,35 @@ public class AccountService {
 
     public List<AccountEntity> getWithLimit(int limit) {
         return accountDao.getWithLimit(limit);
+    }
+
+    public List<AccountDto> getPaging(long keyOffset, int limit, String keySearch) {
+        // Giới hạn limit tối đa là 100 record.
+        if (limit > 100 || limit <= 0) limit = 100;
+        if (keySearch != null && !keySearch.isEmpty()) {
+            keyOffset = 0; // Chế độ tìm kiếm, tìm tất cả.
+        }
+
+        List<Object[]> rows = accountDao.getPaging(keyOffset, limit, keySearch);
+        Map<Long, AccountDto> map = new LinkedHashMap<>();
+
+        for (Object[] row : rows) {
+            Long accountId = ((Number) row[0]).longValue();
+            String username = (String) row[1];
+            String firstName = (String) row[2];
+            String lastName = (String) row[3];
+            Date createdAt = (Date) row[4];
+            Date updatedAt = (Date) row[5];
+            Integer departmentId = ((Number)row[6]).intValue();
+            String departmentName = (String) row[7];
+            DepartmentDto departmentDto = new DepartmentDto();
+            departmentDto.setId(departmentId);
+            departmentDto.setName(departmentName);
+            // tạo department nếu chưa có
+            AccountDto department = map.computeIfAbsent(accountId, id -> new AccountDto(id, username, firstName, lastName,createdAt,updatedAt, departmentDto));
+        }
+        List<AccountDto> rs = new ArrayList<>(map.values());
+        return rs;
     }
 
     public boolean removeByUsername(String username) {

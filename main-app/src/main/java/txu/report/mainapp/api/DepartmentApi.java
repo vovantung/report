@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import txu.report.mainapp.base.AbstractApi;
+import txu.report.mainapp.dto.Department1Dto;
 import txu.report.mainapp.dto.IdRequest;
 import txu.report.mainapp.dto.LimitRequest;
+import txu.report.mainapp.dto.request.DepartmentRequest;
 import txu.report.mainapp.entity.DepartmentEntity;
 import txu.report.mainapp.service.DepartmentService;
 
@@ -39,6 +41,11 @@ public class DepartmentApi extends AbstractApi {
     @DeleteMapping(value = "remove")
     public boolean removeById(@RequestBody IdRequest request){
         return departmentService.removeById(request.getId());
+    }
+
+    @GetMapping(value = "/get-paging")
+    public List<Department1Dto> getPaging(@RequestBody DepartmentRequest departmentRequest) {
+        return departmentService.getPaging(departmentRequest.getKeyOffset(), departmentRequest.getLimit(), departmentRequest.getKeySearch());
     }
 
 }

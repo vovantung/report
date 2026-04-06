@@ -4,6 +4,7 @@ import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import txu.report.mainapp.base.AbstractDao;
+import txu.report.mainapp.dto.Account1Dto;
 import txu.report.mainapp.entity.AccountEntity;
 
 import java.util.List;
@@ -20,15 +21,18 @@ public class AccountDao extends AbstractDao<AccountEntity> {
         }
     }
 
-    @Override
+    //    @Override
     public AccountEntity findById(Object Id) {
-        return super.findById(Id);
+        return findById(Id);
+//        return super.findById(Id);
     }
+
 
     @Transactional
     public void remove(AccountEntity accountEntity) {
-        accountEntity = merge(accountEntity);
-        getEntityManager().remove(accountEntity);
+        remove(accountEntity);
+//        accountEntity = merge(accountEntity);
+//        getEntityManager().remove(accountEntity);
     }
 
     public AccountEntity getByUsername(String username) {
@@ -51,6 +55,35 @@ public class AccountDao extends AbstractDao<AccountEntity> {
         query.setMaxResults(limit);
         return getRessultList(query);
 
+    }
+
+    public List<Object[]> getPaging(long keyOffset, int limit, String keySearch) {
+        StringBuilder queryString = new StringBuilder("SELECT A.id, A.username, A.firstName, A.lastName, A.createdAt, A.updatedAt, D.id, D.name" +
+                " FROM AccountEntity A" +
+                " LEFT JOIN A.department D " +
+                " WHERE A.id >= : keyOffset");
+
+        if (keySearch != null && !keySearch.isEmpty()) {
+            queryString.append(" AND A.firstName LIKE :keySearch");
+        }
+        queryString.append(" ORDER BY A.id DESC");
+
+        Query query = getEntityManager().createQuery(queryString.toString());
+        query.setParameter("keyOffset", keyOffset);
+        if (keySearch != null && !keySearch.isEmpty()) {
+            query.setParameter("keySearch", "%" + keySearch + "%");
+        }
+        query.setMaxResults(limit);
+        return query.getResultList();
+    }
+
+    public List<Account1Dto> getByIds(List<Integer> deptIds) {
+        StringBuilder queryString = new StringBuilder("SELECT new txu.report.mainapp.dto.Account1Dto(A.id, A.firstName, A.lastName, A.department.id)" +
+                "    FROM AccountEntity A" +
+                "    WHERE A.department.id IN :deptIds ORDER BY A.createdAt DESC");
+        Query query = getEntityManager().createQuery(queryString.toString());
+        query.setParameter("deptIds", deptIds);
+        return query.getResultList();
     }
 
 }

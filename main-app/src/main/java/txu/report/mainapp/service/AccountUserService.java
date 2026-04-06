@@ -112,7 +112,7 @@ public class AccountUserService {
                 accountEntity.setPassword(bCryptPasswordEncoder.encode(accountEntity.getPassword()));
             }
             accountEntity.setCreatedAt(DateTime.now().toDate());
-            accountEntity.setUpdateAt(DateTime.now().toDate());
+            accountEntity.setUpdatedAt(DateTime.now().toDate());
             AccountEntity account = null;
 
             try {
@@ -173,7 +173,7 @@ public class AccountUserService {
                 account.setAvatarFilename(accountEntity.getAvatarFilename());
             }
 
-            account.setUpdateAt(DateTime.now().toDate());
+            account.setUpdatedAt(DateTime.now().toDate());
 
             try {
                 return accountUserDao.save(account);

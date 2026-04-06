@@ -4,8 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import txu.report.mainapp.base.AbstractApi;
+import txu.report.mainapp.dto.AccountDto;
+import txu.report.mainapp.dto.DepartmentDto;
 import txu.report.mainapp.dto.LimitRequest;
 import txu.report.mainapp.dto.UsernameRequest;
+import txu.report.mainapp.dto.request.AccountRequest;
 import txu.report.mainapp.entity.AccountEntity;
 import txu.report.mainapp.service.AccountService;
 
@@ -37,5 +40,10 @@ public class AccountApi extends AbstractApi {
     @PostMapping(value = "get-by-username")
     public AccountEntity getByUsername(@RequestBody UsernameRequest request) {
         return accountService.getByUsername(request.getUsername());
+    }
+
+    @GetMapping(value = "/get-paging")
+    public List<AccountDto> getPaging(@RequestBody AccountRequest accountRequest) {
+        return accountService.getPaging(accountRequest.getKeyOffset(), accountRequest.getLimit(), accountRequest.getKeySearch());
     }
 }

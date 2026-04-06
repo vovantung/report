@@ -6,7 +6,10 @@ import org.joda.time.DateTime;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import txu.report.mainapp.dao.AccountDao;
 import txu.report.mainapp.dao.DepartmentDao;
+import txu.report.mainapp.dto.Account1Dto;
+import txu.report.mainapp.dto.Department1Dto;
 import txu.report.mainapp.entity.DepartmentEntity;
 import txu.common.cache.RedisCacheClient;
 import txu.common.exception.BadParameterException;
@@ -14,7 +17,10 @@ import txu.common.exception.NotFoundException;
 import txu.common.exception.TxException;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -23,6 +29,7 @@ import java.util.List;
 public class DepartmentService {
 
     private final DepartmentDao departmentDao;
+    private final AccountDao accountDao;
 
     @Transactional
     public DepartmentEntity createOrUpdate(DepartmentEntity departmentEntity) {
@@ -118,5 +125,27 @@ public class DepartmentService {
             throw new TxException(ex.getMessage());
         }
         return true;
+    }
+
+    public List<Department1Dto> getPaging(long keyOffset, int limit, String keySearch) {
+
+        // Giới hạn limit tối đa là 100 record.
+        if (limit > 100 || limit <= 0) limit = 100;
+        if (keySearch != null && !keySearch.isEmpty()) {
+            keyOffset = 0; // Chế độ tìm kiếm, tìm tất cả.
+        }
+
+        List<Department1Dto> departments = departmentDao.getPaging(keyOffset, limit, keySearch);
+        if (departments.isEmpty()) return departments;
+
+        List<Integer> deptIds = departments.stream().map(Department1Dto::getId).toList();
+        List<Account1Dto> accounts = accountDao.getByIds(deptIds);
+
+        Map<Integer, List<Account1Dto>> accMap = accounts.stream().collect(Collectors.groupingBy(Account1Dto::getDepartmentId));
+
+        for (Department1Dto dept : departments) {
+            dept.setAccounts(accMap.getOrDefault(dept.getId(), new ArrayList<>()));
+        }
+        return departments;
     }
 }

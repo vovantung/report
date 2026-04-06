@@ -69,7 +69,7 @@ public class AccountEntity implements Serializable {
 
     @Getter
     @Column(name = "UPDATED_AT")
-    private Date updateAt;
+    private Date updatedAt;
 //    public String getUpdateAt() {
 ////        return updateAt.toInstant().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("[dd/MM/yyyy] HH:mm:ss"));
 //        return updateAt.toInstant().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("[dd/MM/yyyy]"));
