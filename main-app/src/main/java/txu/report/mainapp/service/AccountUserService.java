@@ -18,6 +18,7 @@ import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 import txu.report.mainapp.dao.AccountDao;
 import txu.report.mainapp.dao.DepartmentDao;
+import txu.report.mainapp.dto.Account2Dto;
 import txu.report.mainapp.dto.LinkDto;
 import txu.report.mainapp.entity.AccountEntity;
 import txu.common.exception.BadParameterException;
@@ -173,7 +174,9 @@ public class AccountUserService {
     public AccountEntity updateAvatar(String filename, String username, String password, String firstName, String lastName,
                                       String email, String phoneNumber) {
 
-        AccountEntity account = getByUsername(username);
+        AccountEntity account = accountDao.getById(accountDao.getByUsername(username).getId());
+
+
         AccountEntity accountToUpdate = new AccountEntity();
 
         if (!StringUtil.isNullOrEmpty(filename)) {
@@ -217,8 +220,8 @@ public class AccountUserService {
     }
 
     //    @Transactional
-    public AccountEntity getByUsername(String username) {
-        AccountEntity user = accountDao.getByUsername(username);
+    public Account2Dto getByUsername(String username) {
+        Account2Dto user = accountDao.getByUsername(username);
         if (user == null) {
             throw new NotFoundException("User is not found");
         }

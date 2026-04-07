@@ -15,6 +15,7 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
+import txu.report.mainapp.dao.AccountDao;
 import txu.report.mainapp.dao.DepartmentDao;
 import txu.report.mainapp.dao.WeeklyReportDao;
 import txu.report.mainapp.dto.Department1Dto;
@@ -39,6 +40,7 @@ public class WeeklyReportService {
     private final WeeklyReportDao weeklyReportDao;
     private final DepartmentDao departmentDao;
     private final AccountService accountService;
+    private final AccountDao accountDao;
 
     private final S3Client s3Client;
 
@@ -114,7 +116,7 @@ public class WeeklyReportService {
 //        }
 
 
-        AccountEntity account = accountService.getByUsername(username);
+        AccountEntity account = accountDao.getById(accountDao.getByUsername(username).getId());
 
         // Nếu tồn tại những thông tin report trong tuần mà liên qua đến người dùng (thuộc phòng ban) đã upload report hiện tại thì
         // xóa hết report đã upload trên lên storage1 (ngoại trừ file báo cáo hiện tại), và xóa tất cả dữ liệu lưu ở cơ sở dữ liệu (trong tuần hiện tại)

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import txu.report.mainapp.dao.AccountDao;
 import txu.report.mainapp.dao.DepartmentDao;
+import txu.report.mainapp.dto.Account2Dto;
 import txu.report.mainapp.dto.AccountDto;
 import txu.report.mainapp.dto.DepartmentDto;
 import txu.report.mainapp.entity.AccountEntity;
@@ -134,8 +135,8 @@ public class AccountService {
     }
 
     //    @Transactional
-    public AccountEntity getByUsername(String username) {
-        AccountEntity user = accountDao.getByUsername(username);
+    public Account2Dto getByUsername(String username) {
+        Account2Dto user = accountDao.getByUsername(username);
         if (user == null) {
             throw new NotFoundException("User is not found");
         }
@@ -172,11 +173,11 @@ public class AccountService {
     }
 
     public boolean removeByUsername(String username) {
-        AccountEntity account = accountDao.getByUsername(username);
+        Account2Dto account = accountDao.getByUsername(username);
         if (account == null) {
             throw new NotFoundException("User is not found");
         }
-        accountDao.delete(account);
+        accountDao.delete(accountDao.getById(account.getId()));
         return true;
     }
 

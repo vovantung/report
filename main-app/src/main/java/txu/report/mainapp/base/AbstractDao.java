@@ -50,6 +50,15 @@ public abstract class AbstractDao<T> {
         return null;
     }
 
+    protected Object[] getSingleObject(Query query) {
+        query.setMaxResults(1);
+        List<Object[]> list = query.getResultList();
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+        return null;
+    }
+
     protected T findById(Object Id) {
         return getEntityManager().find(entityClass, Id);
     }

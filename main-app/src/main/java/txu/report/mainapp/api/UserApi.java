@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import txu.report.mainapp.base.AbstractApi;
+import txu.report.mainapp.dto.Account2Dto;
 import txu.report.mainapp.entity.AccountEntity;
 import txu.report.mainapp.service.AccountService;
 import txu.report.mainapp.util.JwtUtils;
@@ -24,7 +25,7 @@ public class UserApi extends AbstractApi {
         String authHeader = request.getHeader("Authorization");
         String token = authHeader.replace("Bearer ", "");
         Map<String, Object> claims = JwtUtils.decode(token);
-        AccountEntity account = accountService.getByUsername(claims.get("preferred_username").toString());
+        Account2Dto account = accountService.getByUsername(claims.get("preferred_username").toString());
         return Map.of(
                 "username", claims.get("preferred_username"),
                 "email", claims.get("email"),

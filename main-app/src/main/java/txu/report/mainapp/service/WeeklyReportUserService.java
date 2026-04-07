@@ -13,6 +13,7 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
+import txu.report.mainapp.dao.AccountDao;
 import txu.report.mainapp.dao.DepartmentDao;
 import txu.report.mainapp.dao.WeeklyReportUserDao;
 import txu.report.mainapp.dto.LinkDto;
@@ -46,6 +47,7 @@ public class WeeklyReportUserService {
     private final DepartmentDao departmentDao;
     private final AccountService accountService;
     private final S3Client s3Client;
+    private final AccountDao accountDao;
 
     @Value("${ceph.rgw.bucket}")
     private String bucketName;
@@ -118,7 +120,7 @@ public class WeeklyReportUserService {
 //            userDetails = null;
 //        }
 
-        AccountEntity account = accountService.getByUsername(username);
+        AccountEntity account = accountDao.getById(accountDao.getByUsername(username).getId());
 
         // Nếu tồn tại những thông tin report trong tuần mà liên qua đến người dùng (thuộc phòng ban) đã upload report hiện tại thì
         // xóa hết report đã upload trên lên storage1 (ngoại trừ file báo cáo hiện tại), và xóa tất cả dữ liệu lưu ở cơ sở dữ liệu (trong tuần hiện tại)
@@ -263,7 +265,7 @@ public class WeeklyReportUserService {
 //            userDetails = null;
 //        }
 
-        AccountEntity account = accountService.getByUsername(username);
+        AccountEntity account = accountDao.getById(accountDao.getByUsername(username).getId());
 
         // Save metadata
         DepartmentEntity department = null;
@@ -337,7 +339,7 @@ public class WeeklyReportUserService {
 //            userDetails = null;
 //        }
 
-        AccountEntity account = accountService.getByUsername(username);
+        AccountEntity account = accountDao.getById(accountDao.getByUsername(username).getId());
 
         // Save metadata
         DepartmentEntity department;

@@ -1,0 +1,2 @@
+2026-04-07 17:11:07.917 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
