@@ -42,8 +42,9 @@ public abstract class AbstractDao<T> {
     }
 
     protected T getSingle(Query query) {
+        query.setMaxResults(1);
         List<T> list = getRessultList(query);
-        if (list.size() != 0) {
+        if (!list.isEmpty()) {
             return list.get(0);
         }
         return null;

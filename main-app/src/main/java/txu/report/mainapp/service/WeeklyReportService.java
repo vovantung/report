@@ -17,6 +17,7 @@ import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignReques
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 import txu.report.mainapp.dao.DepartmentDao;
 import txu.report.mainapp.dao.WeeklyReportDao;
+import txu.report.mainapp.dto.Department1Dto;
 import txu.report.mainapp.dto.DepartmentDto;
 
 import txu.report.mainapp.dto.LinkDto;
@@ -138,7 +139,7 @@ public class WeeklyReportService {
                     }
                 }
                 // Xóa dữ liệu
-                weeklyReportDao.remove(weeklyReportEntity);
+                weeklyReportDao.delete(weeklyReportEntity);
             }
         });
 
@@ -148,7 +149,7 @@ public class WeeklyReportService {
         // Save metadata
         DepartmentEntity department = null;
         if (account != null) {
-            department = departmentDao.findById(account.getDepartment().getId());
+            department = departmentDao.getById(account.getDepartment().getId());
         }
 
         WeeklyReportEntity weeklyReport = new WeeklyReportEntity();
@@ -178,8 +179,8 @@ public class WeeklyReportService {
             departmentsReport.add(weeklyReportEntity.getDepartment().getId());
         });
 
-        List<DepartmentEntity> departmentEntities = departmentDao.getWithLimit(1000);
-        departmentEntities.forEach(department -> {
+        List<Department1Dto> department1Dtos = departmentDao.getPaging(1,100,"");
+        department1Dtos.forEach(department -> {
             if (!departmentsReport.contains(department.getId())) {
                 DepartmentDto dpm = new DepartmentDto();
                 dpm.setId(department.getId());
@@ -192,15 +193,15 @@ public class WeeklyReportService {
 
     public WeeklyReportEntity getById(int id) {
 
-        return weeklyReportDao.findById(id);
+        return weeklyReportDao.getById(id);
     }
 
     public boolean removeById(int id) {
-        WeeklyReportEntity weeklyReport = weeklyReportDao.findById(id);
+        WeeklyReportEntity weeklyReport = weeklyReportDao.getById(id);
         if (weeklyReport == null) {
             throw new NotFoundException("Department is not found");
         }
-        weeklyReportDao.remove(weeklyReport);
+        weeklyReportDao.delete(weeklyReport);
         return true;
     }
 

@@ -37,13 +37,7 @@ public class WeeklyReportUserDao extends AbstractDao<WeeklyReportEntity> {
     }
 
 
-    public List<WeeklyReportEntity> getWithLimit(int limit) {
-        StringBuilder queryString = new StringBuilder("SELECT W FROM WeeklyReportEntity AS W ORDER BY W.uploadedAt DESC");
-        Query query = getEntityManager().createQuery(queryString.toString());
-        query.setMaxResults(limit);
-        return getRessultList(query);
 
-    }
 
     public List<WeeklyReportEntity> getByDepartmentIdFromTo(Date from, Date to,  Integer departmentId) {
         Query query = getEntityManager().createQuery("SELECT W FROM WeeklyReportEntity AS W WHERE W.uploadedAt >=:from AND W.uploadedAt <=: to AND W.department.id =:departmentId  ORDER BY W.uploadedAt DESC");

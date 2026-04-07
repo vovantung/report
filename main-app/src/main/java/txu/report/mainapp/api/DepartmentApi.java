@@ -26,12 +26,6 @@ public class DepartmentApi extends AbstractApi {
         return departmentService.createOrUpdate(department);
     }
 
-    @PostMapping(value = "get-limit")
-    public List<DepartmentEntity> getLimit(@RequestBody LimitRequest request){
-        return departmentService.getWithLimit(request.getLimit());
-    }
-
-
     @PostMapping(value = "get-by-id")
 //    @Cacheable(value = "department", key = "#request.id")
     public DepartmentEntity getById(@RequestBody IdRequest request){

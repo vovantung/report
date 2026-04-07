@@ -1,6 +1,5 @@
 package txu.report.mainapp.dao;
 
-
 import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,15 +22,13 @@ public class WeeklyReportDao extends AbstractDao<WeeklyReportEntity> {
         }
     }
 
-    @Override
-    public WeeklyReportEntity findById(Object Id) {
-        return super.findById(Id);
+    public WeeklyReportEntity getById(Object Id) {
+        return findById(Id);
     }
 
     @Transactional
-    public void remove(WeeklyReportEntity weeklyReportEntity) {
-        weeklyReportEntity = merge(weeklyReportEntity);
-        getEntityManager().remove(weeklyReportEntity);
+    public void delete(WeeklyReportEntity weeklyReportEntity) {
+        remove(weeklyReportEntity);
     }
 
 

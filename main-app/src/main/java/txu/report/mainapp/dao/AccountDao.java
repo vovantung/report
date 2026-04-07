@@ -13,7 +13,7 @@ import java.util.List;
 public class AccountDao extends AbstractDao<AccountEntity> {
     @Transactional
     public AccountEntity save(AccountEntity accountEntity) {
-        if (accountEntity.getId() == null || accountEntity.getId() == 0) {
+        if (accountEntity.getId() == null || accountEntity.getId() <= 0) {
             persist(accountEntity);
             return accountEntity;
         } else {
@@ -21,18 +21,13 @@ public class AccountDao extends AbstractDao<AccountEntity> {
         }
     }
 
-    //    @Override
-    public AccountEntity findById(Object Id) {
+    public AccountEntity getById(Object Id) {
         return findById(Id);
-//        return super.findById(Id);
     }
 
-
     @Transactional
-    public void remove(AccountEntity accountEntity) {
+    public void delete(AccountEntity accountEntity) {
         remove(accountEntity);
-//        accountEntity = merge(accountEntity);
-//        getEntityManager().remove(accountEntity);
     }
 
     public AccountEntity getByUsername(String username) {
@@ -43,18 +38,9 @@ public class AccountDao extends AbstractDao<AccountEntity> {
     }
 
     public AccountEntity getByEmail(String email) {
-        StringBuilder queryString = new StringBuilder("SELECT A FROM AccountEntity AS A WHERE email=:email");
-        Query query = getEntityManager().createQuery(queryString.toString());
+        Query query = getEntityManager().createQuery("SELECT A FROM AccountEntity AS A WHERE email=:email");
         query.setParameter("email", email);
         return getSingle(query);
-    }
-
-    public List<AccountEntity> getWithLimit(int limit) {
-        StringBuilder queryString = new StringBuilder("SELECT A FROM AccountEntity AS A ORDER BY A.createdAt DESC");
-        Query query = getEntityManager().createQuery(queryString.toString());
-        query.setMaxResults(limit);
-        return getRessultList(query);
-
     }
 
     public List<Object[]> getPaging(long keyOffset, int limit, String keySearch) {
@@ -64,7 +50,7 @@ public class AccountDao extends AbstractDao<AccountEntity> {
                 " WHERE A.id >= : keyOffset");
 
         if (keySearch != null && !keySearch.isEmpty()) {
-            queryString.append(" AND A.firstName LIKE :keySearch");
+            queryString.append(" AND (A.firstName LIKE :keySearch OR A.lastName LIKE :keySearch)");
         }
         queryString.append(" ORDER BY A.id DESC");
 
@@ -78,10 +64,10 @@ public class AccountDao extends AbstractDao<AccountEntity> {
     }
 
     public List<Account1Dto> getByIds(List<Integer> deptIds) {
-        StringBuilder queryString = new StringBuilder("SELECT new txu.report.mainapp.dto.Account1Dto(A.id, A.firstName, A.lastName, A.department.id)" +
-                "    FROM AccountEntity A" +
-                "    WHERE A.department.id IN :deptIds ORDER BY A.createdAt DESC");
-        Query query = getEntityManager().createQuery(queryString.toString());
+        String queryString = "SELECT new txu.report.mainapp.dto.Account1Dto(A.id, A.firstName, A.lastName, A.department.id)" +
+                " FROM AccountEntity A" +
+                " WHERE A.department.id IN :deptIds";
+        Query query = getEntityManager().createQuery(queryString);
         query.setParameter("deptIds", deptIds);
         return query.getResultList();
     }

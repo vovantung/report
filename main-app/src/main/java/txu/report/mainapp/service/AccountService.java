@@ -1,6 +1,5 @@
 package txu.report.mainapp.service;
 
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
@@ -61,13 +60,9 @@ public class AccountService {
                 throw new ConflictException("Account with [" + accountEntity.getEmail() + "]  already exists");
             }
 
-            if (departmentDao.findById(accountEntity.getDepartment().getId()) == null) {
+            if (departmentDao.getById(accountEntity.getDepartment().getId()) == null) {
                 throw new NotFoundException("Department not found");
             }
-
-//            if (roleDao.findById(accountEntity.getRole().getId()) == null) {
-//                throw new NotFoundException("Role not found");
-//            }
 
             if (accountEntity.getPassword() != null && !accountEntity.getPassword().isEmpty()) {
                 accountEntity.setPassword(bCryptPasswordEncoder.encode(accountEntity.getPassword()));
@@ -86,7 +81,7 @@ public class AccountService {
         }
 
         // Update
-        AccountEntity account = accountDao.findById(accountEntity.getId());
+        AccountEntity account = accountDao.getById(accountEntity.getId());
 
         if (account != null) {
 
@@ -96,18 +91,10 @@ public class AccountService {
             if (accountEntity.getDepartment() != null
                     && accountEntity.getDepartment().getId() != null
                     && accountEntity.getDepartment().getId() != 0
-                    && departmentDao.findById(accountEntity.getDepartment().getId()) != null) {
+                    && departmentDao.getById(accountEntity.getDepartment().getId()) != null) {
                 // Nếu có đặt lại đơn vị thì cập nhật, không thì bỏ qua (giữ đơn vị cũ)
                 account.setDepartment(accountEntity.getDepartment());
             }
-
-//            if (accountEntity.getRole() != null
-//                    && accountEntity.getRole().getId() != null
-//                    && accountEntity.getRole().getId() != 0
-//                    && departmentDao.findById(accountEntity.getRole().getId()) != null) {
-//                // Nếu có đặt lại role thì cập nhật, không thì bỏ qua (giữ lại role cũ)
-//                account.setRole(accountEntity.getRole());
-//            }
 
             if (accountEntity.getPassword() != null && !accountEntity.getPassword().isEmpty()) {
                 account.setPassword(bCryptPasswordEncoder.encode(accountEntity.getPassword()));
@@ -144,87 +131,7 @@ public class AccountService {
         } else {
             throw new NotFoundException("Account not found");
         }
-
     }
-
-
-//    @Transactional
-//    public AccountEntity updateAvatar(
-//            MultipartFile file,
-//            String username,
-//            String password,
-//            String firstName,
-//            String lastName,
-//            String email,
-//            String phoneNumber
-//    ) throws  IOException, NoSuchAlgorithmException, InvalidKeyException {
-//
-//        AccountEntity account = getByUsername(username);
-//        AccountEntity accountToUpdate = new AccountEntity();
-//
-//        if (file != null && !file.isEmpty()) {
-//            // Xóa avatar hiện tại của account
-//            try {
-//                minioClient.removeObject(
-//                        RemoveObjectArgs.builder()
-//                                .bucket(bucketName)
-//                                .object(account.getAvatarFilename())
-//                                .build()
-//                );
-//                System.out.println("Deleted successfully: " + account.getAvatarFilename());
-//            } catch (Exception e) {
-//                System.err.println("Error deleting file: " + e.getMessage());
-//            }
-//
-//            String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
-//            String fileUrl = String.format(url + "/%s/%s", bucketName, filename);
-//            accountToUpdate.setAvatarUrl(fileUrl);
-//            accountToUpdate.setAvatarFilename(filename);
-//
-//            // Ensure bucket exists
-//            boolean found;
-//            try {
-//                found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
-//            } catch (Exception e) {
-//                throw new RuntimeException(e);
-//            }
-//            if (!found) {
-//                minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
-//            }
-//
-//            // Tạo file avatar mới
-//            minioClient.putObject(
-//                    PutObjectArgs.builder()
-//                            .bucket(bucketName)
-//                            .object(filename)
-//                            .stream(file.getInputStream(), file.getSize(), -1)
-//                            .contentType(file.getContentType())
-//                            .build()
-//            );
-//        }
-//
-//        // Chỉ cập nhật password, firstName, lastName, email, phoneNumber; avatarUrl, avataFilename nếu tồn tại file avatar
-//
-//        if (password != null && !password.isEmpty()) {
-//            accountToUpdate.setPassword(password);
-//        }
-//        accountToUpdate.setId(account.getId());
-//        if (lastName != null && !lastName.isEmpty()) {
-//            accountToUpdate.setLastName(lastName);
-//        }
-//        if (firstName != null && !firstName.isEmpty()) {
-//            accountToUpdate.setFirstName(firstName);
-//        }
-//        if (email != null && !email.isEmpty()) {
-//            accountToUpdate.setEmail(email);
-//        }
-//        if (phoneNumber != null && !phoneNumber.isEmpty()) {
-//            accountToUpdate.setPhoneNumber(phoneNumber);
-//        }
-//
-//        return createOrUpdate(accountToUpdate);
-//
-//    }
 
     //    @Transactional
     public AccountEntity getByUsername(String username) {
@@ -233,10 +140,6 @@ public class AccountService {
             throw new NotFoundException("User is not found");
         }
         return user;
-    }
-
-    public List<AccountEntity> getWithLimit(int limit) {
-        return accountDao.getWithLimit(limit);
     }
 
     public List<AccountDto> getPaging(long keyOffset, int limit, String keySearch) {
@@ -273,7 +176,7 @@ public class AccountService {
         if (account == null) {
             throw new NotFoundException("User is not found");
         }
-        accountDao.remove(account);
+        accountDao.delete(account);
         return true;
     }
 

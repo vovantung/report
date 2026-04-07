@@ -1,5 +1,6 @@
 package txu.report.mainapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,13 +50,9 @@ public class AccountEntity implements Serializable {
     @Getter
     private String email;
 
-//    @ManyToOne
-//    @JoinColumn(name = "ROLE_ID")
-//    private RoleEntity role;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DEPARTMENT_ID")
-//    @JsonIgnore
+    @JsonIgnore
     private DepartmentEntity department;
 
 

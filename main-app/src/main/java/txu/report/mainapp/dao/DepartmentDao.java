@@ -5,9 +5,7 @@ import jakarta.persistence.Query;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import txu.report.mainapp.base.AbstractDao;
-
 import txu.report.mainapp.dto.Department1Dto;
 import txu.report.mainapp.entity.DepartmentEntity;
 
@@ -27,30 +25,13 @@ public class DepartmentDao extends AbstractDao<DepartmentEntity> {
         }
     }
 
-    @Override
-    public DepartmentEntity findById(Object Id) {
-        return super.findById(Id);
+    public DepartmentEntity getById(Object Id) {
+        return findById(Id);
     }
 
     @Transactional
-    public void remove(DepartmentEntity departmentEntity) {
-        departmentEntity = merge(departmentEntity);
-        getEntityManager().remove(departmentEntity);
-    }
-
-//    public DepartmentEntity getByUsername(String username) {
-//        StringBuilder queryString = new StringBuilder("SELECT A FROM AccountEntity AS A WHERE username=:username");
-//        Query query = getEntityManager().createQuery(queryString.toString());
-//        query.setParameter("username", username);
-//        return getSingle(query);
-//    }
-
-    public List<DepartmentEntity> getWithLimit(int limit) {
-        StringBuilder queryString = new StringBuilder("SELECT D FROM DepartmentEntity AS D ORDER BY D.createdAt DESC");
-        Query query = getEntityManager().createQuery(queryString.toString());
-        query.setMaxResults(limit);
-        return getRessultList(query);
-
+    public void delete(DepartmentEntity departmentEntity) {
+        remove(departmentEntity);
     }
 
     public List<Department1Dto> getPaging(long keyOffset, int limit, String keySearch) {
@@ -71,5 +52,4 @@ public class DepartmentDao extends AbstractDao<DepartmentEntity> {
         query.setMaxResults(limit);
         return query.getResultList();
     }
-
 }

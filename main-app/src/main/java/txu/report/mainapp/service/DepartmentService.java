@@ -54,7 +54,7 @@ public class DepartmentService {
         }
 
         // Update
-        DepartmentEntity department = departmentDao.findById(departmentEntity.getId());
+        DepartmentEntity department = departmentDao.getById(departmentEntity.getId());
 
         if (department != null) {
 
@@ -78,10 +78,6 @@ public class DepartmentService {
         } else {
             throw new NotFoundException("Department not found");
         }
-    }
-
-    public List<DepartmentEntity> getWithLimit(int limit) {
-        return departmentDao.getWithLimit(limit);
     }
 
 //    private final ApplicationEventPublisher publisher;
@@ -108,18 +104,18 @@ public class DepartmentService {
 //    }
 
         public DepartmentEntity getById(int id) {
-        return departmentDao.findById(id);
+        return departmentDao.getById(id);
     }
 
 
     public boolean removeById(int id) {
-        DepartmentEntity department = departmentDao.findById(id);
+        DepartmentEntity department = departmentDao.getById(id);
         if (department == null) {
             throw new NotFoundException("Department is not found");
         }
 
         try {
-            departmentDao.remove(department);
+            departmentDao.delete(department);
         } catch (DataIntegrityViolationException ex) {
             log.warn(ex.getMessage());
             throw new TxException(ex.getMessage());

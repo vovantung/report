@@ -27,10 +27,10 @@ public class AccountApi extends AbstractApi {
         return accountService.createOrUpdate(accountEntity);
     }
 
-    @PostMapping(value = "get-limit")
-    public List<AccountEntity> getLimit(@RequestBody LimitRequest request) {
-        return accountService.getWithLimit(request.getLimit());
-    }
+//    @PostMapping(value = "get-limit")
+//    public List<AccountEntity> getLimit(@RequestBody LimitRequest request) {
+//        return accountService.getWithLimit(request.getLimit());
+//    }
 
     @DeleteMapping(value = "remove")
     public boolean removeByUsername(@RequestBody UsernameRequest request) {

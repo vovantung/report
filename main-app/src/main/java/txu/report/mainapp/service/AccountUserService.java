@@ -16,7 +16,7 @@ import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
-import txu.report.mainapp.dao.AccountUserDao;
+import txu.report.mainapp.dao.AccountDao;
 import txu.report.mainapp.dao.DepartmentDao;
 import txu.report.mainapp.dto.LinkDto;
 import txu.report.mainapp.entity.AccountEntity;
@@ -24,11 +24,6 @@ import txu.common.exception.BadParameterException;
 import txu.common.exception.ConflictException;
 import txu.common.exception.NotFoundException;
 import txu.common.exception.TxException;
-//import txu.user.mainapp.dao.AccountDao;
-//import txu.user.mainapp.dao.DepartmentDao;
-//import txu.user.mainapp.dao.RoleDao;
-//import txu.user.mainapp.dto.LinkDto;
-//import txu.user.mainapp.entity.AccountEntity;
 
 import java.time.Duration;
 import java.util.UUID;
@@ -38,7 +33,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AccountUserService {
 
-    private final AccountUserDao accountUserDao;
+//    private final AccountUserDao accountUserDao;
+    private final AccountDao accountDao;
     private final DepartmentDao departmentDao;
 //    private final RoleDao roleDao;
 
@@ -92,21 +88,17 @@ public class AccountUserService {
                 throw new BadParameterException("Email is required");
             }
 
-            if (accountUserDao.getByUsername(accountEntity.getUsername()) != null) {
+            if (accountDao.getByUsername(accountEntity.getUsername()) != null) {
                 throw new ConflictException("Account with [" + accountEntity.getUsername() + "]  already exists");
             }
 
-            if (accountUserDao.getByEmail(accountEntity.getEmail()) != null) {
+            if (accountDao.getByEmail(accountEntity.getEmail()) != null) {
                 throw new ConflictException("Account with [" + accountEntity.getEmail() + "]  already exists");
             }
 
-            if (departmentDao.findById(accountEntity.getDepartment().getId()) != null) {
+            if (departmentDao.getById(accountEntity.getDepartment().getId()) != null) {
                 throw new NotFoundException("Department not found");
             }
-
-//            if (roleDao.findById(accountEntity.getRole().getId()) == null) {
-//                throw new NotFoundException("Role not found");
-//            }
 
             if (accountEntity.getPassword() != null && !accountEntity.getPassword().isEmpty()) {
                 accountEntity.setPassword(bCryptPasswordEncoder.encode(accountEntity.getPassword()));
@@ -116,7 +108,7 @@ public class AccountUserService {
             AccountEntity account = null;
 
             try {
-                account = accountUserDao.save(accountEntity);
+                account = accountDao.save(accountEntity);
             } catch (DataIntegrityViolationException ex) {
                 log.warn(ex.getMessage());
                 throw new TxException("Cannot save account");
@@ -125,29 +117,20 @@ public class AccountUserService {
         }
 
         // Update
-        AccountEntity account = accountUserDao.findById(accountEntity.getId());
+        AccountEntity account = accountDao.getById(accountEntity.getId());
 
         if (account != null) {
 
-            if (accountUserDao.getByEmail(accountEntity.getEmail()) != null && !account.getEmail().equals(accountEntity.getEmail())) {
+            if (accountDao.getByEmail(accountEntity.getEmail()) != null && !account.getEmail().equals(accountEntity.getEmail())) {
                 throw new ConflictException("Account with [" + accountEntity.getEmail() + "]  already exists");
             }
             if (accountEntity.getDepartment() != null
                     && accountEntity.getDepartment().getId() != null
                     && accountEntity.getDepartment().getId() != 0
-                    && departmentDao.findById(accountEntity.getDepartment().getId()) != null) {
+                    && departmentDao.getById(accountEntity.getDepartment().getId()) != null) {
                 // Nếu có đặt lại đơn vị thì cập nhật, không thì bỏ qua (giữ đơn vị cũ)
                 account.setDepartment(accountEntity.getDepartment());
             }
-
-
-//            if (accountEntity.getRole() != null
-//                    && accountEntity.getRole().getId() != null
-//                    && accountEntity.getRole().getId() != 0
-//                    && departmentDao.findById(accountEntity.getRole().getId()) != null) {
-//                // Nếu có đặt lại role thì cập nhật, không thì bỏ qua (giữ lại role cũ)
-//                account.setRole(accountEntity.getRole());
-//            }
 
             if (accountEntity.getPassword() != null && !accountEntity.getPassword().isEmpty()) {
                 account.setPassword(bCryptPasswordEncoder.encode(accountEntity.getPassword()));
@@ -176,7 +159,7 @@ public class AccountUserService {
             account.setUpdatedAt(DateTime.now().toDate());
 
             try {
-                return accountUserDao.save(account);
+                return accountDao.save(account);
             } catch (DataIntegrityViolationException ex) {
                 log.warn(ex.getMessage());
                 throw new TxException("Cannot save account");
@@ -235,7 +218,7 @@ public class AccountUserService {
 
     //    @Transactional
     public AccountEntity getByUsername(String username) {
-        AccountEntity user = accountUserDao.getByUsername(username);
+        AccountEntity user = accountDao.getByUsername(username);
         if (user == null) {
             throw new NotFoundException("User is not found");
         }

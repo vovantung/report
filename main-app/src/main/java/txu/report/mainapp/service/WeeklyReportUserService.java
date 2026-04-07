@@ -152,7 +152,7 @@ public class WeeklyReportUserService {
         // Save metadata
         DepartmentEntity department = null;
         if (account != null) {
-            department = departmentDao.findById(account.getDepartment().getId());
+            department = departmentDao.getById(account.getDepartment().getId());
         }
 
         WeeklyReportEntity weeklyReport = new WeeklyReportEntity();
@@ -268,7 +268,7 @@ public class WeeklyReportUserService {
         // Save metadata
         DepartmentEntity department = null;
         if (account != null) {
-            department = departmentDao.findById(account.getDepartment().getId());
+            department = departmentDao.getById(account.getDepartment().getId());
         }
         assert department != null;
         List<WeeklyReportEntity> list = weeklyReportDao.getByDepartmentIdFromTo(
@@ -342,7 +342,7 @@ public class WeeklyReportUserService {
         // Save metadata
         DepartmentEntity department;
         if (account != null) {
-            department = departmentDao.findById(account.getDepartment().getId());
+            department = departmentDao.getById(account.getDepartment().getId());
         } else {
             department = null;
         }
