@@ -31,8 +31,7 @@ public class AccountDao extends AbstractDao<AccountEntity> {
     }
 
     public AccountEntity getByUsername(String username) {
-        StringBuilder queryString = new StringBuilder("SELECT A FROM AccountEntity AS A WHERE username=:username");
-        Query query = getEntityManager().createQuery(queryString.toString());
+        Query query = getEntityManager().createQuery("SELECT A FROM AccountEntity AS A WHERE username=:username");
         query.setParameter("username", username);
         return getSingle(query);
     }

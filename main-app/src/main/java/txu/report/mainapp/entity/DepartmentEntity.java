@@ -1,5 +1,6 @@
 package txu.report.mainapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import java.io.Serializable;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Setter
@@ -27,6 +29,11 @@ public class DepartmentEntity implements Serializable {
     @Column(name = "DESCRIPTION")
     @Getter
     private String description;
+
+    @Getter
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<AccountEntity> accounts;
 
     @Getter
     @Column(name = "CREATED_AT")
