@@ -37,7 +37,7 @@ public class DepartmentApi extends AbstractApi {
         return departmentService.removeById(request.getId());
     }
 
-    @GetMapping(value = "/get-paging")
+    @PostMapping(value = "/get-paging")
     public List<Department1Dto> getPaging(@RequestBody DepartmentRequest departmentRequest) {
         return departmentService.getPaging(departmentRequest.getKeyOffset(), departmentRequest.getLimit(), departmentRequest.getKeySearch());
     }
