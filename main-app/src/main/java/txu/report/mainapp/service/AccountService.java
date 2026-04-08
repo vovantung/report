@@ -206,7 +206,7 @@ public class AccountService {
             departmentDto.setId(departmentId);
             departmentDto.setName(departmentName);
             // tạo department nếu chưa có
-            AccountDto department = map.computeIfAbsent(accountId, id -> new AccountDto(id, username, firstName, lastName,createdAt,updatedAt, departmentDto));
+            AccountDto accountDto = map.computeIfAbsent(accountId, id -> new AccountDto(id, username, firstName, lastName,createdAt,updatedAt, departmentDto));
         }
         List<AccountDto> rs = new ArrayList<>(map.values());
         return rs;

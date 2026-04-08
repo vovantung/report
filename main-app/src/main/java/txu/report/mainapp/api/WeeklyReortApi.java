@@ -19,7 +19,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class WeeklyReortApi extends AbstractApi {
 
-
     private final WeeklyReportService weeklyReportService;
 
     @PostMapping("/get-presignedurl-for-get")
@@ -60,12 +59,8 @@ public class WeeklyReortApi extends AbstractApi {
         }
     }
 
-    @PostMapping(value = "get-limit")
-    public List<WeeklyReportEntity> getLimit(@RequestBody LimitRequest request){
-        return weeklyReportService.getWithLimit(request.getLimit());
-    }
     @PostMapping(value = "get-fromto")
-    public List<WeeklyReportEntity> getFromDateToDate(@RequestBody FromDateToDateRequest request){
+    public List<WeeklyReportDto> getFromDateToDate(@RequestBody FromDateToDateRequest request){
         return weeklyReportService. getFromDateToDate(request.getFrom(), request.getTo());
     }
 
@@ -74,13 +69,12 @@ public class WeeklyReortApi extends AbstractApi {
         return weeklyReportService. getNoReportedFromDateToDate(request.getFrom(), request.getTo());
     }
 
-    @PostMapping(value = "get-by-id")
-    public WeeklyReportEntity getById(@RequestBody IdRequest request){
-        return  weeklyReportService.getById(request.getId());
-    }
-
     @DeleteMapping(value = "remove")
     public boolean removeById(@RequestBody IdRequest request){
         return weeklyReportService.removeById(request.getId());
     }
+    //    @PostMapping(value = "get-by-id")
+//    public WeeklyReportEntity getById(@RequestBody IdRequest request){
+//        return  weeklyReportService.getById(request.getId());
+//    }
 }

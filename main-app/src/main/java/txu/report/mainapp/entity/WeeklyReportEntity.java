@@ -1,5 +1,6 @@
 package txu.report.mainapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,9 +30,9 @@ public class WeeklyReportEntity implements Serializable {
     @Column(name = "UPLOADED_AT")
     private Date uploadedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DEPARTMENT_ID")
-//    @JsonIgnore
+    @JsonIgnore
     private DepartmentEntity department;
 }
 

@@ -1,2 +1,0 @@
-2026-04-08 09:52:39.877 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
-Index 1 out of bounds for length 1

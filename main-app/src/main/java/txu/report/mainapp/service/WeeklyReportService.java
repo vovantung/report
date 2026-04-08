@@ -18,11 +18,8 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 import txu.report.mainapp.dao.AccountDao;
 import txu.report.mainapp.dao.DepartmentDao;
 import txu.report.mainapp.dao.WeeklyReportDao;
-import txu.report.mainapp.dto.Department1Dto;
-import txu.report.mainapp.dto.DepartmentDto;
+import txu.report.mainapp.dto.*;
 
-import txu.report.mainapp.dto.LinkDto;
-import txu.report.mainapp.dto.UploadfileInfoRequest;
 import txu.report.mainapp.entity.AccountEntity;
 import txu.report.mainapp.entity.DepartmentEntity;
 import txu.report.mainapp.entity.WeeklyReportEntity;
@@ -116,11 +113,11 @@ public class WeeklyReportService {
 //        }
 
 
-        AccountEntity account = accountDao.getById(accountDao.getByUsername(username).getId());
+        Account2Dto account = accountDao.getByUsername(username);
 
         // Nếu tồn tại những thông tin report trong tuần mà liên qua đến người dùng (thuộc phòng ban) đã upload report hiện tại thì
         // xóa hết report đã upload trên lên storage1 (ngoại trừ file báo cáo hiện tại), và xóa tất cả dữ liệu lưu ở cơ sở dữ liệu (trong tuần hiện tại)
-        List<WeeklyReportEntity> weeklyReportEntities = weeklyReportDao.getFromDateToDate(toDate(getStartOfWeek()), toDate(getEndOfWeek()));
+        List<WeeklyReportDto> weeklyReportEntities = getFromDateToDate(toDate(getStartOfWeek()), toDate(getEndOfWeek()));
         weeklyReportEntities.forEach(weeklyReportEntity -> {
 //            if (weeklyReportEntity.getDepartment().getId() == userDetails.getDepartment_id()) {
             if (Objects.equals(weeklyReportEntity.getDepartment().getId(), account.getDepartment().getId())) {
@@ -141,7 +138,7 @@ public class WeeklyReportService {
                     }
                 }
                 // Xóa dữ liệu
-                weeklyReportDao.delete(weeklyReportEntity);
+                weeklyReportDao.delete(weeklyReportDao.getById(weeklyReportEntity.getId()));
             }
         });
 
@@ -163,20 +160,34 @@ public class WeeklyReportService {
         return weeklyReportDao.save(weeklyReport);
     }
 
+    public List<WeeklyReportDto> getFromDateToDate(Date from, Date to) {
 
-    public List<WeeklyReportEntity> getWithLimit(int limit) {
-        return weeklyReportDao.getWithLimit(limit);
-    }
+        List<Object[]> rows = weeklyReportDao.getFromDateToDate(from, to);
+        Map<Long, WeeklyReportDto> map = new LinkedHashMap<>();
 
-    public List<WeeklyReportEntity> getFromDateToDate(Date from, Date to) {
-        return weeklyReportDao.getFromDateToDate(from, to);
+        for (Object[] row : rows) {
+            Long weeklyReportId = ((Number) row[0]).longValue();
+            String filename = (String) row[1];
+            String originName = (String) row[2];
+            String url = (String) row[3];
+            Date uploadedAt = (Date) row[4];
+            Integer departmentId = ((Number)row[5]).intValue();
+            String departmentName = (String) row[6];
+            DepartmentDto departmentDto = new DepartmentDto();
+            departmentDto.setId(departmentId);
+            departmentDto.setName(departmentName);
+            // tạo department nếu chưa có
+            WeeklyReportDto accountDto = map.computeIfAbsent(weeklyReportId, id -> new WeeklyReportDto(id, filename, originName, url,uploadedAt, departmentDto));
+        }
+        List<WeeklyReportDto> rs = new ArrayList<>(map.values());
+        return rs;
     }
 
     public List<DepartmentDto> getNoReportedFromDateToDate(Date from, Date to) {
         List<DepartmentDto> departmentNoReport = new ArrayList<DepartmentDto>();
         ArrayList<Object> departmentsReport = new ArrayList<>();
 
-        List<WeeklyReportEntity> uploadFileEntities = weeklyReportDao.getFromDateToDate(from, to);
+        List<WeeklyReportDto> uploadFileEntities = getFromDateToDate(from, to);
         uploadFileEntities.forEach(weeklyReportEntity -> {
             departmentsReport.add(weeklyReportEntity.getDepartment().getId());
         });
@@ -194,7 +205,6 @@ public class WeeklyReportService {
     }
 
     public WeeklyReportEntity getById(int id) {
-
         return weeklyReportDao.getById(id);
     }
 
@@ -206,6 +216,4 @@ public class WeeklyReportService {
         weeklyReportDao.delete(weeklyReport);
         return true;
     }
-
-
 }
