@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import txu.report.mainapp.base.AbstractApi;
 import txu.report.mainapp.dto.Account2Dto;
-import txu.report.mainapp.entity.AccountEntity;
 import txu.report.mainapp.service.AccountService;
 import txu.report.mainapp.util.JwtUtils;
 

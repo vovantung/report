@@ -64,11 +64,9 @@ public class WeeklyReortUserApi extends AbstractApi {
 
     @PostMapping(value = "get-department-fromto")
     public List<WeeklyReportExtends> getDepartmentFromTo(@RequestBody FromDateToDateRequest request, HttpServletRequest httpServletRequest) throws Exception {
-
         String authHeader = httpServletRequest.getHeader("Authorization");
         String token = authHeader.replace("Bearer ", "");
         Map<String,Object> claims = JwtUtils.decode(token);
-
         return weeklyReportService. getDepartmentFromTo(request.getFrom(), request.getTo(), claims.get("preferred_username").toString());
     }
 

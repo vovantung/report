@@ -16,6 +16,7 @@ public class Department1Dto {
     private Date createdAt;
     private Date updatedAt;
     private List<Account1Dto> accounts;
+    public Department1Dto(){}
 
     public Department1Dto(Integer id, String name, String description, Date createdAt, Date updatedAt) {
         this.id = id;
@@ -25,7 +26,6 @@ public class Department1Dto {
         this.updatedAt = updatedAt;
         this.accounts = new ArrayList<>();
     }
-
     public void addAccount(Account1Dto account) {
         this.accounts.add(account);
     }

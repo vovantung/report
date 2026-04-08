@@ -12,6 +12,7 @@ public class Account1Dto {
     private String lastName;
     @JsonIgnore
     private Integer departmentId;
+    public Account1Dto() {}
 
     public Account1Dto(Long id, String firstName, String lastName, Integer departmentId) {
         this.id = id;

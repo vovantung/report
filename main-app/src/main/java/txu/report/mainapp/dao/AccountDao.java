@@ -24,6 +24,7 @@ public class AccountDao extends AbstractDao<AccountEntity> {
         }
     }
 
+    @Transactional
     public AccountEntity getById(Object Id) {
         return findById(Id);
     }

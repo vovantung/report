@@ -1,0 +1,70 @@
+2026-04-07 17:11:07.917 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 19:46:40.760 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 19:49:53.340 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-1] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=0, maxAttempts=unlimited}. Cause: Wire format negotiation timeout: peer did not send his wire format.
+2026-04-07 19:53:23.134 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 19:54:07.591 ERROR [http-nio-8080-exec-10] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 19:55:00.337 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 19:55:20.625 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 20:44:19.231 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-3] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=0, maxAttempts=unlimited}. Cause: Cannot send, channel has already failed: tcp://192.168.1.99:61616
+2026-04-07 20:45:18.794 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-3] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=1, maxAttempts=unlimited}. Cause: Wire format negotiation timeout: peer did not send his wire format.
+2026-04-07 20:58:40.281 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 21:02:12.105 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 21:03:37.008 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 21:03:48.214 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 21:03:52.358 ERROR [http-nio-8080-exec-9] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 21:05:54.836 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 21:06:05.449 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 21:06:15.870 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 21:10:48.682 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 21:19:16.409 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 21:28:01.717 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 21:59:34.710 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 22:01:52.675 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 22:14:25.080 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 22:20:00.796 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 22:56:51.758 ERROR [http-nio-8080-exec-2] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-01407: cannot update ("TXU"."DEPARTMENT"."NAME") to NULL
+
+https://docs.oracle.com/error-help/db/ora-01407/
+2026-04-07 22:56:51.776 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by spring, will return status code error 500:
+Cannot save account
+2026-04-07 22:57:07.097 ERROR [http-nio-8080-exec-4] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-01407: cannot update ("TXU"."DEPARTMENT"."NAME") to NULL
+
+https://docs.oracle.com/error-help/db/ora-01407/
+2026-04-07 22:57:07.105 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by spring, will return status code error 500:
+Cannot save account
+2026-04-07 22:58:06.774 ERROR [http-nio-8080-exec-2] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-01407: cannot update ("TXU"."DEPARTMENT"."NAME") to NULL
+
+https://docs.oracle.com/error-help/db/ora-01407/
+2026-04-07 22:58:06.794 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by spring, will return status code error 500:
+Cannot save account
+2026-04-07 23:39:40.044 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-07 23:39:40.799 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-07 23:45:43.216 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 23:45:43.216 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-07 23:45:43.216 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]

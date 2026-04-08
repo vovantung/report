@@ -20,14 +20,25 @@ public class AccountApi extends AbstractApi {
     private final AccountService accountService;
 
     @PostMapping(value = "create-or-update")
-    public AccountEntity createOrUpdate(@RequestBody AccountEntity accountEntity) {
-        return accountService.createOrUpdate(accountEntity);
+    public Account2Dto createOrUpdate(@RequestBody AccountEntity accountEntity) {
+        AccountEntity  rs = accountService.createOrUpdate(accountEntity);
+        Account2Dto account = new Account2Dto();
+        account.setId(rs.getId());
+        account.setUsername(rs.getUsername());
+        account.setPassword(rs.getPassword());
+        account.setEmail(rs.getEmail());
+        account.setCreatedAt(rs.getCreatedAt());
+        account.setUpdatedAt(rs.getUpdatedAt());
+        account.setAvatarUrl(rs.getAvatarUrl());
+        account.setAvatarFilename(rs.getAvatarFilename());
+        account.setFirstName(rs.getFirstName());
+        account.setLastName(rs.getLastName());
+        DepartmentDto department = new DepartmentDto();
+        department.setId(rs.getDepartment().getId());
+        department.setName(rs.getDepartment().getName());
+        account.setDepartment(department);
+        return account;
     }
-
-//    @PostMapping(value = "get-limit")
-//    public List<AccountEntity> getLimit(@RequestBody LimitRequest request) {
-//        return accountService.getWithLimit(request.getLimit());
-//    }
 
     @DeleteMapping(value = "remove")
     public boolean removeByUsername(@RequestBody UsernameRequest request) {
