@@ -16,7 +16,7 @@ public class DepartmentEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private Long id;
+    private Integer id;
 
     @Column(name = "NAME")
     private String name;

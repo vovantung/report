@@ -301,7 +301,7 @@ public class WeeklyReportUserService {
 //            System.out.println("Cuối tuần: " + endDate);
 
             // Lấy báo cáo của đơn vị tổng hợp trong tuần hiện tại mà báo cáo của đơn vị nghiệp vụ được chọn
-            WeeklyReportEntity rs = weeklyReportDao.getSingleByDepartmentIdFromTo(startDate, endDate, 2L);
+            WeeklyReportEntity rs = weeklyReportDao.getSingleByDepartmentIdFromTo(startDate, endDate, 2);
 
             WeeklyReportExtends temp = new WeeklyReportExtends();
             temp.setId(weeklyReport.getId());
@@ -352,7 +352,7 @@ public class WeeklyReportUserService {
         List<WeeklyReportEntity> list = weeklyReportDao.getByDepartmentIdFromTo(
                 from,
                 to,
-                2L);
+                2);
         List<WeeklyReportExtends> results = new ArrayList<>();
         list.forEach(weeklyReport -> {
 

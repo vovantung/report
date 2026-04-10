@@ -24,8 +24,6 @@ public class AccountDao extends AbstractDao<AccountEntity> {
         }
     }
 
-
-//    @Transactional
     public AccountEntity getById(Object id) {
         Query query = getEntityManager().createQuery("SELECT A FROM AccountEntity AS A WHERE id=:id");
         query.setParameter("id", id);
@@ -64,7 +62,7 @@ public class AccountDao extends AbstractDao<AccountEntity> {
         String email = (String) rs[8];
         Date createdAt = (Date) rs[9];
         Date updatedAt = (Date) rs[10];
-        Long departmentId = ((Number)rs[11]).longValue();
+        Integer departmentId = ((Number)rs[11]).intValue();
         String departmentName = (String) rs[12];
 
         DepartmentDto departmentDto = new DepartmentDto();
@@ -111,7 +109,7 @@ public class AccountDao extends AbstractDao<AccountEntity> {
         return query.getResultList();
     }
 
-    public List<Account1Dto> getByIds(List<Long> deptIds) {
+    public List<Account1Dto> getByIds(List<Integer> deptIds) {
         String queryString = "SELECT new txu.report.mainapp.dto.Account1Dto(A.id, A.firstName, A.lastName, A.department.id)" +
                 " FROM AccountEntity A" +
                 " WHERE A.department.id IN :deptIds";

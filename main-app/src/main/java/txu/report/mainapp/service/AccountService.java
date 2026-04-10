@@ -4,7 +4,6 @@ import com.amazonaws.AmazonServiceException;
 import io.netty.util.internal.StringUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Hibernate;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -153,7 +152,6 @@ public class AccountService {
         }
     }
 
-    //    @Transactional
     public Account2Dto getByUsername(String username) {
         Account2Dto user = accountDao.getByUsername(username);
         if (user == null) {
@@ -177,7 +175,7 @@ public class AccountService {
             String lastName = (String) row[3];
             Date createdAt = (Date) row[4];
             Date updatedAt = (Date) row[5];
-            Long departmentId = ((Number) row[6]).longValue();
+            Integer departmentId = ((Number) row[6]).intValue();
             String departmentName = (String) row[7];
             DepartmentDto departmentDto = new DepartmentDto();
             departmentDto.setId(departmentId);

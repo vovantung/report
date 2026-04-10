@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DepartmentDto {
-    Long id;
+    Integer id;
     String name;
 }
