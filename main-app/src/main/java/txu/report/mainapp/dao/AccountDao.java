@@ -41,46 +41,43 @@ public class AccountDao extends AbstractDao<AccountEntity> {
         remove(accountEntity);
     }
 
-    public Account2Dto getByUsername(String username_) {
-        Query query = getEntityManager().createQuery("SELECT " +
-                " A.id,A.username,A.password,A.lastName,A.firstName,A.phoneNumber,A.avatarUrl,A.avatarFilename,A.email, A.createdAt, A.updatedAt," +
-                " D.id, D.name" +
-                " FROM AccountEntity AS A JOIN A.department D WHERE A.username=:username");
-        query.setParameter("username", username_);
-        Object[] rs = getSingleObject(query);
+    public AccountEntity getByUsername(String username) {
+        Query query = getEntityManager().createQuery("SELECT A FROM AccountEntity AS A JOIN FETCH A.department WHERE A.username=:username");
+        query.setParameter("username", username);
+        return getSingle(query);
 
-        Account2Dto account2Dto = new Account2Dto();
-
-        Long accountId = ((Number) rs[0]).longValue();
-        String username = (String) rs[1];
-        String password = (String) rs[2];
-        String lastName = (String) rs[3];
-        String firstName = (String) rs[4];
-        String phoneNumber = (String) rs[5];
-        String avatarUrl = (String) rs[6];
-        String avatarFilename = (String) rs[7];
-        String email = (String) rs[8];
-        Date createdAt = (Date) rs[9];
-        Date updatedAt = (Date) rs[10];
-        Integer departmentId = ((Number)rs[11]).intValue();
-        String departmentName = (String) rs[12];
-
-        DepartmentDto departmentDto = new DepartmentDto();
-        departmentDto.setId(departmentId);
-        departmentDto.setName(departmentName);
-        account2Dto.setDepartment(departmentDto);
-        account2Dto.setId(accountId);
-        account2Dto.setUsername(username);
-        account2Dto.setPassword(password);
-        account2Dto.setLastName(lastName);
-        account2Dto.setFirstName(firstName);
-        account2Dto.setPhoneNumber(phoneNumber);
-        account2Dto.setAvatarUrl(avatarUrl);
-        account2Dto.setAvatarFilename(avatarFilename);
-        account2Dto.setEmail(email);
-        account2Dto.setCreatedAt(createdAt);
-        account2Dto.setUpdatedAt(updatedAt);
-        return account2Dto;
+//        Account2Dto account2Dto = new Account2Dto();
+//
+//        Long accountId = ((Number) rs[0]).longValue();
+//        String username = (String) rs[1];
+//        String password = (String) rs[2];
+//        String lastName = (String) rs[3];
+//        String firstName = (String) rs[4];
+//        String phoneNumber = (String) rs[5];
+//        String avatarUrl = (String) rs[6];
+//        String avatarFilename = (String) rs[7];
+//        String email = (String) rs[8];
+//        Date createdAt = (Date) rs[9];
+//        Date updatedAt = (Date) rs[10];
+//        Integer departmentId = ((Number)rs[11]).intValue();
+//        String departmentName = (String) rs[12];
+//
+//        DepartmentDto departmentDto = new DepartmentDto();
+//        departmentDto.setId(departmentId);
+//        departmentDto.setName(departmentName);
+//        account2Dto.setDepartment(departmentDto);
+//        account2Dto.setId(accountId);
+//        account2Dto.setUsername(username);
+//        account2Dto.setPassword(password);
+//        account2Dto.setLastName(lastName);
+//        account2Dto.setFirstName(firstName);
+//        account2Dto.setPhoneNumber(phoneNumber);
+//        account2Dto.setAvatarUrl(avatarUrl);
+//        account2Dto.setAvatarFilename(avatarFilename);
+//        account2Dto.setEmail(email);
+//        account2Dto.setCreatedAt(createdAt);
+//        account2Dto.setUpdatedAt(updatedAt);
+//        return account2Dto;
     }
 
     public AccountEntity getByEmail(String email) {

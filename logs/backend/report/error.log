@@ -96,3 +96,276 @@ https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
 2026-04-10 09:19:49.475 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-3] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=1, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
 2026-04-10 09:20:15.525 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-3] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=2, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
 2026-04-10 09:20:41.577 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-3] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=3, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 13:54:43.457 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-1] o.s.j.l.DefaultMessageListenerContainer - Application exception overridden by rollback error
+org.springframework.jms.listener.adapter.ListenerExecutionFailedException: Listener method 'public void txu.report.mainapp.mq.MessageConsumer.createHRUser(txu.common.saga.contract.command.CreateHRUserCommand)' threw exception
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.invokeHandler(MessagingMessageListenerAdapter.java:118)
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.onMessage(MessagingMessageListenerAdapter.java:84)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:819)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:776)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:754)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.doReceiveAndExecute(AbstractPollingMessageListenerContainer.java:333)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveAndExecute(AbstractPollingMessageListenerContainer.java:270)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1420)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1410)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1287)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.springframework.jms.IllegalStateException: The Session is closed
+	at org.springframework.jms.support.JmsUtils.convertJmsAccessException(JmsUtils.java:272)
+	at org.springframework.jms.support.JmsAccessor.convertJmsAccessException(JmsAccessor.java:199)
+	at org.springframework.jms.core.JmsTemplate.execute(JmsTemplate.java:533)
+	at org.springframework.jms.core.JmsTemplate.send(JmsTemplate.java:610)
+	at org.springframework.jms.core.JmsTemplate.convertAndSend(JmsTemplate.java:717)
+	at txu.report.mainapp.mq.MessageConsumer.createHRUser(MessageConsumer.java:56)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:169)
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:119)
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.invokeHandler(MessagingMessageListenerAdapter.java:110)
+	... 10 common frames omitted
+Caused by: jakarta.jms.IllegalStateException: The Session is closed
+	at org.apache.activemq.ActiveMQSession.checkClosed(ActiveMQSession.java:774)
+	at org.apache.activemq.ActiveMQSession.createQueue(ActiveMQSession.java:1351)
+	at org.springframework.jms.support.destination.DynamicDestinationResolver.resolveQueue(DynamicDestinationResolver.java:85)
+	at org.springframework.jms.support.destination.DynamicDestinationResolver.resolveDestinationName(DynamicDestinationResolver.java:59)
+	at org.springframework.jms.support.destination.JmsDestinationAccessor.resolveDestinationName(JmsDestinationAccessor.java:115)
+	at org.springframework.jms.core.JmsTemplate.lambda$send$3(JmsTemplate.java:611)
+	at org.springframework.jms.core.JmsTemplate.execute(JmsTemplate.java:530)
+	... 18 common frames omitted
+2026-04-10 13:56:39.352 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-1] o.s.j.l.DefaultMessageListenerContainer - Application exception overridden by rollback error
+org.springframework.jms.listener.adapter.ListenerExecutionFailedException: Listener method 'public void txu.report.mainapp.mq.MessageConsumer.createHRUser(txu.common.saga.contract.command.CreateHRUserCommand)' threw exception
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.invokeHandler(MessagingMessageListenerAdapter.java:118)
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.onMessage(MessagingMessageListenerAdapter.java:84)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:819)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:776)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:754)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.doReceiveAndExecute(AbstractPollingMessageListenerContainer.java:333)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveAndExecute(AbstractPollingMessageListenerContainer.java:270)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1420)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1410)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1287)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.springframework.jms.IllegalStateException: The Session is closed
+	at org.springframework.jms.support.JmsUtils.convertJmsAccessException(JmsUtils.java:272)
+	at org.springframework.jms.support.JmsAccessor.convertJmsAccessException(JmsAccessor.java:199)
+	at org.springframework.jms.core.JmsTemplate.execute(JmsTemplate.java:533)
+	at org.springframework.jms.core.JmsTemplate.send(JmsTemplate.java:610)
+	at org.springframework.jms.core.JmsTemplate.convertAndSend(JmsTemplate.java:717)
+	at txu.report.mainapp.mq.MessageConsumer.createHRUser(MessageConsumer.java:56)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:169)
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:119)
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.invokeHandler(MessagingMessageListenerAdapter.java:110)
+	... 10 common frames omitted
+Caused by: jakarta.jms.IllegalStateException: The Session is closed
+	at org.apache.activemq.ActiveMQSession.checkClosed(ActiveMQSession.java:774)
+	at org.apache.activemq.ActiveMQSession.createQueue(ActiveMQSession.java:1351)
+	at org.springframework.jms.support.destination.DynamicDestinationResolver.resolveQueue(DynamicDestinationResolver.java:85)
+	at org.springframework.jms.support.destination.DynamicDestinationResolver.resolveDestinationName(DynamicDestinationResolver.java:59)
+	at org.springframework.jms.support.destination.JmsDestinationAccessor.resolveDestinationName(JmsDestinationAccessor.java:115)
+	at org.springframework.jms.core.JmsTemplate.lambda$send$3(JmsTemplate.java:611)
+	at org.springframework.jms.core.JmsTemplate.execute(JmsTemplate.java:530)
+	... 18 common frames omitted
+2026-04-10 14:06:22.339 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-2] o.s.j.l.DefaultMessageListenerContainer - Application exception overridden by rollback error
+org.springframework.jms.listener.adapter.ListenerExecutionFailedException: Listener method 'public void txu.report.mainapp.mq.MessageConsumer.createHRUser(txu.common.saga.contract.command.CreateHRUserCommand)' threw exception
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.invokeHandler(MessagingMessageListenerAdapter.java:118)
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.onMessage(MessagingMessageListenerAdapter.java:84)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:819)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:776)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:754)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.doReceiveAndExecute(AbstractPollingMessageListenerContainer.java:333)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveAndExecute(AbstractPollingMessageListenerContainer.java:270)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1420)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1410)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1287)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.springframework.jms.IllegalStateException: The Session is closed
+	at org.springframework.jms.support.JmsUtils.convertJmsAccessException(JmsUtils.java:272)
+	at org.springframework.jms.support.JmsAccessor.convertJmsAccessException(JmsAccessor.java:199)
+	at org.springframework.jms.core.JmsTemplate.execute(JmsTemplate.java:533)
+	at org.springframework.jms.core.JmsTemplate.send(JmsTemplate.java:610)
+	at org.springframework.jms.core.JmsTemplate.convertAndSend(JmsTemplate.java:717)
+	at txu.report.mainapp.mq.MessageConsumer.createHRUser(MessageConsumer.java:56)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:169)
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:119)
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.invokeHandler(MessagingMessageListenerAdapter.java:110)
+	... 10 common frames omitted
+Caused by: jakarta.jms.IllegalStateException: The Session is closed
+	at org.apache.activemq.ActiveMQSession.checkClosed(ActiveMQSession.java:774)
+	at org.apache.activemq.ActiveMQSession.createQueue(ActiveMQSession.java:1351)
+	at org.springframework.jms.support.destination.DynamicDestinationResolver.resolveQueue(DynamicDestinationResolver.java:85)
+	at org.springframework.jms.support.destination.DynamicDestinationResolver.resolveDestinationName(DynamicDestinationResolver.java:59)
+	at org.springframework.jms.support.destination.JmsDestinationAccessor.resolveDestinationName(JmsDestinationAccessor.java:115)
+	at org.springframework.jms.core.JmsTemplate.lambda$send$3(JmsTemplate.java:611)
+	at org.springframework.jms.core.JmsTemplate.execute(JmsTemplate.java:530)
+	... 18 common frames omitted
+2026-04-10 14:10:51.763 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:10:57.734 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:11:06.993 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:11:06.998 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:11:08.262 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:11:08.270 ERROR [http-nio-8080-exec-7] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:11:15.542 ERROR [http-nio-8080-exec-9] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:11:15.548 ERROR [http-nio-8080-exec-10] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:11:16.461 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:11:16.469 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:12:12.247 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:12:32.432 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:12:33.642 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:12:35.260 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:16:14.976 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:16:21.442 ERROR [http-nio-8080-exec-7] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:21:01.791 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:21:17.680 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:22:23.999 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:22:23.999 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:22:25.915 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:22:29.857 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:28:03.785 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:28:03.785 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:28:04.631 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:28:08.440 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:30:41.030 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:30:41.030 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:30:42.152 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:30:44.857 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:37:36.158 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:37:37.184 ERROR [http-nio-8080-exec-9] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:37:49.618 ERROR [http-nio-8080-exec-10] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:37:49.618 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:37:50.627 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:37:54.959 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:40:28.492 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:42:04.370 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:42:04.379 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:42:04.481 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:44:45.164 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:44:45.164 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:44:47.782 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:45:17.721 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:48:30.183 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:48:30.183 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:48:46.733 ERROR [http-nio-8080-exec-10] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:49:23.730 ERROR [http-nio-8080-exec-9] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:49:53.548 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:50:20.442 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:50:37.564 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:50:45.851 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:58:13.831 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:58:26.452 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:58:26.452 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:58:59.189 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:04:27.386 ERROR [http-nio-8080-exec-10] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 15:09:36.170 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 15:32:46.788 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 15:32:49.695 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 15:40:25.749 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 15:40:27.316 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 15:40:38.102 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:40:38.102 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:40:39.801 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 15:40:41.034 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:42:08.623 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:42:08.623 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:42:08.695 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:42:08.702 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 15:42:12.132 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:42:12.132 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:42:12.189 ERROR [http-nio-8080-exec-7] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 15:42:12.215 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:44:10.623 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:44:19.440 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:44:20.372 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:44:21.313 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:45:46.237 ERROR [http-nio-8080-exec-10] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:45:54.965 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:47:35.815 ERROR [http-nio-8080-exec-9] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:47:36.482 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:59:24.842 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 15:59:25.528 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1

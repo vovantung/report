@@ -4,6 +4,7 @@ import com.amazonaws.AmazonServiceException;
 import io.netty.util.internal.StringUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -152,13 +153,15 @@ public class AccountService {
         }
     }
 
-    public Account2Dto getByUsername(String username) {
-        Account2Dto user = accountDao.getByUsername(username);
+    @Transactional
+    public AccountEntity getByUsername(String username) {
+        AccountEntity user = accountDao.getByUsername(username);
         if (user == null) {
             throw new NotFoundException("User is not found");
         }
         return user;
     }
+
 
     public List<AccountDto> getPaging(long keyOffset, int limit, String keySearch) {
         // Giới hạn limit tối đa là 100 record.
@@ -188,7 +191,7 @@ public class AccountService {
     }
 
     public boolean removeByUsername(String username) {
-        Account2Dto account = accountDao.getByUsername(username);
+        AccountEntity account = accountDao.getByUsername(username);
         if (account == null) {
             throw new NotFoundException("User is not found");
         }
@@ -198,7 +201,7 @@ public class AccountService {
 
     public AccountEntity updateAvatar(String filename, String username, String password, String firstName,
                                       String lastName, String email, String phoneNumber) throws NoSuchMethodException {
-        Account2Dto account = accountDao.getByUsername(username);
+        AccountEntity account = accountDao.getByUsername(username);
         DepartmentEntity department = new DepartmentEntity();
         department.setId(account.getDepartment().getId());
         AccountEntity accountToUpdate = new AccountEntity();

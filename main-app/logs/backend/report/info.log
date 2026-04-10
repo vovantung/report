@@ -148,3 +148,77 @@
 2026-04-10 13:29:52.998 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-04-10 13:29:53.007 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2026-04-10 13:29:54.535 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 14:07:56.865 INFO  [main] t.r.mainapp.MainAppApplicationTests - Starting MainAppApplicationTests using Java 17.0.10 with PID 6288 (started by Precision 7540 in D:\06-05-2025\report\main-app)
+2026-04-10 14:07:56.871 INFO  [main] t.r.mainapp.MainAppApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 14:07:58.567 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-10 14:07:58.570 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 14:07:58.611 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 28 ms. Found 0 JPA repository interfaces.
+2026-04-10 14:07:58.631 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-10 14:07:58.633 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-10 14:07:58.657 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8 ms. Found 0 Redis repository interfaces.
+2026-04-10 14:08:00.390 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 14:08:03.011 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@731ab49b
+2026-04-10 14:08:03.012 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 14:08:03.093 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-04-10 14:08:03.253 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.18.Final
+2026-04-10 14:08:03.371 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-04-10 14:08:04.636 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 14:08:05.690 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 19.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 14:08:07.916 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-10 14:08:07.922 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 14:08:12.192 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoints beneath base path '/actuator'
+2026-04-10 14:08:12.620 INFO  [main] t.r.mainapp.MainAppApplicationTests - Started MainAppApplicationTests in 16.342 seconds (process running for 17.796)
+2026-04-10 14:08:19.150 INFO  [org.springframework.jms.JmsListenerEndpointContainer#0-1] o.h.e.i.StatisticalLoggingSessionEventListener - Session Metrics {
+    1817000 nanoseconds spent acquiring 1 JDBC connections;
+    0 nanoseconds spent releasing 0 JDBC connections;
+    45540200 nanoseconds spent preparing 4 JDBC statements;
+    2660019400 nanoseconds spent executing 4 JDBC statements;
+    0 nanoseconds spent executing 0 JDBC batches;
+    0 nanoseconds spent performing 0 L2C puts;
+    0 nanoseconds spent performing 0 L2C hits;
+    0 nanoseconds spent performing 0 L2C misses;
+    14771000 nanoseconds spent executing 1 flushes (flushing a total of 2 entities and 1 collections);
+    40200 nanoseconds spent executing 2 pre-partial-flushes;
+    23500 nanoseconds spent executing 2 partial-flushes (flushing a total of 0 entities and 0 collections)
+}
+2026-04-10 14:08:19.152 INFO  [org.springframework.jms.JmsListenerEndpointContainer#0-1] t.report.mainapp.mq.MessageConsumer - T?o hr user thành công!, sagaId: 147
+2026-04-10 14:08:20.508 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 14:08:20.511 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 14:08:20.527 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-10 15:43:18.140 INFO  [main] t.r.mainapp.MainAppApplicationTests - Starting MainAppApplicationTests using Java 17.0.10 with PID 28324 (started by Precision 7540 in D:\06-05-2025\report\main-app)
+2026-04-10 15:43:19.700 INFO  [main] t.r.mainapp.MainAppApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-04-10 15:43:21.033 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-10 15:43:21.036 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 15:43:21.073 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 25 ms. Found 0 JPA repository interfaces.
+2026-04-10 15:43:21.095 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-10 15:43:21.097 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-10 15:43:21.118 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 7 ms. Found 0 Redis repository interfaces.
+2026-04-10 15:43:22.601 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 15:43:24.976 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@55fe9c2f
+2026-04-10 15:43:24.978 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 15:43:25.040 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-04-10 15:43:25.126 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.18.Final
+2026-04-10 15:43:25.190 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-04-10 15:43:25.564 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-10 15:43:25.868 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 19.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-10 15:43:26.805 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-10 15:43:26.808 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 15:43:29.317 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoints beneath base path '/actuator'
+2026-04-10 15:43:29.668 INFO  [main] t.r.mainapp.MainAppApplicationTests - Started MainAppApplicationTests in 12.057 seconds (process running for 13.436)
+2026-04-10 15:43:30.714 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 15:43:30.716 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 15:43:31.224 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
