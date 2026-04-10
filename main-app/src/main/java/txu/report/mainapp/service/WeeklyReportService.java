@@ -171,7 +171,7 @@ public class WeeklyReportService {
             String originName = (String) row[2];
             String url = (String) row[3];
             Date uploadedAt = (Date) row[4];
-            Integer departmentId = ((Number)row[5]).intValue();
+            Long departmentId = ((Number)row[5]).longValue();
             String departmentName = (String) row[6];
             DepartmentDto departmentDto = new DepartmentDto();
             departmentDto.setId(departmentId);

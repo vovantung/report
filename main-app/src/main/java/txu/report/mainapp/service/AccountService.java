@@ -4,6 +4,7 @@ import com.amazonaws.AmazonServiceException;
 import io.netty.util.internal.StringUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -29,6 +30,7 @@ import txu.common.exception.NotFoundException;
 import txu.common.exception.TxException;
 import txu.report.mainapp.entity.DepartmentEntity;
 
+import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.*;
 
@@ -49,37 +51,28 @@ public class AccountService {
     @Value("${ceph.rgw.bucket2}")
     private String bucketName;
 
-
-
     // Upload
     public LinkDto getPreSignedUrlForPut(String key) {
-
         LinkDto linkDto = new LinkDto();
         String filename = UUID.randomUUID() + "_" + key;
-
         PutObjectRequest objectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
                 .key(filename)
                 .build();
-
         PutObjectPresignRequest presignRequest =
                 PutObjectPresignRequest.builder()
                         .signatureDuration(Duration.ofMinutes(2))
                         .putObjectRequest(objectRequest)
                         .build();
-
         String pre_signed_url = presigner.presignPutObject(presignRequest).url().toString();
         linkDto.setPre_signed_url(pre_signed_url);
         linkDto.setFilename(filename);
         return linkDto;
     }
 
-
     @Transactional
-    public AccountEntity createOrUpdate(AccountEntity accountEntity) {
-
+    public AccountEntity createOrUpdate(AccountEntity accountEntity) throws NoSuchMethodException {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
         // Add new
         if (accountEntity.getId() == null || accountEntity.getId() == 0) {
             if (accountEntity.getUsername() == null || accountEntity.getUsername().isEmpty()) {
@@ -88,55 +81,48 @@ public class AccountService {
             if (accountEntity.getPassword() == null || accountEntity.getPassword().isEmpty()) {
                 throw new BadParameterException("Password is required");
             }
-
             if (accountEntity.getEmail() == null || accountEntity.getEmail().isEmpty()) {
                 throw new BadParameterException("Email is required");
             }
-
+            if (accountEntity.getLastName() == null || accountEntity.getLastName().isEmpty()) {
+                throw new BadParameterException("Last Name is required");
+            }
+            if (accountEntity.getFirstName() == null || accountEntity.getFirstName().isEmpty()) {
+                throw new BadParameterException("First Name is required");
+            }
             if (accountDao.getByUsername(accountEntity.getUsername()) != null) {
                 throw new ConflictException("Account with [" + accountEntity.getUsername() + "]  already exists");
             }
-
             if (accountDao.getByEmail(accountEntity.getEmail()) != null) {
                 throw new ConflictException("Account with [" + accountEntity.getEmail() + "]  already exists");
             }
-
             if (departmentDao.getById(accountEntity.getDepartment().getId()) == null) {
                 throw new NotFoundException("Department not found");
             }
-
             if (accountEntity.getPassword() != null && !accountEntity.getPassword().isEmpty()) {
                 accountEntity.setPassword(bCryptPasswordEncoder.encode(accountEntity.getPassword()));
             }
             accountEntity.setCreatedAt(DateTime.now().toDate());
             accountEntity.setUpdatedAt(DateTime.now().toDate());
-            AccountEntity account = null;
-
             try {
-                account = accountDao.save(accountEntity);
+                accountDao.save(accountEntity);
             } catch (DataIntegrityViolationException ex) {
                 log.warn(ex.getMessage());
                 throw new TxException(ex.getMessage());
             }
-            return account;
+            return accountEntity;
         }
 
         // Update
         AccountEntity account = accountDao.getById(accountEntity.getId());
-
         if (account != null) {
-
-            if (accountDao.getByEmail(accountEntity.getEmail()) != null && !account.getEmail().equals(accountEntity.getEmail())) {
-                throw new ConflictException("Account with [" + accountEntity.getEmail() + "]  already exists");
-            }
-            if (accountEntity.getDepartment() != null
-                    && accountEntity.getDepartment().getId() != null
-                    && accountEntity.getDepartment().getId() != 0
-                    && departmentDao.getById(accountEntity.getDepartment().getId()) != null) {
+            if (accountEntity.getDepartment() != null && accountEntity.getDepartment().getId() != null && accountEntity.getDepartment().getId() != 0) {
+                if (departmentDao.getById(accountEntity.getDepartment().getId()) == null){
+                    throw new NotFoundException("Department not found");
+                }
                 // Nếu có đặt lại đơn vị thì cập nhật, không thì bỏ qua (giữ đơn vị cũ)
                 account.setDepartment(accountEntity.getDepartment());
             }
-
             if (accountEntity.getPassword() != null && !accountEntity.getPassword().isEmpty()) {
                 account.setPassword(bCryptPasswordEncoder.encode(accountEntity.getPassword()));
             }
@@ -146,23 +132,16 @@ public class AccountService {
             if (accountEntity.getFirstName() != null && !accountEntity.getFirstName().isEmpty()) {
                 account.setFirstName(accountEntity.getFirstName());
             }
-            if (accountEntity.getEmail() != null && !accountEntity.getEmail().isEmpty()) {
-                account.setEmail(accountEntity.getEmail());
-            }
             if (accountEntity.getPhoneNumber() != null && !accountEntity.getPhoneNumber().isEmpty()) {
                 account.setPhoneNumber(accountEntity.getPhoneNumber());
             }
-
             if (accountEntity.getAvatarUrl() != null && !accountEntity.getAvatarUrl().isEmpty()) {
                 account.setAvatarUrl(accountEntity.getAvatarUrl());
             }
-
             if (accountEntity.getAvatarFilename() != null && !accountEntity.getAvatarFilename().isEmpty()) {
                 account.setAvatarFilename(accountEntity.getAvatarFilename());
             }
-
             account.setUpdatedAt(DateTime.now().toDate());
-
             try {
                 return accountDao.save(account);
             } catch (DataIntegrityViolationException ex) {
@@ -189,10 +168,8 @@ public class AccountService {
         if (keySearch != null && !keySearch.isEmpty()) {
             keyOffset = 0; // Chế độ tìm kiếm, tìm tất cả.
         }
-
         List<Object[]> rows = accountDao.getPaging(keyOffset, limit, keySearch);
         Map<Long, AccountDto> map = new LinkedHashMap<>();
-
         for (Object[] row : rows) {
             Long accountId = ((Number) row[0]).longValue();
             String username = (String) row[1];
@@ -200,13 +177,13 @@ public class AccountService {
             String lastName = (String) row[3];
             Date createdAt = (Date) row[4];
             Date updatedAt = (Date) row[5];
-            Integer departmentId = ((Number)row[6]).intValue();
+            Long departmentId = ((Number) row[6]).longValue();
             String departmentName = (String) row[7];
             DepartmentDto departmentDto = new DepartmentDto();
             departmentDto.setId(departmentId);
             departmentDto.setName(departmentName);
             // tạo department nếu chưa có
-            AccountDto accountDto = map.computeIfAbsent(accountId, id -> new AccountDto(id, username, firstName, lastName,createdAt,updatedAt, departmentDto));
+            AccountDto accountDto = map.computeIfAbsent(accountId, id -> new AccountDto(id, username, firstName, lastName, createdAt, updatedAt, departmentDto));
         }
         List<AccountDto> rs = new ArrayList<>(map.values());
         return rs;
@@ -221,17 +198,14 @@ public class AccountService {
         return true;
     }
 
-    public AccountEntity updateAvatar(String filename, String username, String password, String firstName, String lastName,
-                                      String email, String phoneNumber) {
-
+    public AccountEntity updateAvatar(String filename, String username, String password, String firstName,
+                                      String lastName, String email, String phoneNumber) throws NoSuchMethodException {
         Account2Dto account = accountDao.getByUsername(username);
         DepartmentEntity department = new DepartmentEntity();
         department.setId(account.getDepartment().getId());
-
         AccountEntity accountToUpdate = new AccountEntity();
         accountToUpdate.setId(account.getId());
         accountToUpdate.setDepartment(department);
-
         if (!StringUtil.isNullOrEmpty(filename)) {
             // Xóa tập tin hình ảnh cũ của người dùng trên storage2 (nếu có) trước khi cập nhật nội dung mới trong csdl
             try {
@@ -246,12 +220,10 @@ public class AccountService {
             } catch (SdkClientException e) {
                 System.out.println("AWS SDK client error when deleting object " + e);
             }
-
             String fileUrl = String.format(url + "/%s/%s", bucketName, filename);
             accountToUpdate.setAvatarUrl(fileUrl);
             accountToUpdate.setAvatarFilename(filename);
         }
-
         // Chỉ cập nhật password, firstName, lastName, email, phoneNumber; avatarUrl, avataFilename nếu tồn tại file avatar
         if (password != null && !password.isEmpty()) {
             accountToUpdate.setPassword(password);

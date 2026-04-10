@@ -134,10 +134,10 @@ public class DepartmentService {
         List<Department1Dto> departments = departmentDao.getPaging(keyOffset, limit, keySearch);
         if (departments.isEmpty()) return departments;
 
-        List<Integer> deptIds = departments.stream().map(Department1Dto::getId).toList();
+        List<Long> deptIds = departments.stream().map(Department1Dto::getId).toList();
         List<Account1Dto> accounts = accountDao.getByIds(deptIds);
 
-        Map<Integer, List<Account1Dto>> accMap = accounts.stream().collect(Collectors.groupingBy(Account1Dto::getDepartmentId));
+        Map<Long, List<Account1Dto>> accMap = accounts.stream().collect(Collectors.groupingBy(Account1Dto::getDepartmentId));
 
         for (Department1Dto dept : departments) {
             dept.setAccounts(accMap.getOrDefault(dept.getId(), new ArrayList<>()));

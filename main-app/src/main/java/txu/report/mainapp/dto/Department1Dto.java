@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 public class Department1Dto {
-    private Integer id;
+    private Long id;
     private String name;
     private String description;
     private Date createdAt;
@@ -18,7 +18,7 @@ public class Department1Dto {
     private List<Account1Dto> accounts;
     public Department1Dto(){}
 
-    public Department1Dto(Integer id, String name, String description, Date createdAt, Date updatedAt) {
+    public Department1Dto(Long id, String name, String description, Date createdAt, Date updatedAt) {
         this.id = id;
         this.name = name;
         this.description = description;

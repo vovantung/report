@@ -11,10 +11,10 @@ public class Account1Dto {
     private String firstName;
     private String lastName;
     @JsonIgnore
-    private Integer departmentId;
+    private Long departmentId;
     public Account1Dto() {}
 
-    public Account1Dto(Long id, String firstName, String lastName, Integer departmentId) {
+    public Account1Dto(Long id, String firstName, String lastName, Long departmentId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

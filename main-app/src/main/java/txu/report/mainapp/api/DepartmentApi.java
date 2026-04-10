@@ -16,13 +16,13 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/report/admin/department")
+@RequestMapping("/report")
 @RequiredArgsConstructor
 public class DepartmentApi extends AbstractApi {
 
     private final DepartmentService departmentService;
 
-    @PostMapping(value = "create-or-update")
+    @PostMapping(value = "/admin/department/create-or-update")
     public Department1Dto createOrUpdate(@RequestBody DepartmentEntity department){
         DepartmentEntity result = departmentService.createOrUpdate(department);
         Department1Dto department1Dto = new Department1Dto();
@@ -43,7 +43,7 @@ public class DepartmentApi extends AbstractApi {
         return department1Dto;
     }
 
-    @PostMapping(value = "get-by-id")
+    @PostMapping(value = "/admin/department/get-by-id")
 //    @Cacheable(value = "department", key = "#request.id")
     public Department1Dto getById(@RequestBody IdRequest request){
         DepartmentEntity result = departmentService.getById(request.getId());
@@ -65,12 +65,12 @@ public class DepartmentApi extends AbstractApi {
         return department1Dto;
     }
 
-    @DeleteMapping(value = "remove")
+    @DeleteMapping(value = "/admin/department/remove")
     public boolean removeById(@RequestBody IdRequest request){
         return departmentService.removeById(request.getId());
     }
 
-    @PostMapping(value = "/get-paging")
+    @PostMapping(value = "/admin/department/get-paging")
     public List<Department1Dto> getPaging(@RequestBody DepartmentRequest departmentRequest) {
         return departmentService.getPaging(departmentRequest.getKeyOffset(), departmentRequest.getLimit(), departmentRequest.getKeySearch());
     }
