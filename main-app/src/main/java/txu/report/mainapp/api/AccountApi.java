@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import txu.common.exception.TxException;
 import txu.report.mainapp.base.AbstractApi;
 import txu.report.mainapp.dto.*;
 import txu.report.mainapp.dto.request.AccountRequest;
@@ -88,10 +89,11 @@ public class AccountApi extends AbstractApi {
         );
     }
 
-//    @PostMapping(value = "/admin/account/get-paging")
-//    public List<AccountDto> getPaging(@RequestBody AccountRequest accountRequest) {
+    @PostMapping(value = "/admin/account/get-paging")
+    public List<AccountDto> getPaging(@RequestBody AccountRequest accountRequest) {
+        throw new TxException("abcd");
 //        return accountService.getPaging(accountRequest.getKeyOffset(), accountRequest.getLimit(), accountRequest.getKeySearch());
-//    }
+    }
 
     // User
     @PostMapping("/user/account/update-avatar")
