@@ -1,0 +1,437 @@
+2026-04-10 06:48:34.592 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+ServletOutputStream failed to flush: java.io.IOException: An established connection was aborted by the software in your host machine
+2026-04-10 06:56:30.586 ERROR [main] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:57:08.344 ERROR [http-nio-8080-exec-1] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:57:08.372 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 06:57:26.664 ERROR [http-nio-8080-exec-2] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:57:26.666 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 06:57:32.084 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 06:57:37.335 ERROR [http-nio-8080-exec-4] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:57:37.335 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 06:57:52.459 ERROR [http-nio-8080-exec-5] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:57:52.459 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 06:58:24.119 ERROR [http-nio-8080-exec-8] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:58:24.120 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 06:58:24.389 ERROR [http-nio-8080-exec-7] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:58:24.390 ERROR [http-nio-8080-exec-7] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 06:58:25.625 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 06:58:40.781 ERROR [http-nio-8080-exec-6] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:58:40.782 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 06:58:42.915 ERROR [http-nio-8080-exec-3] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:58:42.916 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 06:58:43.196 ERROR [http-nio-8080-exec-2] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:58:43.197 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 06:58:45.391 ERROR [http-nio-8080-exec-10] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:58:45.392 ERROR [http-nio-8080-exec-10] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 06:58:46.535 ERROR [http-nio-8080-exec-9] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:58:46.536 ERROR [http-nio-8080-exec-9] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 06:58:48.621 ERROR [http-nio-8080-exec-5] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:58:48.622 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 06:58:48.857 ERROR [http-nio-8080-exec-4] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:58:48.859 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 06:58:48.995 ERROR [http-nio-8080-exec-7] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:58:48.996 ERROR [http-nio-8080-exec-7] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 06:58:49.188 ERROR [http-nio-8080-exec-8] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:58:49.188 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 06:58:50.609 ERROR [http-nio-8080-exec-1] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:58:50.610 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 06:58:52.693 ERROR [http-nio-8080-exec-6] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/
+2026-04-10 06:58:52.694 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Unable to acquire JDBC Connection [ORA-17030: READ_COMMITTED and SERIALIZABLE are the only valid transaction levels.
+https://docs.oracle.com/error-help/db/ora-17030/] [n/a]
+2026-04-10 07:27:29.201 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-2] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=0, maxAttempts=unlimited}. Cause: Wire format negotiation timeout: peer did not send his wire format.
+2026-04-10 09:19:23.446 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-3] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=0, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.NoRouteToHostException: No route to host: no further information
+2026-04-10 09:19:49.475 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-3] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=1, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 09:20:15.525 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-3] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=2, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 09:20:41.577 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-3] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=3, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 13:54:43.457 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-1] o.s.j.l.DefaultMessageListenerContainer - Application exception overridden by rollback error
+org.springframework.jms.listener.adapter.ListenerExecutionFailedException: Listener method 'public void txu.report.mainapp.mq.MessageConsumer.createHRUser(txu.common.saga.contract.command.CreateHRUserCommand)' threw exception
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.invokeHandler(MessagingMessageListenerAdapter.java:118)
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.onMessage(MessagingMessageListenerAdapter.java:84)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:819)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:776)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:754)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.doReceiveAndExecute(AbstractPollingMessageListenerContainer.java:333)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveAndExecute(AbstractPollingMessageListenerContainer.java:270)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1420)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1410)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1287)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.springframework.jms.IllegalStateException: The Session is closed
+	at org.springframework.jms.support.JmsUtils.convertJmsAccessException(JmsUtils.java:272)
+	at org.springframework.jms.support.JmsAccessor.convertJmsAccessException(JmsAccessor.java:199)
+	at org.springframework.jms.core.JmsTemplate.execute(JmsTemplate.java:533)
+	at org.springframework.jms.core.JmsTemplate.send(JmsTemplate.java:610)
+	at org.springframework.jms.core.JmsTemplate.convertAndSend(JmsTemplate.java:717)
+	at txu.report.mainapp.mq.MessageConsumer.createHRUser(MessageConsumer.java:56)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:169)
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:119)
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.invokeHandler(MessagingMessageListenerAdapter.java:110)
+	... 10 common frames omitted
+Caused by: jakarta.jms.IllegalStateException: The Session is closed
+	at org.apache.activemq.ActiveMQSession.checkClosed(ActiveMQSession.java:774)
+	at org.apache.activemq.ActiveMQSession.createQueue(ActiveMQSession.java:1351)
+	at org.springframework.jms.support.destination.DynamicDestinationResolver.resolveQueue(DynamicDestinationResolver.java:85)
+	at org.springframework.jms.support.destination.DynamicDestinationResolver.resolveDestinationName(DynamicDestinationResolver.java:59)
+	at org.springframework.jms.support.destination.JmsDestinationAccessor.resolveDestinationName(JmsDestinationAccessor.java:115)
+	at org.springframework.jms.core.JmsTemplate.lambda$send$3(JmsTemplate.java:611)
+	at org.springframework.jms.core.JmsTemplate.execute(JmsTemplate.java:530)
+	... 18 common frames omitted
+2026-04-10 13:56:39.352 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-1] o.s.j.l.DefaultMessageListenerContainer - Application exception overridden by rollback error
+org.springframework.jms.listener.adapter.ListenerExecutionFailedException: Listener method 'public void txu.report.mainapp.mq.MessageConsumer.createHRUser(txu.common.saga.contract.command.CreateHRUserCommand)' threw exception
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.invokeHandler(MessagingMessageListenerAdapter.java:118)
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.onMessage(MessagingMessageListenerAdapter.java:84)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:819)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:776)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:754)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.doReceiveAndExecute(AbstractPollingMessageListenerContainer.java:333)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveAndExecute(AbstractPollingMessageListenerContainer.java:270)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1420)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1410)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1287)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.springframework.jms.IllegalStateException: The Session is closed
+	at org.springframework.jms.support.JmsUtils.convertJmsAccessException(JmsUtils.java:272)
+	at org.springframework.jms.support.JmsAccessor.convertJmsAccessException(JmsAccessor.java:199)
+	at org.springframework.jms.core.JmsTemplate.execute(JmsTemplate.java:533)
+	at org.springframework.jms.core.JmsTemplate.send(JmsTemplate.java:610)
+	at org.springframework.jms.core.JmsTemplate.convertAndSend(JmsTemplate.java:717)
+	at txu.report.mainapp.mq.MessageConsumer.createHRUser(MessageConsumer.java:56)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:169)
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:119)
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.invokeHandler(MessagingMessageListenerAdapter.java:110)
+	... 10 common frames omitted
+Caused by: jakarta.jms.IllegalStateException: The Session is closed
+	at org.apache.activemq.ActiveMQSession.checkClosed(ActiveMQSession.java:774)
+	at org.apache.activemq.ActiveMQSession.createQueue(ActiveMQSession.java:1351)
+	at org.springframework.jms.support.destination.DynamicDestinationResolver.resolveQueue(DynamicDestinationResolver.java:85)
+	at org.springframework.jms.support.destination.DynamicDestinationResolver.resolveDestinationName(DynamicDestinationResolver.java:59)
+	at org.springframework.jms.support.destination.JmsDestinationAccessor.resolveDestinationName(JmsDestinationAccessor.java:115)
+	at org.springframework.jms.core.JmsTemplate.lambda$send$3(JmsTemplate.java:611)
+	at org.springframework.jms.core.JmsTemplate.execute(JmsTemplate.java:530)
+	... 18 common frames omitted
+2026-04-10 14:06:22.339 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-2] o.s.j.l.DefaultMessageListenerContainer - Application exception overridden by rollback error
+org.springframework.jms.listener.adapter.ListenerExecutionFailedException: Listener method 'public void txu.report.mainapp.mq.MessageConsumer.createHRUser(txu.common.saga.contract.command.CreateHRUserCommand)' threw exception
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.invokeHandler(MessagingMessageListenerAdapter.java:118)
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.onMessage(MessagingMessageListenerAdapter.java:84)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:819)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:776)
+	at org.springframework.jms.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:754)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.doReceiveAndExecute(AbstractPollingMessageListenerContainer.java:333)
+	at org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveAndExecute(AbstractPollingMessageListenerContainer.java:270)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1420)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1410)
+	at org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1287)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.springframework.jms.IllegalStateException: The Session is closed
+	at org.springframework.jms.support.JmsUtils.convertJmsAccessException(JmsUtils.java:272)
+	at org.springframework.jms.support.JmsAccessor.convertJmsAccessException(JmsAccessor.java:199)
+	at org.springframework.jms.core.JmsTemplate.execute(JmsTemplate.java:533)
+	at org.springframework.jms.core.JmsTemplate.send(JmsTemplate.java:610)
+	at org.springframework.jms.core.JmsTemplate.convertAndSend(JmsTemplate.java:717)
+	at txu.report.mainapp.mq.MessageConsumer.createHRUser(MessageConsumer.java:56)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:169)
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:119)
+	at org.springframework.jms.listener.adapter.MessagingMessageListenerAdapter.invokeHandler(MessagingMessageListenerAdapter.java:110)
+	... 10 common frames omitted
+Caused by: jakarta.jms.IllegalStateException: The Session is closed
+	at org.apache.activemq.ActiveMQSession.checkClosed(ActiveMQSession.java:774)
+	at org.apache.activemq.ActiveMQSession.createQueue(ActiveMQSession.java:1351)
+	at org.springframework.jms.support.destination.DynamicDestinationResolver.resolveQueue(DynamicDestinationResolver.java:85)
+	at org.springframework.jms.support.destination.DynamicDestinationResolver.resolveDestinationName(DynamicDestinationResolver.java:59)
+	at org.springframework.jms.support.destination.JmsDestinationAccessor.resolveDestinationName(JmsDestinationAccessor.java:115)
+	at org.springframework.jms.core.JmsTemplate.lambda$send$3(JmsTemplate.java:611)
+	at org.springframework.jms.core.JmsTemplate.execute(JmsTemplate.java:530)
+	... 18 common frames omitted
+2026-04-10 14:10:51.763 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:10:57.734 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:11:06.993 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:11:06.998 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:11:08.262 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:11:08.270 ERROR [http-nio-8080-exec-7] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:11:15.542 ERROR [http-nio-8080-exec-9] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:11:15.548 ERROR [http-nio-8080-exec-10] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:11:16.461 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:11:16.469 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:12:12.247 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:12:32.432 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:12:33.642 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:12:35.260 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:16:14.976 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:16:21.442 ERROR [http-nio-8080-exec-7] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:21:01.791 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:21:17.680 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:22:23.999 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:22:23.999 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:22:25.915 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:22:29.857 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:28:03.785 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:28:03.785 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:28:04.631 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:28:08.440 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:30:41.030 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:30:41.030 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:30:42.152 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:30:44.857 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:37:36.158 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:37:37.184 ERROR [http-nio-8080-exec-9] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:37:49.618 ERROR [http-nio-8080-exec-10] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:37:49.618 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:37:50.627 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:37:54.959 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:40:28.492 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:42:04.370 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:42:04.379 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:42:04.481 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 14:44:45.164 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:44:45.164 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:44:47.782 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:45:17.721 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:48:30.183 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:48:30.183 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:48:46.733 ERROR [http-nio-8080-exec-10] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 14:49:23.730 ERROR [http-nio-8080-exec-9] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:49:53.548 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:50:20.442 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:50:37.564 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:50:45.851 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:58:13.831 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:58:26.452 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:58:26.452 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 14:58:59.189 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:04:27.386 ERROR [http-nio-8080-exec-10] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 15:09:36.170 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]
+2026-04-10 15:32:46.788 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 15:32:49.695 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 15:40:25.749 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 15:40:27.316 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 15:40:38.102 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:40:38.102 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:40:39.801 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 15:40:41.034 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:42:08.623 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:42:08.623 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:42:08.695 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:42:08.702 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 15:42:12.132 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:42:12.132 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:42:12.189 ERROR [http-nio-8080-exec-7] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 15:42:12.215 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:44:10.623 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:44:19.440 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:44:20.372 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:44:21.313 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:45:46.237 ERROR [http-nio-8080-exec-10] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:45:54.965 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:47:35.815 ERROR [http-nio-8080-exec-9] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:47:36.482 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+null
+2026-04-10 15:59:24.842 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 15:59:25.528 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 17:30:22.701 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=0, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:30:48.752 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=1, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:31:14.802 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=2, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:31:40.855 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=3, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:32:06.893 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=4, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:32:32.946 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=5, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:32:58.983 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=6, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:33:25.014 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=7, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:33:51.073 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=8, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:34:17.125 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=9, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:34:42.436 ERROR [http-nio-8080-exec-7] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 17:34:43.167 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=10, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:34:45.038 ERROR [http-nio-8080-exec-9] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 17:35:09.203 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=11, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:35:35.256 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=12, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:36:01.314 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=13, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:36:27.353 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=14, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:36:53.409 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=15, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:37:19.434 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=16, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:37:45.481 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=17, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:38:11.528 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=18, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:38:37.576 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=19, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:39:03.612 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=20, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:39:29.649 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=21, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:39:55.712 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=22, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:40:21.745 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=23, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:40:47.768 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=24, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:41:13.801 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=25, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:41:39.839 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=26, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:42:05.893 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=27, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:42:31.937 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=28, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:42:57.996 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=29, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:43:24.050 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=30, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:43:50.099 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=31, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:44:16.148 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=32, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:44:42.188 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-4] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=33, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-10 17:47:33.964 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 17:47:34.113 ERROR [http-nio-8080-exec-2] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 18:36:38.822 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 18:36:40.094 ERROR [http-nio-8080-exec-1] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 19:22:53.016 ERROR [http-nio-8080-exec-9] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 19:22:53.153 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 19:43:19.435 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 19:43:19.699 ERROR [http-nio-8080-exec-8] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 22:34:29.095 ERROR [http-nio-8080-exec-5] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 22:34:30.754 ERROR [http-nio-8080-exec-6] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 23:30:09.432 ERROR [http-nio-8080-exec-9] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 23:30:11.190 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 23:46:31.127 ERROR [http-nio-8080-exec-3] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
+2026-04-10 23:46:31.775 ERROR [http-nio-8080-exec-7] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+Index 1 out of bounds for length 1
