@@ -91,8 +91,8 @@ public class AccountApi extends AbstractApi {
 
     @PostMapping(value = "/admin/account/get-paging")
     public List<AccountDto> getPaging(@RequestBody AccountRequest accountRequest) {
-//        throw new TxException("abcd");
-        return accountService.getPaging(accountRequest.getKeyOffset(), accountRequest.getLimit(), accountRequest.getKeySearch());
+        throw new TxException("abcd");
+//        return accountService.getPaging(accountRequest.getKeyOffset(), accountRequest.getLimit(), accountRequest.getKeySearch());
     }
 
     // User
