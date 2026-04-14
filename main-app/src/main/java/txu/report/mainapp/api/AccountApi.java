@@ -90,11 +90,11 @@ public class AccountApi extends AbstractApi {
         );
     }
 
-    @PostMapping(value = "/admin/account/get-paging")
-    public List<AccountDto> getPaging(@RequestBody AccountRequest accountRequest) {
-//        throw new NotFoundException("abcd");
-        return accountService.getPaging(accountRequest.getKeyOffset(), accountRequest.getLimit(), accountRequest.getKeySearch());
-    }
+//    @PostMapping(value = "/admin/account/get-paging")
+//    public List<AccountDto> getPaging(@RequestBody AccountRequest accountRequest) {
+////        throw new NotFoundException("abcd");
+//        return accountService.getPaging(accountRequest.getKeyOffset(), accountRequest.getLimit(), accountRequest.getKeySearch());
+//    }
 
     // User
     @PostMapping("/user/account/update-avatar")
