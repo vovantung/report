@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import txu.common.exception.TxException;
 import txu.report.mainapp.base.AbstractApi;
 import txu.report.mainapp.dto.*;
 import txu.report.mainapp.entity.WeeklyReportEntity;
@@ -61,7 +62,8 @@ public class WeeklyReortApi extends AbstractApi {
 
     @PostMapping(value = "/admin/weekly-report/get-fromto")
     public List<WeeklyReportDto> getFromDateToDate(@RequestBody FromDateToDateRequest request){
-        return weeklyReportService. getFromDateToDate(request.getFrom(), request.getTo());
+        throw new TxException("abcd");
+//        return weeklyReportService. getFromDateToDate(request.getFrom(), request.getTo());
     }
 
     @PostMapping(value = "/admin/weekly-report/get-noreport-fromto")

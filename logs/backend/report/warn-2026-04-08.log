@@ -1,7 +1,0 @@
-2026-04-08 23:36:18.465 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-04-08 23:36:20.644 WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-04-08 23:43:48.542 WARN  [org.springframework.jms.JmsListenerEndpointContainer#0-1] o.s.j.l.DefaultMessageListenerContainer - Setup of JMS message listener invoker failed for destination 'hr.create.user.queue' - trying to recover. Cause: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
-2026-04-08 23:44:49.658 WARN  [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection oracle.jdbc.driver.T4CConnection@77aeea4a (ORA-17008: Closed connection
-https://docs.oracle.com/error-help/db/ora-17008/). Possibly consider using a shorter maxLifetime value.
-2026-04-08 23:44:54.673 WARN  [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection oracle.jdbc.driver.T4CConnection@4c8abec7 (ORA-17008: Closed connection
-https://docs.oracle.com/error-help/db/ora-17008/). Possibly consider using a shorter maxLifetime value.
