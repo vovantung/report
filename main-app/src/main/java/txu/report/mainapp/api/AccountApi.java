@@ -3,10 +3,7 @@ package txu.report.mainapp.api;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import txu.common.exception.NotFoundException;
-import txu.common.exception.TxException;
 import txu.report.mainapp.base.AbstractApi;
 import txu.report.mainapp.dto.*;
 import txu.report.mainapp.dto.request.AccountRequest;
@@ -14,7 +11,6 @@ import txu.report.mainapp.entity.AccountEntity;
 import txu.report.mainapp.service.AccountService;
 import txu.report.mainapp.util.JwtUtils;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,27 +42,6 @@ public class AccountApi extends AbstractApi {
         );
     }
 
-    // Admin
-//    @PostMapping(value = "/admin/account/create-or-update")
-//    public Account2Dto createOrUpdate(@RequestBody AccountEntity accountEntity) throws NoSuchMethodException {
-//        AccountEntity  rs = accountService.createOrUpdate(accountEntity);
-//        Account2Dto account = new Account2Dto();
-//        account.setId(rs.getId());
-//        account.setUsername(rs.getUsername());
-//        account.setPassword(rs.getPassword());
-//        account.setEmail(rs.getEmail());
-//        account.setCreatedAt(rs.getCreatedAt());
-//        account.setUpdatedAt(rs.getUpdatedAt());
-//        account.setAvatarUrl(rs.getAvatarUrl());
-//        account.setAvatarFilename(rs.getAvatarFilename());
-//        account.setFirstName(rs.getFirstName());
-//        account.setLastName(rs.getLastName());
-//        DepartmentDto department = new DepartmentDto();
-//        department.setId(rs.getDepartment().getId());
-//        department.setName(rs.getDepartment().getName());
-//        account.setDepartment(department);
-//        return account;
-//    }
 
     @DeleteMapping(value = "/admin/account/remove")
     public boolean removeByUsername(@RequestBody UsernameRequest request) {

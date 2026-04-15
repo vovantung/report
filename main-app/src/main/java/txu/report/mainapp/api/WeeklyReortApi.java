@@ -73,8 +73,4 @@ public class WeeklyReortApi extends AbstractApi {
     public boolean removeById(@RequestBody IdRequest request){
         return weeklyReportService.removeById(request.getId());
     }
-    //    @PostMapping(value = "get-by-id")
-//    public WeeklyReportEntity getById(@RequestBody IdRequest request){
-//        return  weeklyReportService.getById(request.getId());
-//    }
 }
