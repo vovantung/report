@@ -42,6 +42,27 @@ public class AccountApi extends AbstractApi {
         );
     }
 
+    // Admin
+    @PostMapping(value = "/admin/account/create-or-update")
+    public Account2Dto createOrUpdate(@RequestBody AccountEntity accountEntity) throws NoSuchMethodException {
+        AccountEntity  rs = accountService.createOrUpdate(accountEntity);
+        Account2Dto account = new Account2Dto();
+        account.setId(rs.getId());
+        account.setUsername(rs.getUsername());
+        account.setPassword(rs.getPassword());
+        account.setEmail(rs.getEmail());
+        account.setCreatedAt(rs.getCreatedAt());
+        account.setUpdatedAt(rs.getUpdatedAt());
+        account.setAvatarUrl(rs.getAvatarUrl());
+        account.setAvatarFilename(rs.getAvatarFilename());
+        account.setFirstName(rs.getFirstName());
+        account.setLastName(rs.getLastName());
+        DepartmentDto department = new DepartmentDto();
+        department.setId(rs.getDepartment().getId());
+        department.setName(rs.getDepartment().getName());
+        account.setDepartment(department);
+        return account;
+    }
 
     @DeleteMapping(value = "/admin/account/remove")
     public boolean removeByUsername(@RequestBody UsernameRequest request) {
