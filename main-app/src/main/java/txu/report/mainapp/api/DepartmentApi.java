@@ -27,15 +27,22 @@ public class DepartmentApi extends AbstractApi {
         DepartmentEntity result = departmentService.createOrUpdate(department);
         Department1Dto department1Dto = new Department1Dto();
         List< Account1Dto> account1DtoList = new ArrayList<>();
-        if(result.getAccounts() != null){
-            result.getAccounts().forEach(account1Dto -> {
-                Account1Dto account1Dto1 = new Account1Dto();
-                account1Dto1.setId(account1Dto.getId());
-                account1Dto1.setFirstName(account1Dto.getFirstName());
-                account1Dto1.setLastName(account1Dto.getLastName());
-                account1DtoList.add(account1Dto1);
-            });
-        }
+        result.getAccounts().forEach(account1Dto -> {
+            Account1Dto account1Dto1 = new Account1Dto();
+            account1Dto1.setId(account1Dto.getId());
+            account1Dto1.setFirstName(account1Dto.getFirstName());
+            account1Dto1.setLastName(account1Dto.getLastName());
+            account1DtoList.add(account1Dto1);
+        });
+//        if(result.getAccounts() != null){
+//            result.getAccounts().forEach(account1Dto -> {
+//                Account1Dto account1Dto1 = new Account1Dto();
+//                account1Dto1.setId(account1Dto.getId());
+//                account1Dto1.setFirstName(account1Dto.getFirstName());
+//                account1Dto1.setLastName(account1Dto.getLastName());
+//                account1DtoList.add(account1Dto1);
+//            });
+//        }
         department1Dto.setAccounts(account1DtoList);
         department1Dto.setId(result.getId());
         department1Dto.setName(result.getName());
