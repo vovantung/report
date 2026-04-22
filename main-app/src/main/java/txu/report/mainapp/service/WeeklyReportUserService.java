@@ -120,7 +120,7 @@ public class WeeklyReportUserService {
 //            userDetails = null;
 //        }
 
-        AccountEntity account = accountDao.getById(accountDao.getByUsername(username).getId());
+        AccountEntity account = accountDao.getByUsername(username);
 
         // Nếu tồn tại những thông tin report trong tuần mà liên qua đến người dùng (thuộc phòng ban) đã upload report hiện tại thì
         // xóa hết report đã upload trên lên storage1 (ngoại trừ file báo cáo hiện tại), và xóa tất cả dữ liệu lưu ở cơ sở dữ liệu (trong tuần hiện tại)
@@ -265,7 +265,7 @@ public class WeeklyReportUserService {
 //            userDetails = null;
 //        }
 
-        AccountEntity account = accountDao.getById(accountDao.getByUsername(username).getId());
+        AccountEntity account = accountDao.getByUsername(username);
 
         // Save metadata
         DepartmentEntity department = null;
@@ -339,7 +339,7 @@ public class WeeklyReportUserService {
 //            userDetails = null;
 //        }
 
-        AccountEntity account = accountDao.getById(accountDao.getByUsername(username).getId());
+        AccountEntity account = accountDao.getByUsername(username);
 
         // Save metadata
         DepartmentEntity department;
