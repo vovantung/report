@@ -32,7 +32,6 @@ public class WeeklyReportEntity implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DEPARTMENT_ID")
-    @JsonIgnore
     private DepartmentEntity department;
 }
 
