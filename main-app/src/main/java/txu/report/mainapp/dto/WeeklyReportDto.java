@@ -23,4 +23,8 @@ public class WeeklyReportDto {
         this.uploadedAt = uploadedAt;
         this.department = department;
     }
+
+    public WeeklyReportDto() {
+
+    }
 }

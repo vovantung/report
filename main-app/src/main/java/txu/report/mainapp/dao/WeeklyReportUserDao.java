@@ -37,15 +37,28 @@ public class WeeklyReportUserDao extends AbstractDao<WeeklyReportEntity> {
     }
 
 
-
-
-    public List<WeeklyReportEntity> getByDepartmentIdFromTo(Date from, Date to,  Integer departmentId) {
-        Query query = getEntityManager().createQuery("SELECT W FROM WeeklyReportEntity AS W WHERE W.uploadedAt >=:from AND W.uploadedAt <=: to AND W.department.id =:departmentId  ORDER BY W.uploadedAt DESC");
+    public List<WeeklyReportEntity> getByDepartmentIdFromTo(Date from, Date to, Integer departmentId) {
+        Query query = getEntityManager().createQuery("SELECT W FROM WeeklyReportEntity AS W " +
+                "JOIN FETCH W.department WHERE W.uploadedAt >=:from AND W.uploadedAt <=: to AND W.department.id =:departmentId  ORDER BY W.uploadedAt DESC");
         query.setParameter("from", from);
         query.setParameter("to", to);
         query.setParameter("departmentId", departmentId);
         return getRessultList(query);
+    }
 
+    public List<Object[]> getByDepartmentIdFromTo_(Date from, Date to, Integer departmentId) {
+        StringBuilder queryString = new StringBuilder("SELECT W.id, W.filename, W.originName, W.url, W.uploadedAt,  D.id, D.name" +
+                " FROM WeeklyReportEntity W " +
+                " LEFT JOIN W.department D " +
+                " WHERE W.uploadedAt >=:from AND W.uploadedAt <=: to AND D.id =:departmentId");
+        queryString.append(" ORDER BY W.uploadedAt DESC");
+        Query query = getEntityManager().createQuery(queryString.toString());
+        query.setParameter("from", from);
+        query.setParameter("to", to);
+        query.setParameter("departmentId", departmentId);
+        query.setMaxResults(100);
+        List<Object[]> rs = query.getResultList();
+        return query.getResultList();
     }
 
     public WeeklyReportEntity getSingleByDepartmentIdFromTo(Date from, Date to, Integer departmentId) {
