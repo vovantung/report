@@ -22,11 +22,12 @@ public class WeeklyReortApi extends AbstractApi {
     private final WeeklyReportService weeklyReportService;
 
     @PostMapping(value = "/admin/weekly-reports/date-range")
-    public List<WeeklyReportDto> findReportsByDateRange(@RequestBody FromDateToDateRequest request){
-        return weeklyReportService. findReportsByDateRange(request.getFrom(), request.getTo());
+    public List<WeeklyReportDto> findReportsByDateRange(@RequestBody FromDateToDateRequest request) {
+        return weeklyReportService.findReportsByDateRange(request.getFrom(), request.getTo());
     }
+
     @PostMapping(value = "/admin/weekly-reports/departments/without-reports")
-    public List<DepartmentDto> findDepartmentsWithoutReportsInDateRange(@RequestBody FromDateToDateRequest request){
+    public List<DepartmentDto> findDepartmentsWithoutReportsInDateRange(@RequestBody FromDateToDateRequest request) {
         return weeklyReportService.findDepartmentsWithoutReportsInDateRange(request.getFrom(), request.getTo());
     }
 
@@ -40,7 +41,7 @@ public class WeeklyReortApi extends AbstractApi {
     public LinkDto getPreSignedUrlForGeUser(@RequestBody LinkRequest request) {
         LinkDto linkDto = new LinkDto();
         try {
-            String pre_signed_url =  weeklyReportService.getPreSignedUrlForGet(request.getFilename());
+            String pre_signed_url = weeklyReportService.getPreSignedUrlForGet(request.getFilename());
             linkDto.setPre_signed_url(pre_signed_url);
         } catch (Exception e) {
 
@@ -64,7 +65,7 @@ public class WeeklyReortApi extends AbstractApi {
 
         String authHeader = httpServletRequest.getHeader("Authorization");
         String token = authHeader.replace("Bearer ", "");
-        Map<String,Object> claims = JwtUtils.decode(token);
+        Map<String, Object> claims = JwtUtils.decode(token);
 
         try {
             WeeklyReportEntity weeklyReport = weeklyReportService.addReport(request, claims.get("preferred_username").toString());
@@ -78,15 +79,15 @@ public class WeeklyReortApi extends AbstractApi {
     public List<WeeklyReportExtends> getCurrentDepartmentReportsByDateRange(@RequestBody FromDateToDateRequest request, HttpServletRequest httpServletRequest) throws Exception {
         String authHeader = httpServletRequest.getHeader("Authorization");
         String token = authHeader.replace("Bearer ", "");
-        Map<String,Object> claims = JwtUtils.decode(token);
-        return weeklyReportService. getCurrentDepartmentReportsByDateRange(request.getFrom(), request.getTo(), claims.get("preferred_username").toString());
+        Map<String, Object> claims = JwtUtils.decode(token);
+        return weeklyReportService.getCurrentDepartmentReportsByDateRange(request.getFrom(), request.getTo(), claims.get("preferred_username").toString());
     }
 
     @PostMapping(value = "/user/weekly-reports/summary/reports")
     public List<WeeklyReportExtends> getSummaryReportsByDateRange(@RequestBody FromDateToDateRequest request, HttpServletRequest httpServletRequest) throws Exception {
         String authHeader = httpServletRequest.getHeader("Authorization");
         String token = authHeader.replace("Bearer ", "");
-        Map<String,Object> claims = JwtUtils.decode(token);
-        return weeklyReportService. getSummaryReportsByDateRange(request.getFrom(), request.getTo(), claims.get("preferred_username").toString());
+        Map<String, Object> claims = JwtUtils.decode(token);
+        return weeklyReportService.getSummaryReportsByDateRange(request.getFrom(), request.getTo(), claims.get("preferred_username").toString());
     }
 }
