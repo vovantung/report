@@ -31,7 +31,7 @@ public class TaskApi extends AbstractApi {
 //        return taskService.getByAssigned(request.getAssigneeId());
 //    }
 
-    @PostMapping(value = "/task/get-related", consumes = "application/json")
+    @PostMapping(value = "/user/task/get-related", consumes = "application/json")
     public List<TaskDto> getRelated( HttpServletRequest httpServletRequest) throws Exception {
         String authHeader = httpServletRequest.getHeader("Authorization");
         String token = authHeader.replace("Bearer ", "");
@@ -39,7 +39,7 @@ public class TaskApi extends AbstractApi {
         return taskService.getRelated(claims.get("preferred_username").toString());
     }
 
-    @PostMapping(value = "/task/get-by-id", consumes = "application/json")
+    @PostMapping(value = "/user/task/get-by-id", consumes = "application/json")
     public TaskExtend getById(@RequestBody TaskRequest request, HttpServletRequest httpServletRequest) throws Exception {
 
         String authHeader = httpServletRequest.getHeader("Authorization");
@@ -48,7 +48,7 @@ public class TaskApi extends AbstractApi {
         return taskService.getById(request.getTaskId(), claims.get("preferred_username").toString());
     }
 
-    @PostMapping(value = "/task/submit-task", consumes = "application/json")
+    @PostMapping(value = "/user/task/submit-task", consumes = "application/json")
     public boolean submitTask(@RequestBody TaskRequest request, HttpServletRequest httpServletRequest) throws Exception {
         String authHeader = httpServletRequest.getHeader("Authorization");
         String token = authHeader.replace("Bearer ", "");
@@ -56,7 +56,7 @@ public class TaskApi extends AbstractApi {
         return taskService.submitTask(request.getTaskId(), claims.get("preferred_username").toString());
     }
 
-    @PostMapping(value = "/task/approve-task", consumes = "application/json")
+    @PostMapping(value = "/user/task/approve-task", consumes = "application/json")
     public boolean approveTask(@RequestBody TaskRequest request, HttpServletRequest httpServletRequest) throws Exception {
         String authHeader = httpServletRequest.getHeader("Authorization");
         String token = authHeader.replace("Bearer ", "");
