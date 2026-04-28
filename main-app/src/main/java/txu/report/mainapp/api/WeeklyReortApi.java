@@ -21,7 +21,7 @@ public class WeeklyReortApi extends AbstractApi {
 
     private final WeeklyReportService weeklyReportService;
 
-    @PostMapping("/admin/weekly-report/get-presignedurl-for-get")
+    @PostMapping("/admin/weekly-reports/get-presignedurl-for-get")
     public LinkDto getPreSignedUrlForGet(@RequestBody LinkRequest request) {
         LinkDto linkDto = new LinkDto();
         try {
@@ -33,7 +33,7 @@ public class WeeklyReortApi extends AbstractApi {
         return linkDto;
     }
 
-    @PostMapping("/admin/weekly-report/get-presignedurl-for-put")
+    @PostMapping("/admin/weekly-reports/get-presignedurl-for-put")
     public LinkDto getPreSignedUrlForPut(@RequestBody LinkRequest request) {
         LinkDto linkDto = new LinkDto();
         try {
@@ -44,7 +44,7 @@ public class WeeklyReortApi extends AbstractApi {
         return linkDto;
     }
 
-    @PostMapping("/admin/weekly-report/add")
+    @PostMapping("/admin/weekly-reports/add")
     public ResponseEntity<?> addReport(@RequestBody UploadfileInfoRequest request, HttpServletRequest httpServletRequest) throws Exception {
 
         String authHeader = httpServletRequest.getHeader("Authorization");
@@ -59,17 +59,16 @@ public class WeeklyReortApi extends AbstractApi {
         }
     }
 
-    @PostMapping(value = "/admin/weekly-report/get-fromto")
-    public List<WeeklyReportDto> getFromDateToDate(@RequestBody FromDateToDateRequest request){
-        return weeklyReportService. getFromDateToDate(request.getFrom(), request.getTo());
+    @PostMapping(value = "/admin/weekly-reports/date-range")
+    public List<WeeklyReportDto> findReportsByDateRange(@RequestBody FromDateToDateRequest request){
+        return weeklyReportService. findReportsByDateRange(request.getFrom(), request.getTo());
+    }
+    @PostMapping(value = "/admin/weekly-reports/departments/without-reports")
+    public List<DepartmentDto> findDepartmentsWithoutReportsInDateRange(@RequestBody FromDateToDateRequest request){
+        return weeklyReportService.findDepartmentsWithoutReportsInDateRange(request.getFrom(), request.getTo());
     }
 
-    @PostMapping(value = "/admin/weekly-report/get-noreport-fromto")
-    public List<DepartmentDto> getNoReportFromDateToDate(@RequestBody FromDateToDateRequest request){
-        return weeklyReportService.findDepartmentsWithoutReport(request.getFrom(), request.getTo());
-    }
-
-    @DeleteMapping(value = "/admin/weekly-report/remove")
+    @DeleteMapping(value = "/admin/weekly-reports/remove")
     public boolean removeById(@RequestBody IdRequest request){
         return weeklyReportService.removeById(request.getId());
     }

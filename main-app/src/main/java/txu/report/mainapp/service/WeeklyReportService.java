@@ -94,7 +94,7 @@ public class WeeklyReportService {
         AccountEntity account = accountDao.getByUsername(username);
         // Nếu tồn tại những thông tin report trong tuần mà liên qua đến người dùng (thuộc phòng ban) đã upload report hiện tại thì
         // xóa hết report đã upload trên lên storage1 (ngoại trừ file báo cáo hiện tại), và xóa tất cả dữ liệu lưu ở cơ sở dữ liệu (trong tuần hiện tại)
-        List<WeeklyReportDto> weeklyReportEntities = getFromDateToDate(toDate(getStartOfWeek()), toDate(getEndOfWeek().plusDays(1).atStartOfDay().toLocalDate()));
+        List<WeeklyReportDto> weeklyReportEntities = findReportsByDateRange(toDate(getStartOfWeek()), toDate(getEndOfWeek().plusDays(1).atStartOfDay().toLocalDate()));
         weeklyReportEntities.forEach(weeklyReportEntity -> {
 //            if (weeklyReportEntity.getDepartment().getId() == userDetails.getDepartment_id()) {
             if (Objects.equals(weeklyReportEntity.getDepartment().getId(), account.getDepartment().getId())) {
@@ -137,9 +137,9 @@ public class WeeklyReportService {
         return weeklyReportDao.save(weeklyReport);
     }
 
-    public List<WeeklyReportDto> getFromDateToDate(Date from, Date to) {
+    public List<WeeklyReportDto> findReportsByDateRange(Date from, Date to) {
 
-        List<Object[]> rows = weeklyReportDao.getFromDateToDate(from, to);
+        List<Object[]> rows = weeklyReportDao.findReportsByDateRange(from, to);
         Map<Long, WeeklyReportDto> map = new LinkedHashMap<>();
 
         for (Object[] row : rows) {
@@ -165,7 +165,7 @@ public class WeeklyReportService {
         // tìm kiếm, tuy nhiên vân phải lấy danh sách các departments và các weekly-report từ DB
         // Cách tối ưu nhật là tìm và lấy departments chưa báo cáo ngay ở DB với Sub Query (ANTI JOIN) như cách bên dưới
         List<DepartmentDto> departmentNoReport = new ArrayList<>();
-        Set<Integer> departmentIds = getFromDateToDate(from, to).stream()
+        Set<Integer> departmentIds = findReportsByDateRange(from, to).stream()
                 .map(report -> report.getDepartment().getId())
                 .collect(Collectors.toSet());
 
@@ -181,8 +181,8 @@ public class WeeklyReportService {
         return departmentNoReport;
     }
 
-    public List<DepartmentDto> findDepartmentsWithoutReport(Date from, Date to) {
-        return  weeklyReportDao.findDepartmentsWithoutReport(from, to);
+    public List<DepartmentDto> findDepartmentsWithoutReportsInDateRange(Date from, Date to) {
+        return  weeklyReportDao.findDepartmentsWithoutReportsInDateRange(from, to);
     }
 
     public WeeklyReportEntity getById(int id) {

@@ -34,7 +34,7 @@ public class WeeklyReportDao extends AbstractDao<WeeklyReportEntity> {
         remove(weeklyReportEntity);
     }
 
-    public List<Object[]> getFromDateToDate(Date from, Date to) {
+    public List<Object[]> findReportsByDateRange(Date from, Date to) {
         StringBuilder queryString = new StringBuilder("SELECT W.id, W.filename, W.originName, W.url, W.uploadedAt, D.id, D.name" +
                 " FROM WeeklyReportEntity W" +
                 " LEFT JOIN W.department D " +
@@ -45,7 +45,7 @@ public class WeeklyReportDao extends AbstractDao<WeeklyReportEntity> {
         return query.getResultList();
     }
 
-    public List<DepartmentDto> findDepartmentsWithoutReport(Date from, Date to) {
+    public List<DepartmentDto> findDepartmentsWithoutReportsInDateRange(Date from, Date to) {
         String queryString = "SELECT new txu.report.mainapp.dto.DepartmentDto(d.id, d.name) " +
                         " FROM DepartmentEntity d " +
                         " WHERE NOT EXISTS (" +

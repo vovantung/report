@@ -135,7 +135,7 @@ public class WeeklyReportUserService {
     }
 
 
-    public List<WeeklyReportExtends> getDepartmentFromTo(Date from, Date to, String username) {
+    public List<WeeklyReportExtends> getCurrentDepartmentReportsByDateRange(Date from, Date to, String username) {
         AccountEntity account = accountDao.getByUsername(username);
         // Save metadata
         DepartmentEntity department = account != null ? account.getDepartment() : null;
@@ -186,7 +186,7 @@ public class WeeklyReportUserService {
         return results;
     }
 
-    public List<WeeklyReportExtends> getSummaryReportFromTo(Date from, Date to, String username) {
+    public List<WeeklyReportExtends> getSummaryReportsByDateRange(Date from, Date to, String username) {
         AccountEntity account = accountDao.getByUsername(username);
         // Save metadata
         DepartmentEntity department = account != null ? account.getDepartment() : null;
