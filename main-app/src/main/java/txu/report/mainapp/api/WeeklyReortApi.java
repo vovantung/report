@@ -72,4 +72,60 @@ public class WeeklyReortApi extends AbstractApi {
     public boolean removeById(@RequestBody IdRequest request){
         return weeklyReportService.removeById(request.getId());
     }
+
+
+    //User
+    @PostMapping("/user/weekly-reports/get-presignedurl-for-get")
+    public LinkDto getPreSignedUrlForGeUser(@RequestBody LinkRequest request) {
+        LinkDto linkDto = new LinkDto();
+        try {
+            String pre_signed_url =  weeklyReportService.getPreSignedUrlForGet(request.getFilename());
+            linkDto.setPre_signed_url(pre_signed_url);
+        } catch (Exception e) {
+
+        }
+        return linkDto;
+    }
+
+    @PostMapping("/user/weekly-reports/get-presignedurl-for-put")
+    public LinkDto getPreSignedUrlForPuUser(@RequestBody LinkRequest request) {
+        LinkDto linkDto = new LinkDto();
+        try {
+            return weeklyReportService.getPreSignedUrlForPut(request.getFilename());
+        } catch (Exception e) {
+
+        }
+        return linkDto;
+    }
+
+    @PostMapping("/user/weekly-reports/add")
+    public ResponseEntity<?> addReportUser(@RequestBody UploadfileInfoRequest request, HttpServletRequest httpServletRequest) throws Exception {
+
+        String authHeader = httpServletRequest.getHeader("Authorization");
+        String token = authHeader.replace("Bearer ", "");
+        Map<String,Object> claims = JwtUtils.decode(token);
+
+        try {
+            WeeklyReportEntity weeklyReport = weeklyReportService.addReport(request, claims.get("preferred_username").toString());
+            return ResponseEntity.ok(weeklyReport);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed: " + e.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/user/weekly-reports/current-department/reports")
+    public List<WeeklyReportExtends> getCurrentDepartmentReportsByDateRange(@RequestBody FromDateToDateRequest request, HttpServletRequest httpServletRequest) throws Exception {
+        String authHeader = httpServletRequest.getHeader("Authorization");
+        String token = authHeader.replace("Bearer ", "");
+        Map<String,Object> claims = JwtUtils.decode(token);
+        return weeklyReportService. getCurrentDepartmentReportsByDateRange(request.getFrom(), request.getTo(), claims.get("preferred_username").toString());
+    }
+
+    @PostMapping(value = "/user/weekly-reports/summary/reports")
+    public List<WeeklyReportExtends> getSummaryReportsByDateRange(@RequestBody FromDateToDateRequest request, HttpServletRequest httpServletRequest) throws Exception {
+        String authHeader = httpServletRequest.getHeader("Authorization");
+        String token = authHeader.replace("Bearer ", "");
+        Map<String,Object> claims = JwtUtils.decode(token);
+        return weeklyReportService. getSummaryReportsByDateRange(request.getFrom(), request.getTo(), claims.get("preferred_username").toString());
+    }
 }

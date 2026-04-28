@@ -60,4 +60,35 @@ public class WeeklyReportDao extends AbstractDao<WeeklyReportEntity> {
         query.setParameter("to", to);
         return query.getResultList();
     }
+
+    // User
+    public List<Object[]> getByDepartmentAndDateRange(Date from, Date to, Integer departmentId) {
+        String queryString = "SELECT W.id, W.filename, W.originName, W.url, W.uploadedAt,  D.id, D.name" +
+                " FROM WeeklyReportEntity W " +
+                " LEFT JOIN W.department D " +
+                " WHERE W.uploadedAt >=:from AND W.uploadedAt <=: to AND D.id =:departmentId ORDER BY W.uploadedAt DESC";
+        Query query = getEntityManager().createQuery(queryString);
+        query.setParameter("from", from);
+        query.setParameter("to", to);
+        query.setParameter("departmentId", departmentId);
+        query.setMaxResults(100);
+        return query.getResultList();
+
+    }
+
+    public WeeklyReportEntity getSingleByDepartmentIdFromTo(Date from, Date to, Integer departmentId) {
+        Query query = getEntityManager().createQuery("SELECT W FROM WeeklyReportEntity AS W WHERE W.uploadedAt >=:from AND W.uploadedAt <=: to AND W.department.id =:departmentId  ORDER BY W.uploadedAt DESC");
+        query.setParameter("from", from);
+        query.setParameter("to", to);
+        query.setParameter("departmentId", departmentId);
+        return getSingle(query);
+    }
+
+    public List<WeeklyReportEntity> getFromTo(Date from, Date to) {
+        StringBuilder queryString = new StringBuilder("SELECT W FROM WeeklyReportEntity AS W WHERE W.uploadedAt >=:from AND W.uploadedAt <=: to  ORDER BY W.uploadedAt DESC");
+        Query query = getEntityManager().createQuery(queryString.toString());
+        query.setParameter("from", from);
+        query.setParameter("to", to);
+        return getRessultList(query);
+    }
 }

@@ -23,7 +23,8 @@ import txu.report.mainapp.entity.DepartmentEntity;
 import txu.report.mainapp.entity.WeeklyReportEntity;
 import txu.common.exception.NotFoundException;
 
-import java.time.Duration;
+import java.time.*;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -48,49 +49,25 @@ public class WeeklyReportService {
 
     private final S3Presigner presigner;
 
-    // ✅ UPLOAD
     public LinkDto getPreSignedUrlForPut(String key) {
-
         LinkDto linkDto = new LinkDto();
         String filename = UUID.randomUUID() + "_" + key;
-
-        PutObjectRequest objectRequest = PutObjectRequest.builder()
-                .bucket(bucketName)
-                .key(filename)
-                .build();
-
-        PutObjectPresignRequest presignRequest =
-                PutObjectPresignRequest.builder()
-                        .signatureDuration(Duration.ofMinutes(2))
-                        .putObjectRequest(objectRequest)
-                        .build();
-
+        PutObjectRequest objectRequest = PutObjectRequest.builder().bucket(bucketName).key(filename).build();
+        PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder().signatureDuration(Duration.ofMinutes(2)).putObjectRequest(objectRequest).build();
         String pre_signed_url = presigner.presignPutObject(presignRequest).url().toString();
         linkDto.setPre_signed_url(pre_signed_url);
         linkDto.setFilename(filename);
         return linkDto;
     }
 
-    // ✅ DOWNLOAD
     public String getPreSignedUrlForGet(String key) {
-
-        GetObjectRequest getRequest = GetObjectRequest.builder()
-                .bucket(bucketName)
-                .key(key)
-                .build();
-
-        GetObjectPresignRequest presignRequest =
-                GetObjectPresignRequest.builder()
-                        .signatureDuration(Duration.ofMinutes(15))
-                        .getObjectRequest(getRequest)
-                        .build();
-
+        GetObjectRequest getRequest = GetObjectRequest.builder().bucket(bucketName).key(key).build();
+        GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder().signatureDuration(Duration.ofMinutes(15)).getObjectRequest(getRequest).build();
         String pre_signed_url = presigner.presignGetObject(presignRequest).url().toString();
         return pre_signed_url;
     }
 
     public WeeklyReportEntity addReport(UploadfileInfoRequest request, String username) throws Exception {
-
         AccountEntity account = accountDao.getByUsername(username);
         // Nếu tồn tại những thông tin report trong tuần mà liên qua đến người dùng (thuộc phòng ban) đã upload report hiện tại thì
         // xóa hết report đã upload trên lên storage1 (ngoại trừ file báo cáo hiện tại), và xóa tất cả dữ liệu lưu ở cơ sở dữ liệu (trong tuần hiện tại)
@@ -98,14 +75,9 @@ public class WeeklyReportService {
         weeklyReportEntities.forEach(weeklyReportEntity -> {
 //            if (weeklyReportEntity.getDepartment().getId() == userDetails.getDepartment_id()) {
             if (Objects.equals(weeklyReportEntity.getDepartment().getId(), account.getDepartment().getId())) {
-
                 if (!Objects.equals(weeklyReportEntity.getFilename(), request.getFilename())) {
-
                     try {
-                        s3Client.deleteObject(DeleteObjectRequest.builder()
-                                .bucket(bucketName)
-                                .key(weeklyReportEntity.getFilename())
-                                .build()
+                        s3Client.deleteObject(DeleteObjectRequest.builder().bucket(bucketName).key(weeklyReportEntity.getFilename()).build()
                         );
                         System.out.println("Deleted successfully: " + weeklyReportEntity.getFilename());
                     } catch (AmazonServiceException e) {
@@ -118,9 +90,7 @@ public class WeeklyReportService {
                 weeklyReportDao.delete(weeklyReportDao.getById(weeklyReportEntity.getId()));
             }
         });
-
         // Thêm kiểm tra file báo cáo có tồn tại trên bucket chưa, nếu chưa thì không cập nhật dữ liệu
-
         String fileUrl = String.format(url + "/%s/%s", bucketName, request.getFilename());
         // Save metadata
         DepartmentEntity department = null;
@@ -138,10 +108,8 @@ public class WeeklyReportService {
     }
 
     public List<WeeklyReportDto> findReportsByDateRange(Date from, Date to) {
-
         List<Object[]> rows = weeklyReportDao.findReportsByDateRange(from, to);
         Map<Long, WeeklyReportDto> map = new LinkedHashMap<>();
-
         for (Object[] row : rows) {
             Long weeklyReportId = ((Number) row[0]).longValue();
             String filename = (String) row[1];
@@ -197,4 +165,101 @@ public class WeeklyReportService {
         weeklyReportDao.delete(weeklyReport);
         return true;
     }
+
+    // User
+
+    public List<WeeklyReportExtends> getCurrentDepartmentReportsByDateRange(Date from, Date to, String username) {
+        AccountEntity account = accountDao.getByUsername(username);
+        // Save metadata
+        DepartmentEntity department = account != null ? account.getDepartment() : null;
+        List<WeeklyReportDto> list = getByDepartmentAndDateRange(from, to, department.getId());
+        List<WeeklyReportExtends> results = new ArrayList<>();
+        list.forEach(weeklyReport -> {
+            ZoneId zoneId = ZoneId.of("Asia/Ho_Chi_Minh");
+            // Chuyển Date -> LocalDate theo Zone VN
+            LocalDate localDate = weeklyReport.getUploadedAt().toInstant().atZone(zoneId).toLocalDate();
+            // Lấy ngày đầu tuần (Thứ 2) và cuối tuần (Chủ Nhật)
+            LocalDate startOfWeek = localDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+            LocalDate endOfWeek = localDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+            // Nếu bạn muốn trả lại kiểu java.util.Date:
+            Date startDate = Date.from(startOfWeek.atStartOfDay(zoneId).toInstant());
+            Date endDate = Date.from(endOfWeek.atTime(LocalTime.MAX).atZone(zoneId).toInstant());
+//            System.out.println("Ngày gốc: " + weeklyReportEntity.getUploadedAt());
+//            System.out.println("Đầu tuần: " + startDate);
+//            System.out.println("Cuối tuần: " + endDate);
+            // Lấy báo cáo của đơn vị tổng hợp trong tuần hiện tại mà báo cáo của đơn vị nghiệp vụ được chọn
+            WeeklyReportEntity rs = weeklyReportDao.getSingleByDepartmentIdFromTo(startDate, endDate, 2);
+            WeeklyReportExtends temp = new WeeklyReportExtends();
+            temp.setId(weeklyReport.getId());
+            temp.setUrl(weeklyReport.getUrl());
+            temp.setFilename(weeklyReport.getFilename());
+            temp.setOriginName(weeklyReport.getOriginName());
+            temp.setDepartment(weeklyReport.getDepartment());
+            temp.setUploadedAt(weeklyReport.getUploadedAt());
+            if (rs != null) {
+                temp.setOriginNameReportEx(rs.getOriginName());
+                temp.setDateReportEx(rs.getUploadedAt());
+                temp.setUrlReportEx(rs.getUrl());
+                temp.setFilenameReportEx(rs.getFilename());
+            }
+            results.add(temp);
+        });
+        return results;
+    }
+
+    public List<WeeklyReportExtends> getSummaryReportsByDateRange(Date from, Date to, String username) {
+        AccountEntity account = accountDao.getByUsername(username);
+        // Save metadata
+        DepartmentEntity department = account != null ? account.getDepartment() : null;
+        List<WeeklyReportDto> list = getByDepartmentAndDateRange(from, to, 2);
+        List<WeeklyReportExtends> results = new ArrayList<>();
+        list.forEach(weeklyReport -> {
+            ZoneId zoneId = ZoneId.of("Asia/Ho_Chi_Minh");
+            // Chuyển Date -> LocalDate theo Zone VN
+            LocalDate localDate = weeklyReport.getUploadedAt().toInstant().atZone(zoneId).toLocalDate();
+            // Lấy ngày đầu tuần (Thứ 2) và cuối tuần (Chủ Nhật)
+            LocalDate startOfWeek = localDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+            LocalDate endOfWeek = localDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+            // Nếu bạn muốn trả lại kiểu java.util.Date:
+            Date startDate = Date.from(startOfWeek.atStartOfDay(zoneId).toInstant());
+            Date endDate = Date.from(endOfWeek.atTime(LocalTime.MAX).atZone(zoneId).toInstant());
+            // Lấy báo cáo của đơn vị nghiệp vụ trong tuần hiện tại mà báo cáo tổng hợp được chọn
+            WeeklyReportEntity rs = weeklyReportDao.getSingleByDepartmentIdFromTo(startDate, endDate, department.getId());
+            WeeklyReportExtends temp = new WeeklyReportExtends();
+            temp.setId(weeklyReport.getId());
+            temp.setUrl(weeklyReport.getUrl());
+            temp.setFilename(weeklyReport.getFilename());
+            temp.setOriginName(weeklyReport.getOriginName());
+            temp.setDepartment(weeklyReport.getDepartment());
+            temp.setUploadedAt(weeklyReport.getUploadedAt());
+            if (rs != null) {
+                temp.setOriginNameReportEx(rs.getOriginName());
+                temp.setDateReportEx(rs.getUploadedAt());
+                temp.setUrlReportEx(rs.getUrl());
+                temp.setFilenameReportEx(rs.getFilename());
+            }
+            results.add(temp);
+        });
+        return results;
+    }
+
+    public List<WeeklyReportDto> getByDepartmentAndDateRange(Date from, Date to, Integer departmentId) {
+        List<Object[]> rows = weeklyReportDao.getByDepartmentAndDateRange(from, to, departmentId);
+        Map<Long, WeeklyReportDto> map = new LinkedHashMap<>();
+        for (Object[] row : rows) {
+            Long weekReportId = ((Number) row[0]).longValue();
+            String filename = (String) row[1];
+            String originName = (String) row[2];
+            String url = (String) row[3];
+            Date updatedAt = (Date) row[4];
+            Integer departmentId_ = ((Number) row[5]).intValue();
+            String departmentName = (String) row[6];
+            DepartmentDto departmentDto = new DepartmentDto();
+            departmentDto.setId(departmentId_);
+            departmentDto.setName(departmentName);
+            map.computeIfAbsent(weekReportId, id -> new WeeklyReportDto(id, filename, originName, url, updatedAt, departmentDto));
+        }
+        return new ArrayList<>(map.values());
+    }
+
 }
