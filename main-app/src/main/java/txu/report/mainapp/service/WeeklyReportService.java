@@ -4,8 +4,6 @@ import com.amazonaws.AmazonServiceException;
 import lombok.RequiredArgsConstructor;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -27,6 +25,7 @@ import txu.common.exception.NotFoundException;
 
 import java.time.Duration;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static txu.report.mainapp.common.DateUtil.*;
 
@@ -90,31 +89,9 @@ public class WeeklyReportService {
         return pre_signed_url;
     }
 
-
     public WeeklyReportEntity addReport(UploadfileInfoRequest request, String username) throws Exception {
 
-        // Lấy thông tin người dùng gửi request thông qua token, mà lớp filter đã thực hiện qua lưu vào Security context holder.
-        // Việc lấy thông tin này ch yếu để xác định người dùng hiện tại đang ở phòng ban nào, để cập nhật hoặc tạo báo cáo cho phòng ban đó.
-        // Ở đây không xử lý xác thực người dung, vì việc này đã được thực hiện bở kong gateway
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//
-//        CustomUserDetails userDetails;
-//        if (authentication != null && authentication.isAuthenticated()) {
-//            Object principal = authentication.getPrincipal();
-//            if (principal instanceof CustomUserDetails) {
-//                userDetails = (CustomUserDetails) principal;
-////                String username = userDetails.getUsername();
-////                Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-//            } else {
-//                userDetails = null;
-//            }
-//        } else {
-//            userDetails = null;
-//        }
-
-
         AccountEntity account = accountDao.getByUsername(username);
-
         // Nếu tồn tại những thông tin report trong tuần mà liên qua đến người dùng (thuộc phòng ban) đã upload report hiện tại thì
         // xóa hết report đã upload trên lên storage1 (ngoại trừ file báo cáo hiện tại), và xóa tất cả dữ liệu lưu ở cơ sở dữ liệu (trong tuần hiện tại)
         List<WeeklyReportDto> weeklyReportEntities = getFromDateToDate(toDate(getStartOfWeek()), toDate(getEndOfWeek().plusDays(1).atStartOfDay().toLocalDate()));
@@ -185,16 +162,14 @@ public class WeeklyReportService {
 
     public List<DepartmentDto> getNoReportedFromDateToDate(Date from, Date to) {
         List<DepartmentDto> departmentNoReport = new ArrayList<DepartmentDto>();
-        ArrayList<Object> departmentsReport = new ArrayList<>();
 
-        List<WeeklyReportDto> uploadFileEntities = getFromDateToDate(from, to);
-        uploadFileEntities.forEach(weeklyReportEntity -> {
-            departmentsReport.add(weeklyReportEntity.getDepartment().getId());
-        });
+        Set<Integer> departmentIds = getFromDateToDate(from, to).stream()
+                .map(report -> report.getDepartment().getId())
+                .collect(Collectors.toSet());
 
         List<Department1Dto> department1Dtos = departmentDao.getPaging(1,100,"");
         department1Dtos.forEach(department -> {
-            if (!departmentsReport.contains(department.getId())) {
+            if (!departmentIds.contains(department.getId())) {
                 DepartmentDto dpm = new DepartmentDto();
                 dpm.setId(department.getId());
                 dpm.setName(department.getName());
