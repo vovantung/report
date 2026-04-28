@@ -66,7 +66,7 @@ public class WeeklyReortApi extends AbstractApi {
 
     @PostMapping(value = "/admin/weekly-report/get-noreport-fromto")
     public List<DepartmentDto> getNoReportFromDateToDate(@RequestBody FromDateToDateRequest request){
-        return weeklyReportService. getNoReportedFromDateToDate(request.getFrom(), request.getTo());
+        return weeklyReportService.findDepartmentsWithoutReport(request.getFrom(), request.getTo());
     }
 
     @DeleteMapping(value = "/admin/weekly-report/remove")

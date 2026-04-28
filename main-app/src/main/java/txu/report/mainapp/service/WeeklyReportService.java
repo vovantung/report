@@ -154,15 +154,17 @@ public class WeeklyReportService {
             departmentDto.setId(departmentId);
             departmentDto.setName(departmentName);
             // tạo department nếu chưa có
-            WeeklyReportDto accountDto = map.computeIfAbsent(weeklyReportId, id -> new WeeklyReportDto(id, filename, originName, url,uploadedAt, departmentDto));
+            map.computeIfAbsent(weeklyReportId, id -> new WeeklyReportDto(id, filename, originName, url,uploadedAt, departmentDto));
         }
         List<WeeklyReportDto> rs = new ArrayList<>(map.values());
         return rs;
     }
 
-    public List<DepartmentDto> getNoReportedFromDateToDate(Date from, Date to) {
-        List<DepartmentDto> departmentNoReport = new ArrayList<DepartmentDto>();
-
+    public List<DepartmentDto> findDepartmentsWithoutReport_(Date from, Date to) {
+        // Cách này tối ưu hơn khi dùng HashSet để lưu các departmentId thay vì ArrayList phục vụ cho việc
+        // tìm kiếm, tuy nhiên vân phải lấy danh sách các departments và các weekly-report từ DB
+        // Cách tối ưu nhật là tìm và lấy departments chưa báo cáo ngay ở DB với Sub Query (ANTI JOIN) như cách bên dưới
+        List<DepartmentDto> departmentNoReport = new ArrayList<>();
         Set<Integer> departmentIds = getFromDateToDate(from, to).stream()
                 .map(report -> report.getDepartment().getId())
                 .collect(Collectors.toSet());
@@ -177,6 +179,10 @@ public class WeeklyReportService {
             }
         });
         return departmentNoReport;
+    }
+
+    public List<DepartmentDto> findDepartmentsWithoutReport(Date from, Date to) {
+        return  weeklyReportDao.findDepartmentsWithoutReport(from, to);
     }
 
     public WeeklyReportEntity getById(int id) {
