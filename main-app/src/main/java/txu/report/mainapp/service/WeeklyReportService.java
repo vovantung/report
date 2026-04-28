@@ -36,17 +36,12 @@ public class WeeklyReportService {
 
     private final WeeklyReportDao weeklyReportDao;
     private final DepartmentDao departmentDao;
-    private final AccountService accountService;
     private final AccountDao accountDao;
-
     private final S3Client s3Client;
-
     @Value("${ceph.rgw.bucket}")
     private String bucketName;
-
     @Value("${ceph.rgw.endpoint}")
     private String url;
-
     private final S3Presigner presigner;
 
     public LinkDto getPreSignedUrlForPut(String key) {
@@ -67,13 +62,12 @@ public class WeeklyReportService {
         return pre_signed_url;
     }
 
-    public WeeklyReportEntity addReport(UploadfileInfoRequest request, String username) throws Exception {
+    public WeeklyReportEntity addReport(UploadfileInfoRequest request, String username) {
         AccountEntity account = accountDao.getByUsername(username);
         // Nếu tồn tại những thông tin report trong tuần mà liên qua đến người dùng (thuộc phòng ban) đã upload report hiện tại thì
         // xóa hết report đã upload trên lên storage1 (ngoại trừ file báo cáo hiện tại), và xóa tất cả dữ liệu lưu ở cơ sở dữ liệu (trong tuần hiện tại)
         List<WeeklyReportDto> weeklyReportEntities = findReportsByDateRange(toDate(getStartOfWeek()), toDate(getEndOfWeek().plusDays(1).atStartOfDay().toLocalDate()));
         weeklyReportEntities.forEach(weeklyReportEntity -> {
-//            if (weeklyReportEntity.getDepartment().getId() == userDetails.getDepartment_id()) {
             if (Objects.equals(weeklyReportEntity.getDepartment().getId(), account.getDepartment().getId())) {
                 if (!Objects.equals(weeklyReportEntity.getFilename(), request.getFilename())) {
                     try {
@@ -116,46 +110,41 @@ public class WeeklyReportService {
             String originName = (String) row[2];
             String url = (String) row[3];
             Date uploadedAt = (Date) row[4];
-            Integer departmentId = ((Number)row[5]).intValue();
+            Integer departmentId = ((Number) row[5]).intValue();
             String departmentName = (String) row[6];
             DepartmentDto departmentDto = new DepartmentDto();
             departmentDto.setId(departmentId);
             departmentDto.setName(departmentName);
             // tạo department nếu chưa có
-            map.computeIfAbsent(weeklyReportId, id -> new WeeklyReportDto(id, filename, originName, url,uploadedAt, departmentDto));
+            map.computeIfAbsent(weeklyReportId, id -> new WeeklyReportDto(id, filename, originName, url, uploadedAt, departmentDto));
         }
         List<WeeklyReportDto> rs = new ArrayList<>(map.values());
         return rs;
     }
 
-    public List<DepartmentDto> findDepartmentsWithoutReport_(Date from, Date to) {
-        // Cách này tối ưu hơn khi dùng HashSet để lưu các departmentId thay vì ArrayList phục vụ cho việc
-        // tìm kiếm, tuy nhiên vân phải lấy danh sách các departments và các weekly-report từ DB
-        // Cách tối ưu nhật là tìm và lấy departments chưa báo cáo ngay ở DB với Sub Query (ANTI JOIN) như cách bên dưới
-        List<DepartmentDto> departmentNoReport = new ArrayList<>();
-        Set<Integer> departmentIds = findReportsByDateRange(from, to).stream()
-                .map(report -> report.getDepartment().getId())
-                .collect(Collectors.toSet());
-
-        List<Department1Dto> department1Dtos = departmentDao.getPaging(1,100,"");
-        department1Dtos.forEach(department -> {
-            if (!departmentIds.contains(department.getId())) {
-                DepartmentDto dpm = new DepartmentDto();
-                dpm.setId(department.getId());
-                dpm.setName(department.getName());
-                departmentNoReport.add(dpm);
-            }
-        });
-        return departmentNoReport;
-    }
-
     public List<DepartmentDto> findDepartmentsWithoutReportsInDateRange(Date from, Date to) {
-        return  weeklyReportDao.findDepartmentsWithoutReportsInDateRange(from, to);
+        return weeklyReportDao.findDepartmentsWithoutReportsInDateRange(from, to);
     }
-
-    public WeeklyReportEntity getById(int id) {
-        return weeklyReportDao.getById(id);
-    }
+//    public List<DepartmentDto> findDepartmentsWithoutReportsInDateRange_(Date from, Date to) {
+//        // Cách này tối ưu hơn khi dùng HashSet để lưu các departmentId thay vì ArrayList phục vụ cho việc
+//        // tìm kiếm, tuy nhiên vân phải lấy danh sách các departments và các weekly-report từ DB
+//        // Cách tối ưu nhật là tìm và lấy departments chưa báo cáo ngay ở DB với Sub Query (ANTI JOIN) như cách bên dưới
+//        List<DepartmentDto> departmentNoReport = new ArrayList<>();
+//        Set<Integer> departmentIds = findReportsByDateRange(from, to).stream()
+//                .map(report -> report.getDepartment().getId())
+//                .collect(Collectors.toSet());
+//
+//        List<Department1Dto> department1Dtos = departmentDao.getPaging(1, 100, "");
+//        department1Dtos.forEach(department -> {
+//            if (!departmentIds.contains(department.getId())) {
+//                DepartmentDto dpm = new DepartmentDto();
+//                dpm.setId(department.getId());
+//                dpm.setName(department.getName());
+//                departmentNoReport.add(dpm);
+//            }
+//        });
+//        return departmentNoReport;
+//    }
 
     public boolean removeById(int id) {
         WeeklyReportEntity weeklyReport = weeklyReportDao.getById(id);
@@ -167,7 +156,6 @@ public class WeeklyReportService {
     }
 
     // User
-
     public List<WeeklyReportExtends> getCurrentDepartmentReportsByDateRange(Date from, Date to, String username) {
         AccountEntity account = accountDao.getByUsername(username);
         // Save metadata
@@ -243,7 +231,7 @@ public class WeeklyReportService {
         return results;
     }
 
-    public List<WeeklyReportDto> getByDepartmentAndDateRange(Date from, Date to, Integer departmentId) {
+    private List<WeeklyReportDto> getByDepartmentAndDateRange(Date from, Date to, Integer departmentId) {
         List<Object[]> rows = weeklyReportDao.getByDepartmentAndDateRange(from, to, departmentId);
         Map<Long, WeeklyReportDto> map = new LinkedHashMap<>();
         for (Object[] row : rows) {
@@ -261,5 +249,4 @@ public class WeeklyReportService {
         }
         return new ArrayList<>(map.values());
     }
-
 }
