@@ -140,7 +140,7 @@ public class WeeklyReportUserService {
         // Save metadata
         DepartmentEntity department = account != null ? account.getDepartment() : null;
 //        assert department != null;
-        List<WeeklyReportDto> list = getByDepartmentIdFromTo_(from, to, department.getId());
+        List<WeeklyReportDto> list = getByDepartmentAndDateRange(from, to, department.getId());
         List<WeeklyReportExtends> results = new ArrayList<>();
         list.forEach(weeklyReport -> {
 
@@ -192,7 +192,7 @@ public class WeeklyReportUserService {
         DepartmentEntity department = account != null ? account.getDepartment() : null;
 
 //        assert department != null;
-        List<WeeklyReportDto> list = getByDepartmentIdFromTo_(from, to, 2);
+        List<WeeklyReportDto> list = getByDepartmentAndDateRange(from, to, 2);
         List<WeeklyReportExtends> results = new ArrayList<>();
         list.forEach(weeklyReport -> {
 
@@ -231,8 +231,8 @@ public class WeeklyReportUserService {
         return results;
     }
 
-    public List<WeeklyReportDto> getByDepartmentIdFromTo_(Date from, Date to, Integer departmentId) {
-        List<Object[]> rows = weeklyReportDao.getByDepartmentIdFromTo_(from, to, departmentId);
+    public List<WeeklyReportDto> getByDepartmentAndDateRange(Date from, Date to, Integer departmentId) {
+        List<Object[]> rows = weeklyReportDao.getByDepartmentAndDateRange(from, to, departmentId);
         Map<Long, WeeklyReportDto> map = new LinkedHashMap<>();
         for (Object[] row : rows) {
             Long weekReportId = ((Number) row[0]).longValue();
