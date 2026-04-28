@@ -30,10 +30,10 @@ public class WeeklyReortApi extends AbstractApi {
         return weeklyReportService.findDepartmentsWithoutReportsInDateRange(request.getFrom(), request.getTo());
     }
 
-    @DeleteMapping(value = "/admin/weekly-reports/remove")
-    public boolean removeById(@RequestBody IdRequest request){
-        return weeklyReportService.removeById(request.getId());
-    }
+//    @DeleteMapping(value = "/admin/weekly-reports/remove")
+//    public boolean removeById(@RequestBody IdRequest request){
+//        return weeklyReportService.removeById(request.getId());
+//    }
 
     //User
     @PostMapping("/user/weekly-reports/get-presignedurl-for-get")
