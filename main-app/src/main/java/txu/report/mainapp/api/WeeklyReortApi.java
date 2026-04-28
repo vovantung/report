@@ -21,43 +21,45 @@ public class WeeklyReortApi extends AbstractApi {
 
     private final WeeklyReportService weeklyReportService;
 
-    @PostMapping("/admin/weekly-reports/get-presignedurl-for-get")
-    public LinkDto getPreSignedUrlForGet(@RequestBody LinkRequest request) {
-        LinkDto linkDto = new LinkDto();
-        try {
-            String pre_signed_url =  weeklyReportService.getPreSignedUrlForGet(request.getFilename());
-            linkDto.setPre_signed_url(pre_signed_url);
-        } catch (Exception e) {
+//    @PostMapping("/admin/weekly-reports/get-presignedurl-for-get")
+//    public LinkDto getPreSignedUrlForGet(@RequestBody LinkRequest request) {
+//        LinkDto linkDto = new LinkDto();
+//        try {
+//            String pre_signed_url =  weeklyReportService.getPreSignedUrlForGet(request.getFilename());
+//            linkDto.setPre_signed_url(pre_signed_url);
+//        } catch (Exception e) {
+//
+//        }
+//        return linkDto;
+//    }
+//
+//    @PostMapping("/admin/weekly-reports/get-presignedurl-for-put")
+//    public LinkDto getPreSignedUrlForPut(@RequestBody LinkRequest request) {
+//        LinkDto linkDto = new LinkDto();
+//        try {
+//            return weeklyReportService.getPreSignedUrlForPut(request.getFilename());
+//        } catch (Exception e) {
+//
+//        }
+//        return linkDto;
+//    }
 
-        }
-        return linkDto;
-    }
+//    @PostMapping("/admin/weekly-reports/add")
+//    public ResponseEntity<?> addReport(@RequestBody UploadfileInfoRequest request, HttpServletRequest httpServletRequest) throws Exception {
+//
+//        String authHeader = httpServletRequest.getHeader("Authorization");
+//        String token = authHeader.replace("Bearer ", "");
+//        Map<String,Object> claims = JwtUtils.decode(token);
+//
+//        try {
+//            WeeklyReportEntity weeklyReport = weeklyReportService.addReport(request, claims.get("preferred_username").toString());
+//            return ResponseEntity.ok(weeklyReport);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed: " + e.getMessage());
+//        }
+//    }
 
-    @PostMapping("/admin/weekly-reports/get-presignedurl-for-put")
-    public LinkDto getPreSignedUrlForPut(@RequestBody LinkRequest request) {
-        LinkDto linkDto = new LinkDto();
-        try {
-            return weeklyReportService.getPreSignedUrlForPut(request.getFilename());
-        } catch (Exception e) {
 
-        }
-        return linkDto;
-    }
-
-    @PostMapping("/admin/weekly-reports/add")
-    public ResponseEntity<?> addReport(@RequestBody UploadfileInfoRequest request, HttpServletRequest httpServletRequest) throws Exception {
-
-        String authHeader = httpServletRequest.getHeader("Authorization");
-        String token = authHeader.replace("Bearer ", "");
-        Map<String,Object> claims = JwtUtils.decode(token);
-
-        try {
-            WeeklyReportEntity weeklyReport = weeklyReportService.addReport(request, claims.get("preferred_username").toString());
-            return ResponseEntity.ok(weeklyReport);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed: " + e.getMessage());
-        }
-    }
 
     @PostMapping(value = "/admin/weekly-reports/date-range")
     public List<WeeklyReportDto> findReportsByDateRange(@RequestBody FromDateToDateRequest request){

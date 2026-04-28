@@ -14,8 +14,7 @@ import java.util.TimeZone;
 public class MainAppApplication {
 
     public static void main(String[] args) throws IOException, InterruptedException {
-//        SpringApplication.run(MainAppApplication.class, args);
-//
+        // SpringApplication.run(MainAppApplication.class, args);
         // Mặc định khi triển khai lên k8s, ứng dụng sẽ chạy với TimeZome mặc định (UTC), tức sẽ +/- thêm giờ khi map
         // dữ liệu từ cơ sở dữ liệu (gây sai lệnh giờ so với cơ sở dữ liệu). Do đó cần đặc Time Zone cho ứng dụng tương ứng với CSDL
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
