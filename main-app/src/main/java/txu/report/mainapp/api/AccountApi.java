@@ -11,6 +11,7 @@ import txu.report.mainapp.entity.AccountEntity;
 import txu.report.mainapp.service.AccountService;
 import txu.report.mainapp.util.JwtUtils;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,18 +29,34 @@ public class AccountApi extends AbstractApi {
         String token = authHeader.replace("Bearer ", "");
         Map<String, Object> claims = JwtUtils.decode(token);
         AccountEntity account = accountService.getByUsername(claims.get("preferred_username").toString());
-        return Map.of(
-                "username", claims.get("preferred_username"),
-                "email", claims.get("email"),
-                "realm_access", claims.get("realm_access"),
-                "department", account.getDepartment(),
-                "lastName", account.getLastName() != null ? account.getLastName() : "",
-                "firstName", account.getFirstName() != null ? account.getFirstName() : "",
-                "phoneNumber", account.getPhoneNumber() != null ? account.getPhoneNumber() : "",
-                "avatarUrl", account.getAvatarUrl() != null ? account.getAvatarUrl() : "",
-                "avatarFilename", account.getAvatarFilename() != null ? account.getAvatarFilename() : "",
-                "createdAt", account.getCreatedAt()
-        );
+        Map<String, Object> result = new LinkedHashMap<>();
+
+        result.put("username", claims.get("preferred_username"));
+        result.put("email", claims.get("email"));
+        result.put("realm_access", claims.get("realm_access"));
+        result.put("department", account.getDepartment());
+        result.put("lastName", account.getLastName() != null ? account.getLastName() : "");
+        result.put("firstName", account.getFirstName() != null ? account.getFirstName() : "");
+        result.put("phoneNumber", account.getPhoneNumber() != null ? account.getPhoneNumber() : "");
+        result.put("avatarUrl", account.getAvatarUrl() != null ? account.getAvatarUrl() : "");
+        result.put("avatarFilename", account.getAvatarFilename() != null ? account.getAvatarFilename() : "");
+        result.put("createdAt", account.getCreatedAt());
+        result.put("id", account.getId());
+        return result;
+
+//        return Map.of(
+//                "username", claims.get("preferred_username"),
+//                "email", claims.get("email"),
+//                "realm_access", claims.get("realm_access"),
+//                "department", account.getDepartment(),
+//                "lastName", account.getLastName() != null ? account.getLastName() : "",
+//                "firstName", account.getFirstName() != null ? account.getFirstName() : "",
+//                "phoneNumber", account.getPhoneNumber() != null ? account.getPhoneNumber() : "",
+//                "avatarUrl", account.getAvatarUrl() != null ? account.getAvatarUrl() : "",
+//                "avatarFilename", account.getAvatarFilename() != null ? account.getAvatarFilename() : "",
+//                "createdAt", account.getCreatedAt(),
+//                "id",""
+//        );
     }
 
     // Admin

@@ -5,10 +5,12 @@ import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import txu.report.mainapp.base.AbstractDao;
+import txu.report.mainapp.entity.AccountEntity;
 import txu.report.mainapp.entity.WorkFlowEntity;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class WorkflowDao extends AbstractDao<WorkFlowEntity> {
@@ -34,11 +36,26 @@ public class WorkflowDao extends AbstractDao<WorkFlowEntity> {
         getEntityManager().remove(workFlow);
     }
 
-    public List<WorkFlowEntity> getWithLimit(int limit) {
-        StringBuilder queryString = new StringBuilder("SELECT W FROM WeeklyReportEntity AS W ORDER BY W.uploadedAt DESC");
+    public List<WorkFlowEntity> get(int limit) {
+        StringBuilder queryString = new StringBuilder("SELECT W FROM WorkFlowEntity AS W ORDER BY W.createdAt DESC");
         Query query = getEntityManager().createQuery(queryString.toString());
         query.setMaxResults(limit);
         return getRessultList(query);
 
+    }
+
+    public AccountEntity getUserInWorkflowLevel(Long workflowId, int levelNumber) {
+        List<AccountEntity> result = getEntityManager().createQuery(
+                        "SELECT wl.user " +
+                                "FROM WorkFlowLevelEntity wl " +
+                                "WHERE wl.workflow.id = :workflowId " +
+                                "AND wl.levelNumber = :levelNumber",
+                        AccountEntity.class
+                )
+                .setParameter("workflowId", workflowId)
+                .setParameter("levelNumber", levelNumber)
+                .getResultList();
+
+        return result.size() > 0 ? result.get(0) : null;
     }
 }

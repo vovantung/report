@@ -7,11 +7,13 @@ import org.springframework.transaction.annotation.Transactional;
 import txu.common.exception.NotFoundException;
 import txu.report.mainapp.dao.AccountDao;
 import txu.report.mainapp.dao.TaskDao;
+import txu.report.mainapp.dao.WorkflowDao;
 import txu.report.mainapp.dao.WorkflowLevelDao;
 import txu.report.mainapp.dto.TaskDto;
 import txu.report.mainapp.dto.TaskExtend;
 import txu.report.mainapp.entity.AccountEntity;
 import txu.report.mainapp.entity.TaskEntity;
+import txu.report.mainapp.entity.WorkFlowEntity;
 
 import java.util.List;
 
@@ -22,11 +24,12 @@ public class TaskService {
 
     private final TaskDao taskDao;
     private final WorkflowLevelDao workflowLevelDao;
+    private final WorkflowDao workflowDao;
     private final AccountDao accountDao;
 
-    public TaskExtend getById(Long taskId, String username) {
+    public TaskExtend getById_(Long taskId, String username) {
 
-        TaskExtend task = taskDao.getById(taskId, username);
+        TaskExtend task = taskDao.getById_(taskId, username);
         if (task == null) {
             throw new NotFoundException("User is not found");
         }
@@ -48,41 +51,56 @@ public class TaskService {
         return tasks;
     }
 
-
-    public boolean submitTask(Long taskId, String username) {
-
-
+    @Transactional
+    public void add(String username, Long workflowId, String title, String description) {
 
         AccountEntity user = accountDao.getByUsername(username);
         if (user == null) {
             throw new NotFoundException("User is not found");
         }
 
-        TaskEntity task = taskDao.validateForSubmitTask(taskId, user.getId());
-        if (task == null) {
-            // Không tồn tại task, hoặc task hiện tại không được assigned cho người dùng hiện tại,
-            // hoặc task hiện tại không phải task để người dùng hiện tại submit(có thể là quyền approve)
-            // hoặc người dùng hiện tại không thuộc workflow được gắn cho task hiện tại
+        WorkFlowEntity workFlow = workflowDao.findById(workflowId);
+        if (workFlow == null) {
+            throw new NotFoundException("Workflow is not found");
+        }
+
+        int totalStep = workflowLevelDao.countContinuousLevels_(workFlow.getId());
+
+        AccountEntity asigneer = workflowDao.getUserInWorkflowLevel(workflowId, 1);
+
+        TaskEntity task = new TaskEntity();
+        task.setWorkflow(workFlow);
+        task.setCreateBy(user);
+        task.setTitle(title);
+        task.setDescription(description);
+        task.setTotalStep(totalStep);
+        task.setAssignee(asigneer);
+        task.setStatus("PENDING");
+        task.setCurrentLevel(1);
+        taskDao.save(task);
+    }
+
+    public boolean submitTask(Long taskId, String username) {
+        AccountEntity user = accountDao.getByUsername(username);
+        if (user == null) {
+            throw new NotFoundException("User is not found");
+        }
+
+        int level = taskDao.getLevelNumberOfAssignedInTask(taskId, user.getId());
+
+        if (level != 1) {
             return false;
         }
 
-        if (task.getCurrentLevel() > 2) {
-            AccountEntity assigneeNext = taskDao.getUserInWorkflowLevel(taskId, task.getCurrentLevel());
-            if (assigneeNext == null) {
-                return false;
-            }
-            task.setAssignee(assigneeNext);
-            task.setStatus("PENDING");
-            taskDao.save(task);
-        } else {
-            AccountEntity assigneeNext = taskDao.getUserInWorkflowLevel(taskId, 2);
-            if (assigneeNext == null) {
-                return false;
-            }
-            task.setAssignee(assigneeNext);
-            task.setStatus("PENDING");
-            taskDao.save(task);
+        AccountEntity assigneeNext = taskDao.getUserInWorkflowLevel(taskId, 2);
+        if (assigneeNext == null) {
+            return false;
         }
+        TaskEntity task = taskDao.getById(taskId);
+        task.setAssignee(assigneeNext);
+        task.setCurrentLevel(2);
+        task.setStatus("PENDING");
+        taskDao.save(task);
         return true;
     }
 
@@ -93,22 +111,20 @@ public class TaskService {
             throw new NotFoundException("User is not found");
         }
 
+        int level = taskDao.getLevelNumberOfAssignedInTask(taskId, user.getId());
 
-        TaskEntity task = taskDao.validateForApproveOrReject(taskId, user.getId());
-        if (task == null) {
-            // Không tồn tại task, hoặc task hiện tại không được assigned cho người dùng hiện tại,
-            // hoặc task hiện tại không phải task để người dùng hiện tại approve hoăck reject(có thể thuộc task để submit)
-            // hoặc người dùng hiện tại không thuộc workflow được gắn cho task hiện tại
+        if (level < 2) {
             return false;
         }
 
-        int level = taskDao.getLevelNumberOfAssignedInTask(taskId, user.getId());
-//        int countMembers = taskDao.countMemberInTask(taskId, userDetails.getId());
         int countMembers = workflowLevelDao.countContinuousLevels(taskId);
+
+        TaskEntity task = taskDao.getById(taskId);
 
         if (level < countMembers) {
             // Người approve trung gian, chuyển lên cấp trên
             AccountEntity assigneeNext = taskDao.getUserInWorkflowLevel(taskId, level + 1);
+
             if (assigneeNext == null) {
                 return false;
             }

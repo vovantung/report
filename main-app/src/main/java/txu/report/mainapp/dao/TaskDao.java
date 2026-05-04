@@ -39,7 +39,7 @@ public class TaskDao extends AbstractDao<TaskEntity> {
     }
 
 
-    public TaskExtend getById(Long taskId, String username) {
+    public TaskExtend getById_(Long taskId, String username) {
 
         Query query = getEntityManager().createQuery(
                 "SELECT new txu.report.mainapp.dto.TaskExtend( " +
@@ -52,6 +52,17 @@ public class TaskDao extends AbstractDao<TaskEntity> {
         query.setParameter("username", username);
         query.setParameter("taskId", taskId);
         return (TaskExtend) query.getSingleResult();
+    }
+
+    public TaskEntity getById(Long taskId) {
+
+        Query query = getEntityManager().createQuery(
+                "SELECT t " +
+                        "FROM TaskEntity t " +
+                        "WHERE t.id =:taskId"
+        );
+        query.setParameter("taskId", taskId);
+        return (TaskEntity) query.getSingleResult();
     }
 
 
@@ -97,90 +108,153 @@ public class TaskDao extends AbstractDao<TaskEntity> {
 
     }
 
-    public TaskEntity validateForSubmitTask(Long taskId, Long assigneeId) {
-        Query query = getEntityManager().createQuery(
-                "SELECT T " +
-                        "FROM TaskEntity T " +
-                        "JOIN WorkFlowLevelEntity WL " +
-                        "ON T.workflow.id = WL.workflow.id " +
-                        "WHERE T.id = :taskId AND T.assignee.id = :assigneeId AND T.assignee.id = WL.user.id AND WL.levelNumber = 1"
-
-        );
-        // Xác minh task hiện tại có phải được assigned cho người dùng hiện tại không,
-        // và người dùng hiện tại có thuộc workflow và là người thực hiện chính của task không
-        query.setParameter("assigneeId", assigneeId);
-        query.setParameter("taskId", taskId);
-        return getSingle(query);
-    }
-
-    public TaskEntity validateForApproveOrReject(Long taskId, Long assigneeId) {
-        Query query = getEntityManager().createQuery(
-                "SELECT T " +
-                        "FROM TaskEntity T " +
-                        "JOIN WorkFlowLevelEntity WL " +
-                        "ON T.workflow.id = WL.workflow.id " +
-                        "WHERE T.id = :taskId AND T.assignee.id = :assigneeId AND T.assignee.id = WL.user.id AND WL.levelNumber > 1"
-
-        );
-        // Xác minh task hiện tại có phải được assigned cho người dùng hiện tại không,
-        // và người dùng hiện tại có thuộc workflow và là người thực hiện chính của task không
-        query.setParameter("assigneeId", assigneeId);
-        query.setParameter("taskId", taskId);
-        return getSingle(query);
-    }
-
-
     public int getLevelNumberOfAssignedInTask(Long taskId, Long assigneeId) {
-        Query query = getEntityManager().createQuery(
-                "SELECT WL.levelNumber " +
-                        "FROM TaskEntity T " +
-                        "JOIN WorkFlowLevelEntity WL " +
-                        "ON T.workflow.id = WL.workflow.id " +
-                        "WHERE T.id = :taskId AND T.assignee.id = :assigneeId AND T.assignee.id = WL.user.id"
+        String sql = """
+        SELECT tmp.level_number
+        FROM (
+            SELECT 
+                wl.workflow_id,
+                wl.user_id,
+                wl.level_number,
+                ROW_NUMBER() OVER (
+                    PARTITION BY wl.workflow_id 
+                    ORDER BY wl.level_number
+                ) AS rn
+            FROM workflow_level wl
+        ) tmp
+        JOIN task t ON t.workflow_id = tmp.workflow_id
+        WHERE t.id = :taskId
+          AND t.assignee_id = :assigneeId
+          AND tmp.user_id = :assigneeId
+          AND tmp.level_number = tmp.rn
+        """;
 
-        );
-        query.setParameter("assigneeId", assigneeId);
+        Query query = getEntityManager().createNativeQuery(sql);
         query.setParameter("taskId", taskId);
-        // Lấy kết quả duy nhất
-        Integer levelNumber = (Integer) query.getSingleResult();
-        // Nếu bạn cần primitive int
-        return (levelNumber != null) ? levelNumber : -1; // -1 để fallback nếu null
+        query.setParameter("assigneeId", assigneeId);
+
+        List<?> result = query.getResultList();
+
+        if (result.isEmpty()) {
+            return -1;
+        }
+
+        return ((Number) result.get(0)).intValue();
     }
 
-    @Transactional
-    public int countMemberInTask(Long taskId, Long assigneeId) {
-        Query query = getEntityManager().createQuery(
-                "SELECT COUNT(T) " +
-                        "FROM TaskEntity T " +
-                        "JOIN WorkFlowLevelEntity WL " +
-                        "ON T.workflow.id = WL.workflow.id " +
-                        "WHERE T.id = :taskId AND T.assignee.id = :assigneeId"
-        );
-        query.setParameter("assigneeId", assigneeId);
-        query.setParameter("taskId", taskId);
+    public boolean validateForApproveOrReject(Long taskId, Long assigneeId) {
+        return getLevelNumberOfAssignedInTask(taskId, assigneeId) > 1;
+    }
 
-        int m;
-        if (query.getSingleResult() != null) {
-            m = ((Long) query.getSingleResult()).intValue();
-        } else {
-            m = 0;
-        }
-        return m;
+    public boolean validateForSubmitTask(Long taskId, Long assigneeId) {
+        return getLevelNumberOfAssignedInTask(taskId, assigneeId) == 1;
     }
 
     public AccountEntity getUserInWorkflowLevel(Long taskId, int levelNumber) {
 
-        Query query = getEntityManager().createQuery(
-                "SELECT A " +
-                        "FROM TaskEntity T " +
-                        "JOIN WorkFlowLevelEntity WL " +
-                        "ON T.workflow.id = WL.workflow.id " +
-                        "JOIN AccountEntity A " +
-                        "ON A.id = WL.user.id " +
-                        "WHERE T.id = :taskId AND WL.levelNumber = :levelNumber"
-        );
-        query.setParameter("levelNumber", levelNumber);
+        String sql = """
+        SELECT a.*
+        FROM (
+            SELECT 
+                wl.workflow_id,
+                wl.user_id,
+                wl.level_number,
+                ROW_NUMBER() OVER (
+                    PARTITION BY wl.workflow_id 
+                    ORDER BY wl.level_number
+                ) AS rn
+            FROM workflow_level wl
+        ) tmp
+        JOIN task t ON t.workflow_id = tmp.workflow_id
+        JOIN account a ON a.id = tmp.user_id
+        WHERE t.id = :taskId
+          AND tmp.level_number = :levelNumber
+          AND tmp.level_number = tmp.rn
+        """;
+
+        Query query = getEntityManager().createNativeQuery(sql, AccountEntity.class);
         query.setParameter("taskId", taskId);
-        return (AccountEntity) query.getResultList().get(0);
+        query.setParameter("levelNumber", levelNumber);
+
+        List<AccountEntity> result = query.getResultList();
+
+        if (result.isEmpty()) {
+            return null;
+        }
+
+        return result.get(0);
     }
+
+//    public TaskEntity validateForSubmitTask(Long taskId, Long assigneeId) {
+//        Query query = getEntityManager().createQuery(
+//                "SELECT T " +
+//                        "FROM TaskEntity T " +
+//                        "JOIN WorkFlowLevelEntity WL " +
+//                        "ON T.workflow.id = WL.workflow.id " +
+//                        "WHERE T.id = :taskId AND T.assignee.id = :assigneeId AND T.assignee.id = WL.user.id AND WL.levelNumber = 1"
+//
+//        );
+//        // Xác minh task hiện tại có phải được assigned cho người dùng hiện tại không,
+//        // và người dùng hiện tại có thuộc workflow và là người thực hiện chính của task không
+//        query.setParameter("assigneeId", assigneeId);
+//        query.setParameter("taskId", taskId);
+//        return getSingle(query);
+//    }
+
+//    public TaskEntity validateForApproveOrReject(Long taskId, Long assigneeId) {
+//        Query query = getEntityManager().createQuery(
+//                "SELECT T " +
+//                        "FROM TaskEntity T " +
+//                        "JOIN WorkFlowLevelEntity WL " +
+//                        "ON T.workflow.id = WL.workflow.id " +
+//                        "WHERE T.id = :taskId AND T.assignee.id = :assigneeId AND T.assignee.id = WL.user.id AND WL.levelNumber > 1"
+//
+//        );
+//        // Xác minh task hiện tại có phải được assigned cho người dùng hiện tại không,
+//        // và người dùng hiện tại có thuộc workflow và là người thực hiện chính của task không
+//        query.setParameter("assigneeId", assigneeId);
+//        query.setParameter("taskId", taskId);
+//        return getSingle(query);
+//    }
+
+
+//    public int getLevelNumberOfAssignedInTask(Long taskId, Long assigneeId) {
+//        Query query = getEntityManager().createQuery(
+//                "SELECT WL.levelNumber " +
+//                        "FROM TaskEntity T " +
+//                        "JOIN WorkFlowLevelEntity WL " +
+//                        "ON T.workflow.id = WL.workflow.id " +
+//                        "WHERE T.id = :taskId AND T.assignee.id = :assigneeId AND WL.user.id=:assigneeId"
+//
+//        );
+//        query.setParameter("assigneeId", assigneeId);
+//        query.setParameter("taskId", taskId);
+//        // Lấy kết quả duy nhất
+//        Integer levelNumber = (Integer) query.getSingleResult();
+//        // Nếu bạn cần primitive int
+//        return (levelNumber != null) ? levelNumber : -1; // -1 để fallback nếu null
+//    }
+
+
+
+//    @Transactional
+//    public int countMemberInTask(Long taskId, Long assigneeId) {
+//        Query query = getEntityManager().createQuery(
+//                "SELECT COUNT(T) " +
+//                        "FROM TaskEntity T " +
+//                        "JOIN WorkFlowLevelEntity WL " +
+//                        "ON T.workflow.id = WL.workflow.id " +
+//                        "WHERE T.id = :taskId AND T.assignee.id = :assigneeId"
+//        );
+//        query.setParameter("assigneeId", assigneeId);
+//        query.setParameter("taskId", taskId);
+//
+//        int m;
+//        if (query.getSingleResult() != null) {
+//            m = ((Long) query.getSingleResult()).intValue();
+//        } else {
+//            m = 0;
+//        }
+//        return m;
+//    }
 }

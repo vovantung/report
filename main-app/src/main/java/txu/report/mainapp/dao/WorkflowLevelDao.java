@@ -61,4 +61,23 @@ public class WorkflowLevelDao extends AbstractDao<WorkFlowLevelEntity> {
         Number result = (Number) query.getSingleResult();
         return result.intValue();
     }
+
+    public int countContinuousLevels_(Long workflowConfigId) {
+        String sql = """
+        select count(*)
+        from (
+            select wl.level_number,
+                   row_number() over (order by wl.level_number) as rn
+            from WORKFLOW_LEVEL wl
+            where wl.workflow_id = :workflowConfigId
+        ) tmp
+        where tmp.level_number = tmp.rn
+        """;
+
+        Query query = getEntityManager().createNativeQuery(sql);
+        query.setParameter("workflowConfigId", workflowConfigId);
+
+        Number result = (Number) query.getSingleResult();
+        return result.intValue();
+    }
 }

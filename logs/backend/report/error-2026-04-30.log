@@ -1,0 +1,16 @@
+2026-04-30 00:11:00.975 ERROR [http-nio-8080-exec-9] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-00001: unique constraint (TXU.SYS_C007901) violated
+
+https://docs.oracle.com/error-help/db/ora-00001/
+2026-04-30 00:11:00.989 ERROR [http-nio-8080-exec-9] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+could not execute statement [ORA-00001: unique constraint (TXU.SYS_C007901) violated
+
+https://docs.oracle.com/error-help/db/ora-00001/] [insert into task (assignee_id,created_by,created_at,current_level,deadline,description,priority,status,title,total_step,updated_at,workflow_id,id) values (?,?,?,?,?,?,?,?,?,?,?,?,default)]; SQL [insert into task (assignee_id,created_by,created_at,current_level,deadline,description,priority,status,title,total_step,updated_at,workflow_id,id) values (?,?,?,?,?,?,?,?,?,?,?,?,default)]; constraint [TXU.SYS_C007901]
+2026-04-30 00:15:02.809 ERROR [http-nio-8080-exec-4] o.h.e.jdbc.spi.SqlExceptionHelper - ORA-00001: unique constraint (TXU.SYS_C007901) violated
+
+https://docs.oracle.com/error-help/db/ora-00001/
+2026-04-30 00:15:02.817 ERROR [http-nio-8080-exec-4] txu.report.mainapp.base.AbstractApi - Exception handled by Spring, return status code 500:
+could not execute statement [ORA-00001: unique constraint (TXU.SYS_C007901) violated
+
+https://docs.oracle.com/error-help/db/ora-00001/] [insert into task (assignee_id,created_by,created_at,current_level,deadline,description,priority,status,title,total_step,updated_at,workflow_id,id) values (?,?,?,?,?,?,?,?,?,?,?,?,default)]; SQL [insert into task (assignee_id,created_by,created_at,current_level,deadline,description,priority,status,title,total_step,updated_at,workflow_id,id) values (?,?,?,?,?,?,?,?,?,?,?,?,default)]; constraint [TXU.SYS_C007901]
+2026-04-30 00:36:17.745 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-1] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=0, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information
+2026-04-30 00:36:43.790 ERROR [org.springframework.jms.JmsListenerEndpointContainer#0-1] o.s.j.l.DefaultMessageListenerContainer - Could not refresh JMS Connection for destination 'hr.create.user.queue' - retrying using FixedBackOff{interval=5000, currentAttempts=1, maxAttempts=unlimited}. Cause: Could not connect to broker URL: tcp://192.168.1.99:61616. Reason: java.net.ConnectException: Connection timed out: no further information

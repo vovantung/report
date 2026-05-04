@@ -32,6 +32,7 @@ import java.util.Date;
                         @ColumnResult(name = "deadline", type = Date.class),
                         @ColumnResult(name = "assignee_id", type = Long.class),
                         @ColumnResult(name = "workflow_id", type = Long.class),
+                        @ColumnResult(name = "total_step", type = Integer.class),
                         @ColumnResult(name = "current_level", type = Integer.class),
                         @ColumnResult(name = "created_at", type = Date.class),
                         @ColumnResult(name = "updated_at", type = Date.class),
@@ -78,6 +79,9 @@ public class TaskEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "WORKFLOW_ID")
     private WorkFlowEntity workflow;
+
+    @Column(name = "TOTAL_STEP")
+    private int totalStep;
 
     @Column(name = "CURRENT_LEVEL")
     private int currentLevel;
